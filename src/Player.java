@@ -1,0 +1,132 @@
+ /***********************************
+  **          Cory Sebastian       **
+  **    Player Class (constructor) **
+  ***********************************/
+public class Player
+{
+    public Hand hand;  // we want this.hand.cards to be main point of dealing
+    public boolean dealer;
+    public boolean turn;
+    public int score;
+    public static int round = 9;
+
+    public Player()
+    {
+        this.hand = new Hand();
+        this.dealer = false;
+        this.turn = false;
+        this.score = 0;
+    }
+
+    public void getHand()
+    {
+        Hand.sortHand(this.hand.deadwood.cards , this.hand.deadwood.count);
+        System.out.println("\npoints in hand: " + this.tallyScore());
+        System.out.println("Users Hand: \n");
+        //this.hand.findRunsAndMelds(this.hand);
+        for (int i = 0; i < this.hand.deadwood.cards.length; i++)
+        {
+            if (this.hand.deadwood.cards[i] != null)
+                System.out.println(this.hand.deadwood.cards[i]);
+        }
+    }
+
+    public void pickUpCard(Card[] sDeck , int top) // from top of deck (option 0)
+    {
+        for (int index = 0; index < this.hand.deadwood.count; index++)    // picks up the card from the top of the deck
+        {
+            if (this.hand.deadwood.cards[index].getSuit() == null)                 // and replaces the null slot in player hand
+                this.hand.deadwood.cards[index] = sDeck[top + 1];
+        }
+        top += 1;
+    }
+
+    public void pickUpCard(Card[] playPlate)      // from discard pile (option 1)
+    {
+        for (int index = 0; index < this.hand.deadwood.cards.length; index++)
+        {                                                         // swaps the empty spot in players hands
+            if (this.hand.deadwood.cards[index].getSuit() == null)                 //  with the card in playplate[]
+            {
+                this.hand.deadwood.cards[index] = playPlate[0];
+            }
+        }
+    }
+
+    public void putDownDiscard(Card discardCard)
+    {
+        for (int z = 0; z < this.hand.deadwood.cards.length; z++)
+        {
+            if (this.hand.deadwood.cards[z].equals(discardCard))
+            {
+                this.hand.deadwood.cards[z] = new Card();
+            }
+        }
+        //return userHand;
+    } // end doTheDiscard
+
+
+    public void userTakeTurn(int theOption , Card[] sDeck , Card[] playPlate , int topCard , Player user)
+    {
+        Card discardCard;
+
+        if (theOption == 0)
+        {
+            user.pickUpCard(sDeck , topCard);                               // moves ahead one card in the deck (away from the card that was just picked up from sDeck[i + 1])
+            user.getHand();
+            discardCard = PlayWizard.getDiscardCard();
+            user.putDownDiscard(discardCard);                         // puts the card the player wishes to discard in playplate
+            playPlate[0] = discardCard;                               // end process of physical discard and swap to playplate
+        } // end if (option 0)
+        else if (theOption == 1)                                    // begin of option 1
+        {
+            user.pickUpCard(playPlate);
+            user.getHand();
+            discardCard = PlayWizard.getDiscardCard();
+            user.putDownDiscard(discardCard);
+            playPlate[0] = discardCard;
+        } // end option 1
+    }
+
+    public int tallyScore()
+    {
+        int scoreSum = 0;
+        for (int i = 0; i < this.hand.deadwood.count; i += 1)
+        {
+            if (this.hand.deadwood.cards[i].number > 0 && !this.hand.deadwood.cards[i].isAMeld() && !this.hand.deadwood.cards[i].isARun())
+            {
+                scoreSum = scoreSum + this.hand.deadwood.cards[i].number;
+            }
+        }
+        return scoreSum;
+    }
+} // end class player
+
+class PlayerTest
+{
+/**************** BEIGN MAIN METHOD FOR TESTS ***********/
+  public static void main(String[] args)
+  {
+    Player one = new Player();
+    Player two = new Player();
+    Player three = new Player();
+    int round = LousReady.round;
+
+    System.out.println(LousReady.round);
+    Card[] deck = DeckOfCards.getDeck();
+    DeckOfCards.initilizeDeck(deck);
+    Card[] shuffledDeck = DeckOfCards.shuffleDeck(deck);
+
+    DeckOfCards.dealDeck(shuffledDeck, one , two , three);
+
+    one.getHand();
+    two.getHand();
+    three.getHand();
+
+    //one.sortPlayerHand();
+    System.out.println("this should be sorted");
+    one.getHand();
+    //two.sortPlayerHand();
+    two.getHand();
+
+  }
+}
