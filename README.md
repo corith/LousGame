@@ -1,2 +1,2 @@
 # LousG-fr-2.0 
- R2 with new knowledge boi
+Round two of 3-13 command line Implementation :)
