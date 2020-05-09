@@ -1,0 +1,11 @@
+Thing To Implement
+    - recognize an "out" hand
+    - make a computer turn (probably make the best move possible to start?)
+    - improve interface
+        - 1) a better discard interface
+        - 2) potentially display cards better
+    - potentially work playwizard into checking for winning hand?
+        - or add a referee class? 
+    - add checking for discard card 
+        - as is, user can discard any number card they want as long as suit is viable
+        - issue with negative input as well - it does not prompt again, just waits for pos num
