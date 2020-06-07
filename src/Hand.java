@@ -75,7 +75,8 @@ class Hand
     }
 
 //**************************end quicksort methods*********************
-//
+
+// puts the players hand into suit arrays for sorting
 public void distributeHand(Hand hand)
 {
     //while (hand.deadwood. != null)
