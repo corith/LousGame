@@ -81,7 +81,7 @@ public class Card
 
 
 
-
+    // Todo: check exampleTwo's class so the editor shuts up
     public boolean equals(Object exampleTwo)
     {
         if (this == exampleTwo)
@@ -99,10 +99,11 @@ public class Card
 
 
 
-class CardTest
-{
 
 /************** BEGIN MAIN METHOD FOR TESTING PURPOSES ******************/
+
+class CardTest
+{
   public static void main(String[] args) {
 
     Card c1 = new Card("<3" , 5);

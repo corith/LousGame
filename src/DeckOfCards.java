@@ -22,11 +22,11 @@ public class DeckOfCards extends Card {
         {
             deck[i] = new Card();
         }
-        initilizeDeck(deck);
+        initializeDeck(deck);
         return deck;
     } // end getDeck();
 
-    public static void initilizeDeck(Card[] d)
+    public static void initializeDeck(Card[] d)
     {
         int num = 1;
         // loads cards 1 - 13 with suit: Hearts (<3)

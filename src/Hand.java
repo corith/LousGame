@@ -122,6 +122,9 @@ public void distributeHand(Hand hand)
     sortHand(clubs , clubCount);
 }
 
+    // this probably where the decision should be made
+    // call some helper function after we've found the runs
+    // and the ofAkinds.
     public void findRunsAndMelds(Hand hand)
     {
         distributeHand(hand);
@@ -136,54 +139,55 @@ public void distributeHand(Hand hand)
         // end distribute test
 
         if (heartCount >= 3)
-            findTheMelds(hearts , heartCount);
+            findTheRuns(hearts , heartCount);
         if (diamondCount >= 3)
-            findTheMelds(diamonds , diamondCount);
+            findTheRuns(diamonds , diamondCount);
         if (spadeCount >= 3)
-            findTheMelds(spades , spadeCount);
+            findTheRuns(spades , spadeCount);
         if (clubCount >= 3)
-            findTheMelds(clubs , clubCount);
+            findTheRuns(clubs , clubCount);
 
-        // find the runs x 4
-        // redistribute(Hand hand);
+        // find the of a kinds x 4
+        // redistribute(Hand hand); ????
 
 
-// loops for testing finding the melds.
+// loops for testing finding the runs.
         for (int index = 0; index < heartCount; index += 1)
         {
             System.out.println();
             System.out.println(hearts[index]);
-            System.out.println(hearts[index].isAMeld());
+            System.out.println(hearts[index].isARun());
         }
         System.out.println("hearts score is : " + tallyScore(hearts , heartCount));
         for (int index = 0; index < diamondCount; index += 1)
         {
             System.out.println();
             System.out.println(diamonds[index]);
-            System.out.println(diamonds[index].isAMeld());
+            System.out.println(diamonds[index].isARun());
         }
         System.out.println("diamonds score is : " + tallyScore(diamonds , diamondCount));
         for (int index = 0; index < spadeCount; index += 1)
         {
             System.out.println();
             System.out.println(spades[index]);
-            System.out.println(spades[index].isAMeld());
+            System.out.println(spades[index].isARun());
         }
         System.out.println("spades score is : " + tallyScore(spades , spadeCount));
         for (int index = 0; index < clubCount; index += 1)
         {
             System.out.println();
             System.out.println(clubs[index]);
-            System.out.println(clubs[index].isAMeld());
+            System.out.println(clubs[index].isARun());
         }
         System.out.println("clubs score is : " + tallyScore(clubs , clubCount));
 // end of testing for loops
-} // end findrunsandmelds method
+} // end find runs and melds method
 
 
     // suitArray is one of the four suits, sorted by distributeHand()
-    // count = # of cards with that suit
-    public void findTheMelds(Card[] suitArray , int count)
+    // count = # of cards with that suit - not sure the algorithm
+    // is 100% fool proof but works decently well
+    public void findTheRuns(Card[] suitArray , int count)
     {
         int i = 0;
         while (i < count - 1 && i != count - 2)     // count wil be >= 3
@@ -193,21 +197,43 @@ public void distributeHand(Hand hand)
             // works because the cards are sorted
             if (suitArray[i].number == (suitArray[i + 2].number) - 2)
             {
-                suitArray[i].makeItMeld();
-                suitArray[i + 1].makeItMeld();
-                suitArray[i + 2].makeItMeld();
+                suitArray[i].makeItRun();
+                suitArray[i + 1].makeItRun();
+                suitArray[i + 2].makeItRun();
                 i += 2;
                 // check if the next card fits into the run or not
                 while (i < count - 1 && suitArray[i].number == (suitArray[i + 1].number - 1))
                 {
                     i += 1;
-                    suitArray[i].makeItMeld();
+                    suitArray[i].makeItRun();
                 }
             }
             i += 1;
         }
     }
 
+    // Todo
+    //  find the ofAKinds (3 3's 4 5's etc.)
+    public void findTheOfAkinds()
+    {
+
+    }
+
+    // Todo
+    //  distribute the wild cards so that they negate the most points possible
+    public void useWilds()
+    {
+
+    }
+
+    // Todo
+    //  helper function for maximizing the points in a players hand (use this card in a run or an ofAkind)
+    public void maximizePoints()
+    {
+
+    }
+
+    // Todo: figure out if this belongs here or in Player.java
     public static int tallyScore(Card[] hand , int count)
     {
 
@@ -233,6 +259,9 @@ public void distributeHand(Hand hand)
 
 
 
+
+/**************** BEIGN MAIN METHOD FOR TESTS ***********/
+
 class HandTest
 {
     public static void main(String[] args)
@@ -252,12 +281,5 @@ class HandTest
 
 //        test.hand.findRunsAndMelds(test.hand);
         System.out.println("score = " + test.tallyScore());
-
-
-
-
-
     }
-
-
 }

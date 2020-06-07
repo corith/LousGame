@@ -1,14 +1,18 @@
+// Todo: the whole class pretty much
+
 class CompWizard extends Player {
   private Card[][] compHand;
 
-  public CompWizard() {
+  public CompWizard()
+  {
     super();
-    this.compHand = new Card[8][13];
+    this.compHand = new Card[8][13];  // a way for the computer to keep track of the cards that have been played
   }
 
 
 
-  public void addCard(Card pickupCard) {
+  public void addCard(Card pickupCard)
+  {
     
   }
   //System.out.print(test.compHand[i][j][k] + " ");
@@ -16,7 +20,7 @@ class CompWizard extends Player {
   public static void main(String[] args) {
     CompWizard test = new CompWizard();
     Card[] deck = DeckOfCards.getDeck();
-    DeckOfCards.initilizeDeck(deck);
+    DeckOfCards.initializeDeck(deck);
 
 /*
     for (Card card : deck) {

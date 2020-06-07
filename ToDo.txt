@@ -1,4 +1,4 @@
-Thing To Implement
+Things To Implement
     - recognize an "out" hand
     - make a computer turn (probably make the best move possible to start?)
     - improve interface
@@ -14,3 +14,14 @@ Thing To Implement
         - still need to implement a decision system
             - is this card more useful in a run or a meld
         - the findTheMelds function might find runs instead of melds.
+
+    - for some reason there is two tallyscore methods, one in Hand.java and one in Player.java
+        and they both appear to do the exact same thing.
+
+    - probably do a complete overhaul of AssDriver.java
+        - clean it up as well as set it up for more functionality
+
+    - look into the dynamic of AssDriver and PlayWizard
+        - I like the idea of PlayWizard but it only has one function right now and I am not sure
+            it belongs in that class.
+        - but this class may have a good purpose for other stuff

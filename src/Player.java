@@ -18,7 +18,7 @@ public class Player
         this.score = 0;
     }
 
-    // sorts the players hand and adds up the points in
+    // sorts the players hand and adds up the points
     public void getHand()
     {
         Hand.sortHand(this.hand.deadwood.cards , this.hand.deadwood.count);
@@ -37,7 +37,7 @@ public class Player
     {
         for (int index = 0; index < this.hand.deadwood.count; index++)    // picks up the card from the top of the deck
         {
-            if (this.hand.deadwood.cards[index].getSuit() == null)                 // and replaces the null slot in player hand
+            if (this.hand.deadwood.cards[index].getSuit() == null)        // replaces the null slot in player hand
                 this.hand.deadwood.cards[index] = sDeck[top + 1];
         }
         top += 1;
@@ -46,8 +46,8 @@ public class Player
     public void pickUpCard(Card[] playPlate)      // from discard pile (option 1)
     {
         for (int index = 0; index < this.hand.deadwood.cards.length; index++)
-        {                                                         // swaps the empty spot in players hands
-            if (this.hand.deadwood.cards[index].getSuit() == null)                 //  with the card in playplate[]
+        {                                                                // swaps the empty spot in players hands
+            if (this.hand.deadwood.cards[index].getSuit() == null)       //  with the card in playplate[]
             {
                 this.hand.deadwood.cards[index] = playPlate[0];
             }
@@ -66,20 +66,21 @@ public class Player
         //return userHand;
     } // end doTheDiscard
 
-
+    // Todo refactor this so that the check of the option happens and then
+    //  the user either picks up from sDeck and topCard or from playplate then execute rest of code
     public void userTakeTurn(int theOption , Card[] sDeck , Card[] playPlate , int topCard , Player user)
     {
         Card discardCard;
 
         if (theOption == 0)
         {
-            user.pickUpCard(sDeck , topCard);                               // moves ahead one card in the deck (away from the card that was just picked up from sDeck[i + 1])
+            user.pickUpCard(sDeck , topCard);                         // moves ahead one card in the deck (away from the card that was just picked up from sDeck[i + 1])
             user.getHand();
             discardCard = PlayWizard.getDiscardCard();
             user.putDownDiscard(discardCard);                         // puts the card the player wishes to discard in playplate
             playPlate[0] = discardCard;                               // end process of physical discard and swap to playplate
         } // end if (option 0)
-        else if (theOption == 1)                                    // begin of option 1
+        else if (theOption == 1)                                      // begin of option 1
         {
             user.pickUpCard(playPlate);
             user.getHand();
@@ -89,6 +90,7 @@ public class Player
         } // end option 1
     }
 
+    // Todo: figure out if this belongs here or in Hand.java
     public int tallyScore()
     {
         int scoreSum = 0;
@@ -103,6 +105,10 @@ public class Player
     }
 } // end class player
 
+
+
+
+
 class PlayerTest
 {
 /**************** BEIGN MAIN METHOD FOR TESTS ***********/
@@ -115,7 +121,7 @@ class PlayerTest
 
     System.out.println(LousReady.round);
     Card[] deck = DeckOfCards.getDeck();
-    DeckOfCards.initilizeDeck(deck);
+    DeckOfCards.initializeDeck(deck);
     Card[] shuffledDeck = DeckOfCards.shuffleDeck(deck);
 
     DeckOfCards.dealDeck(shuffledDeck, one , two , three);
