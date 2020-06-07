@@ -95,7 +95,7 @@ public class Card
         Card exampleDeux = (Card)exampleTwo;
         return suit.equals(exampleDeux.suit) && number == exampleDeux.number;
     }
-} // end clas Card
+} // end class Card
 
 
 

@@ -75,6 +75,7 @@ class Hand
     }
 
 //**************************end quicksort methods*********************
+//
 public void distributeHand(Hand hand)
 {
     //while (hand.deadwood. != null)
@@ -123,7 +124,7 @@ public void distributeHand(Hand hand)
     public void findRunsAndMelds(Hand hand)
     {
         distributeHand(hand);
-        // make sure distribute is working
+        // make sure distribute is working (debugging code)
         System.out.println();
         System.out.println(wildCards.length + " " + wildCount);
         System.out.println(heartCount + " <3");
@@ -146,7 +147,7 @@ public void distributeHand(Hand hand)
         // redistribute(Hand hand);
 
 
-// testing loops
+// loops for testing finding the melds.
         for (int index = 0; index < heartCount; index += 1)
         {
             System.out.println();
@@ -176,20 +177,26 @@ public void distributeHand(Hand hand)
         }
         System.out.println("clubs score is : " + tallyScore(clubs , clubCount));
 // end of testing for loops
-} // endfindrunsandmelds method
+} // end findrunsandmelds method
 
+
+    // suitArray is one of the four suits, sorted by distributeHand()
+    // count = # of cards with that suit
     public void findTheMelds(Card[] suitArray , int count)
     {
         int i = 0;
-        while (i < count - 1 && i != count - 2)
+        while (i < count - 1 && i != count - 2)     // count wil be >= 3
         {
             System.out.println("one time through");
+            // test to see if the number 2 cards ahead is sequential
+            // works because the cards are sorted
             if (suitArray[i].number == (suitArray[i + 2].number) - 2)
             {
                 suitArray[i].makeItMeld();
                 suitArray[i + 1].makeItMeld();
                 suitArray[i + 2].makeItMeld();
                 i += 2;
+                // check if the next card fits into the run or not
                 while (i < count - 1 && suitArray[i].number == (suitArray[i + 1].number - 1))
                 {
                     i += 1;
@@ -202,6 +209,7 @@ public void distributeHand(Hand hand)
 
     public static int tallyScore(Card[] hand , int count)
     {
+
         int scoreSum = 0;
         for (int i = 0; i < count; i += 1)
         {
@@ -241,7 +249,9 @@ class HandTest
         System.out.println("deadwood sorted:");
         test.getHand();
 
-        test.hand.findRunsAndMelds(test.hand);
+//        test.hand.findRunsAndMelds(test.hand);
+        System.out.println("score = " + test.tallyScore());
+
 
 
 

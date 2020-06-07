@@ -18,9 +18,11 @@ public class Player
         this.score = 0;
     }
 
+    // sorts the players hand and adds up the points in
     public void getHand()
     {
         Hand.sortHand(this.hand.deadwood.cards , this.hand.deadwood.count);
+        this.hand.findRunsAndMelds(this.hand);
         System.out.println("\npoints in hand: " + this.tallyScore());
         System.out.println("Users Hand: \n");
         //this.hand.findRunsAndMelds(this.hand);
