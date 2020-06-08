@@ -90,6 +90,7 @@ public void distributeHand(Hand hand)
     diamondCount         = 0;
     spadeCount           = 0;
     clubCount            = 0;
+    wildCount            = 0;
     for (int i = 0; i < hand.deadwood.cards.length; i += 1)
     {
         if (hand.deadwood.cards[i].isWild())
@@ -158,40 +159,26 @@ public void distributeHand(Hand hand)
 
 
 // loops for testing finding the runs.
-        for (int index = 0; index < heartCount; index += 1)
-        {
-            System.out.println();
-            System.out.println(hearts[index]);
-            System.out.println(hearts[index].isARun());
-            System.out.println(hearts[index].isOfAKind());
-        }
+        testMethod(heartCount, hearts);
         System.out.println("hearts score is : " + tallyScore(hearts , heartCount));
-        for (int index = 0; index < diamondCount; index += 1)
-        {
-            System.out.println();
-            System.out.println(diamonds[index]);
-            System.out.println(diamonds[index].isARun());
-            System.out.println(diamonds[index].isOfAKind());
-        }
+        testMethod(diamondCount, diamonds);
         System.out.println("diamonds score is : " + tallyScore(diamonds , diamondCount));
-        for (int index = 0; index < spadeCount; index += 1)
-        {
-            System.out.println();
-            System.out.println(spades[index]);
-            System.out.println(spades[index].isARun());
-            System.out.println(spades[index].isOfAKind());
-        }
+        testMethod(spadeCount, spades);
         System.out.println("spades score is : " + tallyScore(spades , spadeCount));
-        for (int index = 0; index < clubCount; index += 1)
-        {
-            System.out.println();
-            System.out.println(clubs[index]);
-            System.out.println(clubs[index].isARun());
-            System.out.println(clubs[index].isOfAKind());
-        }
+        testMethod(clubCount, clubs);
         System.out.println("clubs score is : " + tallyScore(clubs , clubCount));
 // end of testing for loops
 } // end find runs and melds method
+
+    private void testMethod(int cardCount, Card[] suit) {
+        for (int index = 0; index < cardCount; index += 1)
+        {
+            System.out.println();
+            System.out.println(suit[index]);
+            System.out.println(suit[index].isARun());
+            System.out.println(suit[index].isOfAKind());
+        }
+    }
 
 
     // suitArray is one of the four suits, sorted by distributeHand()
