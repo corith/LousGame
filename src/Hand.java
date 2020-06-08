@@ -91,6 +91,7 @@ public void distributeHand(Hand hand)
     spadeCount           = 0;
     clubCount            = 0;
     wildCount            = 0;
+    sameNumCount         = 0;
     for (int i = 0; i < hand.deadwood.cards.length; i += 1)
     {
         if (hand.deadwood.cards[i].isWild())
@@ -226,7 +227,6 @@ public void distributeHand(Hand hand)
                 match = cards[j];
                 if (match.number == target.number)
                 {
-                    System.out.println("matched");
                     target.makeItOfAKind();
                     match.makeItOfAKind();
                     sameNumber[sameNumCount] = target;
