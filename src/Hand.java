@@ -233,11 +233,8 @@ public void distributeHand(Hand hand)
                     sameNumber[sameNumCount + 1] = match;
                     sameNumCount+=2;
                 }
-                System.out.println("no matches");
             }
-            System.out.println("no matches out of inner loop");
         }
-        System.out.println("what the fuck");
     }
 
     // Todo
