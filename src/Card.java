@@ -15,18 +15,18 @@ public class Card
     public int number;
     public String suit;
     private boolean isARun;
-    private boolean isAMeld;
+    private boolean isOfAKind;
     private boolean isWild = false;
 // getters
     public int getNumber() { return number; }
     public String getSuit() { return suit; }
     public boolean isARun() { return isARun; }
-    public boolean isAMeld() { return isAMeld; }
+    public boolean isOfAKind() { return isOfAKind; }
     public boolean isWild() { return isWild; }
 // setters
     public void makeItRun() { this.isARun = true; }
-    public void makeItMeld() { this.isAMeld = true; }
-    public void makeItWild() { this.isWild = true; }
+    public void makeItOfAKind() { this.isOfAKind = true; }
+    public void makeItWild() { this.isWild = true; }    // currently sets the wild card attribute in the second constructor
     public void setNumber(int number) { this.number = number; }
     public void setSuit(String suit)  { this.suit = suit; }
 
@@ -35,7 +35,7 @@ public class Card
         this.suit = null;
         this.number = -1;
         isARun = false;
-        isAMeld = false;
+        isOfAKind = false;
         isWild = false;
     }
 
@@ -44,7 +44,7 @@ public class Card
         this.suit = suit;
         this.number = number;
         isARun = false;
-        isAMeld = false;
+        isOfAKind = false;
         if (this.number == Player.round)
         {
             isWild = true;

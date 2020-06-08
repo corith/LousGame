@@ -96,7 +96,7 @@ public class Player
         int scoreSum = 0;
         for (int i = 0; i < this.hand.deadwood.count; i += 1)
         {
-            if (this.hand.deadwood.cards[i].number > 0 && !this.hand.deadwood.cards[i].isAMeld() && !this.hand.deadwood.cards[i].isARun())
+            if (this.hand.deadwood.cards[i].number > 0 && !this.hand.deadwood.cards[i].isOfAKind() && !this.hand.deadwood.cards[i].isARun())
             {
                 scoreSum = scoreSum + this.hand.deadwood.cards[i].number;
             }

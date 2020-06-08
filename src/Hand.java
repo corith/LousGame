@@ -154,8 +154,7 @@ public void distributeHand(Hand hand)
         if (clubCount >= 3)
             findTheRuns(clubs , clubCount);
 
-        // find the of a kinds x 4
-        // redistribute(Hand hand); ????
+        findTheOfAkinds(deadwood.cards , deadwoodCount);
 
 
 // loops for testing finding the runs.
@@ -164,6 +163,7 @@ public void distributeHand(Hand hand)
             System.out.println();
             System.out.println(hearts[index]);
             System.out.println(hearts[index].isARun());
+            System.out.println(hearts[index].isOfAKind());
         }
         System.out.println("hearts score is : " + tallyScore(hearts , heartCount));
         for (int index = 0; index < diamondCount; index += 1)
@@ -171,6 +171,7 @@ public void distributeHand(Hand hand)
             System.out.println();
             System.out.println(diamonds[index]);
             System.out.println(diamonds[index].isARun());
+            System.out.println(diamonds[index].isOfAKind());
         }
         System.out.println("diamonds score is : " + tallyScore(diamonds , diamondCount));
         for (int index = 0; index < spadeCount; index += 1)
@@ -178,6 +179,7 @@ public void distributeHand(Hand hand)
             System.out.println();
             System.out.println(spades[index]);
             System.out.println(spades[index].isARun());
+            System.out.println(spades[index].isOfAKind());
         }
         System.out.println("spades score is : " + tallyScore(spades , spadeCount));
         for (int index = 0; index < clubCount; index += 1)
@@ -185,6 +187,7 @@ public void distributeHand(Hand hand)
             System.out.println();
             System.out.println(clubs[index]);
             System.out.println(clubs[index].isARun());
+            System.out.println(clubs[index].isOfAKind());
         }
         System.out.println("clubs score is : " + tallyScore(clubs , clubCount));
 // end of testing for loops
@@ -199,7 +202,6 @@ public void distributeHand(Hand hand)
         int i = 0;
         while (i < count - 1 && i != count - 2)     // count wil be >= 3
         {
-            System.out.println("one time through");
             // test to see if the number 2 cards ahead is sequential
             // works because the cards are sorted
             if (suitArray[i].number == (suitArray[i + 2].number) - 2)
@@ -220,10 +222,20 @@ public void distributeHand(Hand hand)
     }
 
     // Todo
-    //  find the ofAKinds (3 3's 4 5's etc.)
-    public void findTheOfAkinds()
+    //  find the ofAKinds (3 3's 4 5's etc.) sameNumber[]
+    public void findTheOfAkinds(Card[] cards , int count)
     {
-
+        int i = 0;
+        int current = cards[i].number;
+        while (i < count-1)
+        {
+            if (cards[i + 1].number == current)
+            {
+                sameNumber[i] = cards[i];
+                sameNumber[i].makeItOfAKind();
+            }
+            i += 1;
+        }
     }
 
     // Todo
@@ -247,7 +259,7 @@ public void distributeHand(Hand hand)
         int scoreSum = 0;
         for (int i = 0; i < count; i += 1)
         {
-            if (hand[i].number > 0 && !hand[i].isAMeld() && !hand[i].isARun())
+            if (hand[i].number > 0 && !hand[i].isOfAKind() && !hand[i].isARun())
             {
                 scoreSum = scoreSum + hand[i].number;
             }
