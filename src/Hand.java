@@ -16,6 +16,11 @@ class Hand
 
     public HandNode deadwood;
 
+    // a hand consists of a doubly linked list of HandNodes with the head node being the "main area"
+    // deadwood is the players hand - anything left in here at the end of a round
+        // goes against the player (player.score = player.score + deadwood.total)
+    // deadwood.next points to another HandNode which points to one more hand node.
+    // the goal of that is to be able to use these other nodes as a "staging area" for cards that fit into either a run or an "of a kind"
     public Hand()
     {
         deadwood        = new HandNode(null , new Card[Player.round + 1] , null);
