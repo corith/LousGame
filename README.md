@@ -16,3 +16,6 @@ Round two of 3-13 command line Implementation :)
 - These are all python scripts and for now are simply contained within the src directory
     - these will probably be moved to their own directory as more are created
 
+## Contributing
+
+If you wish to contribute please push to the contribute branch and then make a pull request :) 
