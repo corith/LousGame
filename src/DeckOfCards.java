@@ -56,7 +56,7 @@ public class DeckOfCards extends Card {
             d[i] = new Card("#" , num);
             num++;
         }
-      } // end initilizeDeck()
+      } // end initializeDeck()
 
     /*************end get deck work together*******************************************/
 

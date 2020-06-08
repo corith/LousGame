@@ -155,7 +155,7 @@ public void distributeHand(Hand hand)
         if (clubCount >= 3)
             findTheRuns(clubs , clubCount);
 
-        findTheOfAkinds(deadwood.cards , deadwoodCount);
+        findTheOfAkinds(deadwood.cards , Player.round);
 
 
 // loops for testing finding the runs.
@@ -167,6 +167,8 @@ public void distributeHand(Hand hand)
         System.out.println("spades score is : " + tallyScore(spades , spadeCount));
         testMethod(clubCount, clubs);
         System.out.println("clubs score is : " + tallyScore(clubs , clubCount));
+        System.out.println("\n***same numbers*** ");
+        testMethod(sameNumCount , sameNumber);
 // end of testing for loops
 } // end find runs and melds method
 
@@ -176,7 +178,8 @@ public void distributeHand(Hand hand)
             System.out.println();
             System.out.println(suit[index]);
             System.out.println(suit[index].isARun());
-            System.out.println(suit[index].isOfAKind());
+            if (suit[index].isOfAKind())
+                System.out.println("yes");
         }
     }
 
@@ -212,17 +215,29 @@ public void distributeHand(Hand hand)
     //  find the ofAKinds (3 3's 4 5's etc.) sameNumber[]
     public void findTheOfAkinds(Card[] cards , int count)
     {
-        int i = 0;
-        int current = cards[i].number;
-        while (i < count-1)
+        Card target;
+        Card match;
+        System.out.println("count = " + count);
+        for (int i = 0; i < count-1; i++)
         {
-            if (cards[i + 1].number == current)
+            target = cards[i]; // get the card that we are looking for matches of
+            for (int j = i + 1; j < count-1; j++)
             {
-                sameNumber[i] = cards[i];
-                sameNumber[i].makeItOfAKind();
+                match = cards[j];
+                if (match.number == target.number)
+                {
+                    System.out.println("matched");
+                    target.makeItOfAKind();
+                    match.makeItOfAKind();
+                    sameNumber[sameNumCount] = target;
+                    sameNumber[sameNumCount + 1] = match;
+                    sameNumCount+=2;
+                }
+                System.out.println("no matches");
             }
-            i += 1;
+            System.out.println("no matches out of inner loop");
         }
+        System.out.println("what the fuck");
     }
 
     // Todo
