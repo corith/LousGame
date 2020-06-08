@@ -36,3 +36,8 @@ Things To Implement/Fix
         - I like the idea of PlayWizard but it only has one function right now and I am not sure
             it belongs in that class.
         - but this class may have a good purpose for other stuff
+
+
+Refactor
+    - looking to refactor the players hand so that instead of playerOne.hand.deadwood.cards[i] it will be
+	playerOne.hand.cards[i]

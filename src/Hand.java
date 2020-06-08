@@ -28,6 +28,7 @@ class Hand
     }
 
 //*******************************************begin quicksort******************************
+    // organizes cards strictly by number
 
     public static void sortHand(Card[] hand)
     {
