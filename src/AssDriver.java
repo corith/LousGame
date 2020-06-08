@@ -1,6 +1,6 @@
 /****************************************************
  ** Cory Sebastian Main Class for Lous stupid game **
- ** (first from scratch project. Start: 12/20/18)  **
+ ** (first from scratch project. Start: 12/20/18)   **
  ********INCLUDES THE FOLLOWING METHODS**************
  *  - int randomInt(int min , int max)              *
  *  - int gameOptions()                             *
