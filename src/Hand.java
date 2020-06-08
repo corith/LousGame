@@ -85,44 +85,44 @@ class Hand
 // puts the players hand into suit arrays for sorting
 public void distributeHand(Hand hand)
 {
-        // resets the suit arrays to avoid duplicate entries
-        heartCount           = 0;
-        diamondCount         = 0;
-        spadeCount           = 0;
-        clubCount            = 0;
-        for (int i = 0; i < hand.deadwood.cards.length; i += 1)
+    // resets the suit arrays to avoid duplicate entries
+    heartCount           = 0;
+    diamondCount         = 0;
+    spadeCount           = 0;
+    clubCount            = 0;
+    for (int i = 0; i < hand.deadwood.cards.length; i += 1)
+    {
+        if (hand.deadwood.cards[i].isWild())
         {
-            if (hand.deadwood.cards[i].isWild())
-            {
-                wildCards[wildCount] = hand.deadwood.cards[i];
-                wildCount += 1;
-                //hand.deadwood.cards[i] = null;
-            }
-            else if (hand.deadwood.cards[i].suit == "<3")
-            {
-                hearts[heartCount] = hand.deadwood.cards[i];
-                heartCount += 1;
-                //hand.deadwood.cards[i] = null;
-            }
-            else if (hand.deadwood.cards[i].suit == "<*")
-            {
-                diamonds[diamondCount] = hand.deadwood.cards[i];
-                diamondCount += 1;
-                //hand.deadwood.cards[i] = null;
-            }
-            else if (hand.deadwood.cards[i].suit == "^")
-            {
-                spades[spadeCount] = hand.deadwood.cards[i];
-                spadeCount += 1;
-                //hand.deadwood.cards[i] = null;
-            }
-            else if (hand.deadwood.cards[i].suit == "#")
-            {
-                clubs[clubCount] = hand.deadwood.cards[i];
-                clubCount += 1;
-                //hand.deadwood.cards[i] = null;
-            }
-        } // end for loop for sorting hand into arrays of suit and wilds
+            wildCards[wildCount] = hand.deadwood.cards[i];
+            wildCount += 1;
+            //hand.deadwood.cards[i] = null;
+        }
+        else if (hand.deadwood.cards[i].suit == "<3")
+        {
+            hearts[heartCount] = hand.deadwood.cards[i];
+            heartCount += 1;
+            //hand.deadwood.cards[i] = null;
+        }
+        else if (hand.deadwood.cards[i].suit == "<*")
+        {
+            diamonds[diamondCount] = hand.deadwood.cards[i];
+            diamondCount += 1;
+            //hand.deadwood.cards[i] = null;
+        }
+        else if (hand.deadwood.cards[i].suit == "^")
+        {
+            spades[spadeCount] = hand.deadwood.cards[i];
+            spadeCount += 1;
+            //hand.deadwood.cards[i] = null;
+        }
+        else if (hand.deadwood.cards[i].suit == "#")
+        {
+            clubs[clubCount] = hand.deadwood.cards[i];
+            clubCount += 1;
+            //hand.deadwood.cards[i] = null;
+        }
+    } // end for loop for sorting hand into arrays of suit and wilds
     sortHand(hearts , heartCount);
     sortHand(diamonds , diamondCount);
     sortHand(spades , spadeCount);
