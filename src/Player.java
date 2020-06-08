@@ -31,6 +31,11 @@ public class Player
             if (this.hand.deadwood.cards[i] != null)
                 System.out.println(this.hand.deadwood.cards[i]);
         }
+//        this.hand.hearts            = new Card[Player.round];
+//        this.hand.diamonds          = new Card[Player.round];
+//        this.hand.spades            = new Card[Player.round];
+//        this.hand.clubs             = new Card[Player.round];
+//        this.hand.wildCards         = new Card[Player.round];
     }
 
     public void pickUpCard(Card[] sDeck , int top) // from top of deck (option 0)

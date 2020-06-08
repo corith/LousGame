@@ -49,8 +49,9 @@ public class AssDriver extends LousReady {
 
     while (running)
     {
+      // this while loop moves the index passed shuffled/dealt cards
       while (sDeck[topCard].getSuit() == null)
-      { // this while loop moves the index passed shuffled/dealt cards
+      {
         topCard += 1;
         if (sDeck[topCard].getSuit() != null && playPlate[0] == null)
         {

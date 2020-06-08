@@ -85,8 +85,11 @@ class Hand
 // puts the players hand into suit arrays for sorting
 public void distributeHand(Hand hand)
 {
-    //while (hand.deadwood. != null)
-    //{
+        // resets the suit arrays to avoid duplicate entries
+        heartCount           = 0;
+        diamondCount         = 0;
+        spadeCount           = 0;
+        clubCount            = 0;
         for (int i = 0; i < hand.deadwood.cards.length; i += 1)
         {
             if (hand.deadwood.cards[i].isWild())
@@ -120,8 +123,6 @@ public void distributeHand(Hand hand)
                 //hand.deadwood.cards[i] = null;
             }
         } // end for loop for sorting hand into arrays of suit and wilds
-        //hand.deadwood = hand.deadwood.next;
-    //}
     sortHand(hearts , heartCount);
     sortHand(diamonds , diamondCount);
     sortHand(spades , spadeCount);
