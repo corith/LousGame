@@ -218,6 +218,8 @@ public void distributeHand(Hand hand)
     {
         Card target;
         Card match;
+        int tally = 0;
+
         System.out.println("count = " + count);
         for (int i = 0; i < count-1; i++)
         {
@@ -227,11 +229,16 @@ public void distributeHand(Hand hand)
                 match = cards[j];
                 if (match.number == target.number)
                 {
-                    target.makeItOfAKind();
-                    match.makeItOfAKind();
-                    sameNumber[sameNumCount] = target;
-                    sameNumber[sameNumCount + 1] = match;
-                    sameNumCount+=2;
+                    tally+=1;
+                    Card temp = match;
+                    if (tally >= 3) {
+                        target.makeItOfAKind();
+                        match.makeItOfAKind();
+//                        temp.makeItOfAKind();
+                        sameNumber[sameNumCount] = target;
+                        sameNumber[sameNumCount + 1] = match;
+                        sameNumCount += 2;
+                    }
                 }
             }
         }
