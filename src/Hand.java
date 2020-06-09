@@ -168,7 +168,7 @@ public void distributeHand(Hand hand)
         System.out.println("spades score is : " + tallyScore(spades , spadeCount));
         testMethod(clubCount, clubs);
         System.out.println("clubs score is : " + tallyScore(clubs , clubCount));
-        System.out.println("\n***same numbers*** ");
+        System.out.println("\n***same numbers (" + sameNumCount+") *** ");
         testMethod(sameNumCount , sameNumber);
 // end of testing for loops
 } // end find runs and melds method
@@ -181,6 +181,8 @@ public void distributeHand(Hand hand)
             System.out.println(suit[index].isARun());
             if (suit[index].isOfAKind())
                 System.out.println("yes");
+            else
+                System.out.println("nah");
         }
     }
 
@@ -216,9 +218,11 @@ public void distributeHand(Hand hand)
     //  find the ofAKinds (3 3's 4 5's etc.) sameNumber[]
     public void findTheOfAkinds(Card[] cards , int count)
     {
+        Card[] temp = new Card[Player.round];
         Card target;
         Card match;
         int tally = 0;
+        sortHand(cards,count);
 
         System.out.println("count = " + count);
         for (int i = 0; i < count-1; i++)
@@ -230,15 +234,17 @@ public void distributeHand(Hand hand)
                 if (match.number == target.number)
                 {
                     tally+=1;
-                    Card temp = match;
+                    temp[tally-1] = match;
                     if (tally >= 3) {
-                        target.makeItOfAKind();
-                        match.makeItOfAKind();
-//                        temp.makeItOfAKind();
-                        sameNumber[sameNumCount] = target;
-                        sameNumber[sameNumCount + 1] = match;
-                        sameNumCount += 2;
+                        sameNumber[0] = target;
+                        sameNumber[0].makeItOfAKind();
+                        for (int k = 0; k < tally; k++ ) {
+                            temp[k].makeItOfAKind();
+                            sameNumber[sameNumCount] = temp[k];
+                            sameNumCount+=1;
+                        }
                     }
+//                        tally = 0;
                 }
             }
         }
