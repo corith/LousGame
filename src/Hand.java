@@ -231,11 +231,18 @@ public void distributeHand(Hand hand)
             target = cards[i];
             for (int j = i + 1; j < cards.length; j++)
             {
+                // check if the card 3 ahead of target matches target
+                // if it does then make all three ofAkind and then check for a fourth
                 if (j < cards.length-1 && target.number == cards[j+1].number)
                 {
                     cards[i].makeItOfAKind();
                     cards[i+1].makeItOfAKind();
                     cards[i+2].makeItOfAKind();
+                    // check if there is a "natural" (no wilds) 4 of a kind
+                    if (i + 3 < cards.length && cards[i + 3].number == target.number)
+                    {
+                        cards[i+3].makeItOfAKind();
+                    }
                 }
             }
         }
@@ -308,6 +315,11 @@ class HandTest
         System.out.println(test.hand.deadwood.count);
         System.out.println("deadwood count: " + test.hand.deadwood.count);
         System.out.println("deadwood sorted:");
+//        make 3 or 4 of a kind for testing purposes
+//        test.hand.deadwood.cards[0] = new Card("<3" , 10);
+//        test.hand.deadwood.cards[1] = new Card("<*" , 10);
+//        test.hand.deadwood.cards[2] = new Card("^" , 10);
+//        test.hand.deadwood.cards[3] = new Card("#" , 10);
         test.getHand();
 
 //        test.hand.findRunsAndMelds(test.hand);
