@@ -68,23 +68,23 @@ public class Player
 
     // Todo refactor this so that the check of the option happens and then
     //  the user either picks up from sDeck and topCard or from playplate then execute rest of code
-    public void userTakeTurn(int theOption , Card[] sDeck , Card[] playPlate , int topCard , Player user)
+    public void userTakeTurn(int theOption , Card[] sDeck , Card[] playPlate , int topCard)
     {
         Card discardCard;
 
         if (theOption == 0) {
-            user.pickUpCard(sDeck, topCard);                         // moves ahead one card in the deck (away from the card that was just picked up from sDeck[i + 1])
+            this.pickUpCard(sDeck, topCard);                         // moves ahead one card in the deck (away from the card that was just picked up from sDeck[i + 1])
         }
         else if (theOption == 1) {
-            user.pickUpCard(playPlate);
+            this.pickUpCard(playPlate);
         }
-            user.getHand();
+            this.getHand();
             discardCard = PlayWizard.getDiscardCard();
-            while (!user.hand.cardIsInHand(discardCard))
+            while (!this.hand.cardIsInHand(discardCard))
             {
                 discardCard = PlayWizard.getDiscardCard();
             }
-            user.putDownDiscard(discardCard);                         // puts the card the player wishes to discard in playplate
+            this.putDownDiscard(discardCard);                         // puts the card the player wishes to discard in playplate
             playPlate[0] = discardCard;                               // end process of physical discard and swap to playplate
     }
 

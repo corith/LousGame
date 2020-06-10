@@ -62,7 +62,7 @@ public class AssDriver extends LousReady {
       user.getHand();  // prints user hand
       System.out.println("The " + Ansi.CYAN + "discard " + Ansi.RESET + "pile contains: " + playPlate[0]);
       theOption = gameOptions();
-      user.userTakeTurn(theOption , sDeck , playPlate , topCard , user);
+      user.userTakeTurn(theOption , sDeck , playPlate , topCard);
       // next turn()
       // next turn()
 
