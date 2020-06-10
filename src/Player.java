@@ -78,14 +78,18 @@ public class Player
         else if (theOption == 1) {
             this.pickUpCard(playPlate);
         }
-            this.getHand();
+        this.getHand();
+        System.out.println("Now, which card would you like to discard?");
+        System.out.print("Please enter the number of the card first: ");
+        discardCard = PlayWizard.getDiscardCard();
+        while (!this.hand.cardIsInHand(discardCard))
+        {
+            System.out.println("**Please enter a card that is in your hand**");
+            System.out.print("enter the number: ");
             discardCard = PlayWizard.getDiscardCard();
-            while (!this.hand.cardIsInHand(discardCard))
-            {
-                discardCard = PlayWizard.getDiscardCard();
-            }
-            this.putDownDiscard(discardCard);                         // puts the card the player wishes to discard in playplate
-            playPlate[0] = discardCard;                               // end process of physical discard and swap to playplate
+        }
+        this.putDownDiscard(discardCard);                         // puts the card the player wishes to discard in playplate
+        playPlate[0] = discardCard;                               // end process of physical discard and swap to playplate
     }
 
     // Todo: figure out if this belongs here or in Hand.java

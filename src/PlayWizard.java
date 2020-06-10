@@ -9,19 +9,19 @@ class PlayWizard extends AssDriver
         int discardNumber = -1;
         String discardSuit = null;
         Card discardCard = new Card(discardSuit , discardNumber);
-        System.out.println("Now, which card would you like to discard?");
-        System.out.print("Please enter the number of the card first: ");
+//        System.out.println("Now, which card would you like to discard?");
+//        System.out.print("Please enter the number of the card first: ");
 
-        while (discardNumber < 1 && discardNumber != 0)
+        while (discardNumber < 1 || discardNumber == 0)
         {
             lou = new Scanner(System.in);
             if (lou.hasNextInt())
             {
                 discardNumber = lou.nextInt();
             }
-            else
+            if (discardNumber < 1)
             {
-                System.out.print("Please enter a number that is in your hand: ");
+                System.out.print("Please enter a number greater than 0: ");
             }
         }
 
