@@ -72,22 +72,20 @@ public class Player
     {
         Card discardCard;
 
-        if (theOption == 0)
-        {
-            user.pickUpCard(sDeck , topCard);                         // moves ahead one card in the deck (away from the card that was just picked up from sDeck[i + 1])
+        if (theOption == 0) {
+            user.pickUpCard(sDeck, topCard);                         // moves ahead one card in the deck (away from the card that was just picked up from sDeck[i + 1])
+        }
+        else if (theOption == 1) {
+            user.pickUpCard(playPlate);
+        }
             user.getHand();
             discardCard = PlayWizard.getDiscardCard();
+            while (!user.hand.cardIsInHand(discardCard))
+            {
+                discardCard = PlayWizard.getDiscardCard();
+            }
             user.putDownDiscard(discardCard);                         // puts the card the player wishes to discard in playplate
             playPlate[0] = discardCard;                               // end process of physical discard and swap to playplate
-        } // end if (option 0)
-        else if (theOption == 1)                                      // begin of option 1
-        {
-            user.pickUpCard(playPlate);
-            user.getHand();
-            discardCard = PlayWizard.getDiscardCard();
-            user.putDownDiscard(discardCard);
-            playPlate[0] = discardCard;
-        } // end option 1
     }
 
     // Todo: figure out if this belongs here or in Hand.java

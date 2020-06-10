@@ -21,7 +21,7 @@ class PlayWizard extends AssDriver
             }
             else
             {
-                System.out.print("Please enter a number greater than 0: ");
+                System.out.print("Please enter a number that is in your hand: ");
             }
         }
 

@@ -41,3 +41,6 @@ Things To Implement/Fix
 Refactor
     - looking to refactor the players hand so that instead of playerOne.hand.deadwood.cards[i] it will be
 	playerOne.hand.cards[i]
+    
+    - refactor userTakeTurn() signature 
+	- shit is ugly af
