@@ -170,19 +170,27 @@ class Hand
 
 
 // loops for testing finding the runs.
-        testMethod(heartCount, hearts);
-        System.out.println("hearts score is : " + tallyScore(hearts , heartCount));
-        testMethod(diamondCount, diamonds);
-        System.out.println("diamonds score is : " + tallyScore(diamonds , diamondCount));
-        testMethod(spadeCount, spades);
-        System.out.println("spades score is : " + tallyScore(spades , spadeCount));
-        testMethod(clubCount, clubs);
-        System.out.println("clubs score is : " + tallyScore(clubs , clubCount));
-        System.out.println("\n***same numbers (" + sameNumCount+") *** ");
-        testMethod(sameNumCount , sameNumber);
+//        testMethod(heartCount, hearts);
+//        System.out.println("hearts score is : " + tallyScore(hearts , heartCount));
+//        testMethod(diamondCount, diamonds);
+//        System.out.println("diamonds score is : " + tallyScore(diamonds , diamondCount));
+//        testMethod(spadeCount, spades);
+//        System.out.println("spades score is : " + tallyScore(spades , spadeCount));
+//        testMethod(clubCount, clubs);
+//        System.out.println("clubs score is : " + tallyScore(clubs , clubCount));
+//        System.out.println("\n***same numbers (" + sameNumCount+") *** ");
+//        testMethod(sameNumCount , sameNumber);
+
+        System.out.println("***Your Runs***");
+        printRuns(heartCount , hearts);
+        printRuns(diamondCount , diamonds);
+        printRuns(spadeCount , spades);
+        printRuns(clubCount , clubs);
+        System.out.println("***Your OfAKinds***");
+        printKinds(sameNumCount , sameNumber);
 // end of testing for loops
 } // end find runs and melds method
-
+// **************************** testing methods - will be deleted after hand.java is done ************************
     private void testMethod(int cardCount, Card[] suit) {
         for (int index = 0; index < cardCount; index += 1)
         {
@@ -195,6 +203,27 @@ class Hand
                 System.out.println("nah");
         }
     }
+    private void printRuns(int cardCount, Card[] suit) {
+        for (int index = 0; index < cardCount; index += 1)
+        {
+            if (suit[index].isARun())
+            {
+                System.out.println(suit[index]);
+                System.out.println(suit[index].isARun());
+            }
+        }
+    }
+    private void printKinds(int cardCount, Card[] suit)
+    {
+        for (int index = 0; index < cardCount; index += 1)
+        {
+            if (suit[index].isOfAKind() && sameNumCount >= 3)
+                System.out.println(suit[index]);
+            if (suit[index].isOfAKind() && sameNumCount >= 3)
+                System.out.println("yes");
+        }
+    }
+//******************************** end testing methods *******************************************************
 
 
     // suitArray is one of the four suits, sorted by distributeHand()
@@ -234,8 +263,7 @@ class Hand
 
         int tally = 0;
         sortHand(cards,count);
-
-        System.out.println("count = " + count);
+        
         for (int i = 0; i < cards.length; i++)
         {
             target = cards[i];
