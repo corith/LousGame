@@ -81,17 +81,7 @@ class Hand
     }
 
 //**************************end quicksort methods*********************
-
-//    public boolean numIsInHand(int num)
-//    {
-//        for (int i = 0; i < this.deadwood.cards.length; i++)
-//        {
-//            if (this.deadwood.cards[i].number == num)
-//                return true;
-//        }
-//        return false;
-//    }
-
+    
     public boolean cardIsInHand(Card card)
     {
         for (int i = 0; i < this.deadwood.cards.length; i++)
