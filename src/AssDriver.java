@@ -20,7 +20,8 @@ public class AssDriver extends LousReady {
   public static int gameOptions() {
     Scanner lou = new Scanner(System.in);
     int decision = 2;
-    System.out.println("Would you like to draw a card? (0)\nOr take the one from the " + Ansi.CYAN + "discard" + Ansi.RESET + " pile? (1)");
+    System.out.println("Would you like to draw a card? (0)\n" +
+            "Or take " + "the one from the " + Ansi.CYAN + "discard" + Ansi.RESET + " pile? (1)");
     while (decision > 1 || decision < 0) {
       lou = new Scanner(System.in);
       if (lou.hasNextInt()) {
