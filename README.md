@@ -19,4 +19,6 @@ Round two of 3-13 command line Implementation :)
 
 ## Contributing
 
+There is a todo.txt file with a loose description of things to implement. But implement anything you want!
 If you wish to contribute please push to the contribute branch and then make a pull request :) 
+
