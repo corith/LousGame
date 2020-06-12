@@ -66,7 +66,13 @@ public class AssDriver extends LousReady {
       user.userTakeTurn(theOption , sDeck , playPlate , topCard);
       // next turn()
       // next turn()
-
+      if(user.tallyScore() == 0)
+      {
+        running = false;
+        System.out.println("YOU HAVE WON");
+//        break;
+      }
+//      if (user.hand.isAWinner())
       // if (thereIsAWinner(playerOne.hand , playerTwo.hand , user.hand))
       // {
       //    running = false;

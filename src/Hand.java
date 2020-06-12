@@ -168,6 +168,8 @@ class Hand
 
         findTheOfAkinds(deadwood.cards , Player.round);
 
+        //useWilds();
+
 
 // loops for testing finding the runs.
 //        testMethod(heartCount, hearts);

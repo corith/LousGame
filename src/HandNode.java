@@ -5,8 +5,8 @@ class HandNode
 {
     public HandNode next;
     public Card[] cards;            // = new Card[Player.round + 1];
-    public int powerRank   = 0;     // might be used for "ranking" a collection of cards by points it counts against the player
-    public int count       = 0;
+    public int powerRank;           // might be used for "ranking" a collection of cards by points it counts against the player
+    public int count;
     public HandNode prev;
 
     public HandNode(HandNode prev , Card[] hand , HandNode next)
@@ -14,6 +14,8 @@ class HandNode
         this.prev = prev;
         this.cards = hand;
         this.next = next;
+        this.powerRank = 0;
+        this.count = 0;
     }
 
     public HandNode(Card[] userHand)
