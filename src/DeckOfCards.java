@@ -140,21 +140,20 @@ class DeckTest
         Player playerTwo = new Player();
         Player user = new Player();
         Card[] deck = DeckOfCards.getDeck();
-        Card[] shuffledDeck = DeckOfCards.shuffleDeck(deck);
+        Card[] shuffledDeck = DeckOfCards.getDeck();
+        shuffledDeck = DeckOfCards.shuffleDeck(shuffledDeck);
 
-        DeckOfCards.dealDeck(shuffledDeck , playerOne , playerTwo , user);
+        //DeckOfCards.dealDeck(shuffledDeck , playerOne , playerTwo , user);
         System.out.println("This is deadwood.cards");
-        for (int i = 0; i < user.hand.deadwood.cards.length; i++)
+        for (int i = 0; i < deck.length; i++)
         {
-            System.out.println(playerOne.hand.deadwood.cards[i]);
+            System.out.println(deck[i]);
         }
         System.out.println();
-        Hand.sortHand(user.hand.deadwood.cards);
-        for (int i = 0; i < user.hand.deadwood.cards.length; i++)
+//        Hand.sortHand(user.hand.deadwood.cards);
+        for (int i = 0; i < shuffledDeck.length; i++)
         {
-            System.out.println(user.hand.deadwood.cards[i]);
-            //System.out.println();
-            System.out.println(user.hand.deadwood.cards[i]);
+            System.out.println(shuffledDeck[i]);
         }
     }
 }     // end main method (used for testing purposes)

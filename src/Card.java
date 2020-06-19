@@ -61,22 +61,51 @@ public class Card
             return Ansi.HIGH_INTENSITY + Ansi.MAGENTA + "|_|" + Ansi.RESET;
         else if (this.suit.equals("<3"))
         {
+            if (this.number >= 11 || this.number == 1)
+                return faceCard(this) + " " + Ansi.RED + Ansi.HIGH_INTENSITY + this.suit + Ansi.RESET;
+
             return this.number + " " + Ansi.RED + Ansi.HIGH_INTENSITY + "<3" + Ansi.RESET + "";
         }
         else if (this.suit.equals("<*"))
         {
+            if (this.number >= 11 || this.number == 1)
+                return faceCard(this) + " " + Ansi.RED + Ansi.HIGH_INTENSITY + this.suit + Ansi.RESET;
+
             return this.number + " " + Ansi.RED + Ansi.HIGH_INTENSITY + "<*" + Ansi.RESET + "";
         }
         else if (this.suit.equals("^"))
         {
+            if (this.number >= 11 || this.number == 1)
+                return faceCard(this) + " " + Ansi.BACKGROUND_WHITE + Ansi.BLACK + Ansi.HIGH_INTENSITY + this.suit + Ansi.RESET;
+
             return this.number + " " + Ansi.BACKGROUND_WHITE + Ansi.BLACK + Ansi.HIGH_INTENSITY + "^" + Ansi.RESET + "";
         }
         else if (this.suit.equals("#"))
         {
+            if (this.number >= 11 || this.number == 1)
+                return faceCard(this) + " " + Ansi.BACKGROUND_WHITE + Ansi.BLACK + Ansi.HIGH_INTENSITY + this.suit + Ansi.RESET;
+
             return this.number + " " + Ansi.BACKGROUND_WHITE + Ansi.BLACK + Ansi.HIGH_INTENSITY + "#" + Ansi.RESET + "";
         }
         else
             return this.number + " " + this.suit + "";
+    }
+
+    public String faceCard(Card card)
+    {
+        if (card.number == 1)
+            return "A";
+        else if (card.number == 11)
+            // make it a jack
+            return "J";
+        else if (card.number == 12)
+            //make it a queen
+            return "Q";
+        else if (card.number == 13)
+            // make a king
+            return "K";
+        else
+            return "error";
     }
 
 
