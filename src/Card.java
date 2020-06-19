@@ -1,14 +1,7 @@
 /****************************************************
  **             Cory Sebastian                     **
  **               Card class                       **
- ********INCLUDES THE FOLLOWING METHODS**************
- *  - getNumber(),getSuit(),setNumber(),setSuit()   *
- *  - Card() / Card(String suit, int number)        *
- *  - String toString() && equals()                 *
- *  - Card[] discard()                              *
- *  - main(String args)                             *
- ****************************************************
- ************************src*************************/
+ ****************************************************/
 
 public class Card
 {

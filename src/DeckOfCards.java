@@ -1,12 +1,8 @@
  /****************************************************
-  **                Cory Sebastian    done          **
-  **            DeckOfCards class                   **
-  ***********INCLUDES THE FOLLOWING METHODS***********
-  *  - int randomInt(int min , int max)              *
-  *  - getDeck() initilizeDeck() shuffleDeck()       *
-  *                          && dealDeck()           *
-  *  - main(String args)                             *
+  **                Cory Sebastian                  **
+  **               DeckOfCards class                **
   ****************************************************/
+
 public class DeckOfCards extends Card {
 
     public static int randomInt(int min, int max)
