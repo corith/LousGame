@@ -1,6 +1,6 @@
  /***********************************
   **          Cory Sebastian       **
-  **    Player Class (constructor) **
+  **           Player Class        **
   ***********************************/
 public class Player
 {
