@@ -29,9 +29,9 @@ class PlayWizard extends AssDriver
         {
             lou = new Scanner(System.in);
             discardSuit = lou.nextLine();
-            // the following switch statement translate user input into the
-            // Ansi colored representation
+//            discardCard.setSuit(lou.nextLine());
 
+            // this switch statement provides suit validation
             switch (discardSuit) {
                 case "<3":
                     discardCard.setSuit(discardSuit);
@@ -51,6 +51,6 @@ class PlayWizard extends AssDriver
             }
         }
         return discardCard;
-    } // end getDiscardCardcard()
+    }
 
 } // end PlayWizard
