@@ -39,8 +39,6 @@ class Hand
     {
         if (right > 0)
             quickCardSort(hand , 0 , right - 1);
-        else
-            return;
     }
 
     public static void quickCardSort(Card[] array , int leftEnd , int rightEnd)
@@ -64,13 +62,9 @@ class Hand
         while (left <= right);
 
         if (leftEnd < right)
-        {
-            quickCardSort(array , leftEnd , right);
-        }
+            quickCardSort(array, leftEnd, right);
         if (left < rightEnd)
-        {
-            quickCardSort(array , left , rightEnd);
-        }
+            quickCardSort(array, left, rightEnd);
     }
 
     public static void swap(Card[] hand , int left , int right)
@@ -85,10 +79,8 @@ class Hand
     public boolean cardIsInHand(Card card)
     {
         for (int i = 0; i < this.deadwood.cards.length; i++)
-        {
             if (this.deadwood.cards[i].equals(card))
                 return true;
-        }
         return false;
     }
 
@@ -282,9 +274,7 @@ class Hand
                     cards[i+2].makeItOfAKind();
                     // check if there is a "natural" (no wilds) 4 of a kind
                     if (i + 3 < cards.length && cards[i + 3].number == target.number)
-                    {
-                        cards[i+3].makeItOfAKind();
-                    }
+                        cards[i + 3].makeItOfAKind();
                 }
             }
         }
@@ -316,15 +306,10 @@ class Hand
     // Todo: figure out if this belongs here or in Player.java
     public static int tallyScore(Card[] hand , int count)
     {
-
         int scoreSum = 0;
         for (int i = 0; i < count; i += 1)
-        {
             if (hand[i].number > 0 && !hand[i].isOfAKind() && !hand[i].isARun())
-            {
                 scoreSum = scoreSum + hand[i].number;
-            }
-        }
         return scoreSum;
     }
 

@@ -70,11 +70,6 @@ public class AssDriver extends LousReady {
         System.out.println("YOU HAVE WON");
       }
 
-      // if (thereIsAWinner(playerOne.hand , playerTwo.hand , user.hand))
-      // {
-      //    running = false;
-      //    tallyScore();
-      // }
     } // end while
     //return true;
 

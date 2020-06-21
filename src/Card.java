@@ -38,14 +38,7 @@ public class Card
         this.number = number;
         isARun = false;
         isOfAKind = false;
-        if (this.number == Player.round)
-        {
-            isWild = true;
-        }
-        else
-        {
-            isWild = false;
-        }
+        isWild = this.number == Player.round;
     }
 
     @Override
@@ -88,6 +81,7 @@ public class Card
     public String faceCard(Card card)
     {
         if (card.number == 1)
+            // make it an ace
             return "A";
         else if (card.number == 11)
             // make it a jack
@@ -106,13 +100,9 @@ public class Card
     public boolean equals(Object exampleTwo)
     {
         if (this == exampleTwo)
-        {
             return true;
-        }
         if (exampleTwo == null)
-        {
             return false;
-        }
         Card exampleDeux = (Card)exampleTwo;
         return suit.equals(exampleDeux.suit) && number == exampleDeux.number;
     }

@@ -24,33 +24,23 @@ public class DeckOfCards extends Card {
 
     public static void initializeDeck(Card[] d)
     {
+        String[] suits = {"<3", "<*" , "^" , "#"};
         int num = 1;
-        // loads cards 1 - 13 with suit: Hearts (<3)
-        for (int i = 0; i <= 12; i++)
+        int suitIndex = 0;
+
+        for (int i = 0; i < 52; i++)
         {
-            d[i] = new Card("<3" , num);
+            if (suitIndex == 4)
+                suitIndex-=1;
+
+            d[i] = new Card(suits[suitIndex] , num);
             num++;
-        }
-        // loads cards 1 - 13 with suit: Diamonds (<*)
-        num = 1;
-        for (int i = 13; i <= 25; i++)
-        {
-            d[i] = new Card("<*" , num);
-            num++;
-        }
-        // loads cards 1 - 13 with suit: Spades (^)
-        num = 1;
-        for (int i = 26; i <= 38; i++)
-        {
-            d[i] = new Card("^" , num);
-            num++;
-        }
-        // loads cards 1 - 13 with suit: Clubs (#)
-        num = 1;
-        for (int i = 39; i <= 51 ; i++)
-        {
-            d[i] = new Card("#" , num);
-            num++;
+
+            if (num == 14)
+            {
+                num = 1;
+                suitIndex+=1;
+            }
         }
       } // end initializeDeck()
 
@@ -114,15 +104,6 @@ public class DeckOfCards extends Card {
 
 
 } // end class DeckOfCards
-
-
-
-
-
-
-
-
-
 
 
 
