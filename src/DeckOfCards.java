@@ -10,14 +10,11 @@ public class DeckOfCards extends Card {
         return (int)((Math.random()*((max-min)+1))+min);
     } // end randoInt()
 
-    /***************work together**************************/
     public static Card[] getDeck()
     {
         Card[] deck = new Card[52];
         for (int i = 0; i < deck.length; i++)
-        {
             deck[i] = new Card();
-        }
         initializeDeck(deck);
         return deck;
     } // end getDeck();
@@ -44,9 +41,8 @@ public class DeckOfCards extends Card {
         }
       } // end initializeDeck()
 
-    /*************end get deck work together*******************************************/
-
-      // begin shuffleDeck()
+     // returns a new deck that has been scrambled
+     // will make every card in d null in the process
     public static Card[] shuffleDeck(Card[] d)
     {
         Card temp = new Card();
@@ -64,7 +60,7 @@ public class DeckOfCards extends Card {
             }
             deckShuffled[i] = temp;
             d[t] = new Card();
-        } // end for loop;
+        }
         return deckShuffled;
     } // end shuffleDeck()
 
@@ -101,8 +97,6 @@ public class DeckOfCards extends Card {
         user.hand.deadwood.cards[Player.round] = new Card();
 
     } // end dealDeck()
-
-
 } // end class DeckOfCards
 
 
