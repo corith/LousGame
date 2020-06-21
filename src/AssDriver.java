@@ -31,17 +31,11 @@ public class AssDriver extends LousReady {
     return 2; // this would mean an error
   } // end game options
 
-  // begin playLoop()
   public static void playLoop(Card[] sDeck, Player playerOne, Player playerTwo, Player user) {
     boolean running    = true;
     int topCard        = 0; // represents the top of the deck i think
     int theOption;
 
-/*
-    playerOne.deadwood = new HandNode(playerOne.hand);
-    playerTwo.deadwood = new HandNode(playerTwo.hand);
-    user.deadwood      = new HandNode(user.hand);
-*/
     System.out.println(user.hand.deadwood.count);
 
     while (running)
@@ -77,13 +71,8 @@ public class AssDriver extends LousReady {
         user.getHand();
         System.out.println("YOU HAVE WON");
       }
-
-    } // end while
-    //return true;
-
-
-
-  } // end play playLoop
+    }
+  }
 } // end class
 
 
