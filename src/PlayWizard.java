@@ -29,29 +29,27 @@ class PlayWizard extends AssDriver
         {
             lou = new Scanner(System.in);
             discardSuit = lou.nextLine();
-            // the following if else blocks translate user input into the
+            // the following switch statement translate user input into the
             // Ansi colored representation
-            if (discardSuit.equals("<3"))
-            {
-                discardCard.setSuit(discardSuit);
+
+            switch (discardSuit) {
+                case "<3":
+                    discardCard.setSuit(discardSuit);
+                    break;
+                case "<*":
+                    discardCard.setSuit(discardSuit);
+                    break;
+                case "^":
+                    discardCard.setSuit(discardSuit);
+                    break;
+                case "#":
+                    discardCard.setSuit(discardSuit);
+                    break;
+                default:
+                    System.out.print("Please enter one of the suits: ");
+                    break;
             }
-            else if (discardSuit.equals("<*"))
-            {
-                discardCard.setSuit(discardSuit);
-            }
-            else if (discardSuit.equals("^"))
-            {
-                discardCard.setSuit(discardSuit);
-            }
-            else if (discardSuit.equals("#"))
-            {
-                discardCard.setSuit(discardSuit);
-            }
-            else
-            {
-                System.out.print("Please enter one of the suits: ");
-            }
-        } // end while loop
+        }
         return discardCard;
     } // end getDiscardCardcard()
 
