@@ -73,28 +73,28 @@ public class DeckOfCards extends Card {
         {
             //playerOne.hand[i] = d[nextCard];
             playerOne.hand.deadwood.cards[i] = d[nextCard];
-            playerOne.hand.deadwood.count += 1;
+            playerOne.hand.deadwood.setCount(playerOne.hand.deadwood.getCount() + 1);
             d[nextCard] = new Card();
             nextCard++;
 
             //playerTwo.hand[i] = d[nextCard];
             playerTwo.hand.deadwood.cards[i] = d[nextCard];
-            playerTwo.hand.deadwood.count += 1;
+            playerTwo.hand.deadwood.setCount(playerTwo.hand.deadwood.getCount() + 1);
             d[nextCard] = new Card();
             nextCard++;
 
             //user.hand[i] = d[nextCard];
             user.hand.deadwood.cards[i] = d[nextCard];
-            user.hand.deadwood.count += 1;
+            user.hand.deadwood.setCount(user.hand.deadwood.getCount() + 1);
             d[nextCard] = new Card();
             nextCard++;
         }
-        //playerOne.hand[Player.round] = new Card();
-        playerOne.hand.deadwood.cards[Player.round] = new Card();
-        //playerTwo.hand[Player.round] = new Card();
-        playerTwo.hand.deadwood.cards[Player.round] = new Card();
-        //user.hand[Player.round] = new Card();
-        user.hand.deadwood.cards[Player.round] = new Card();
+        //playerOne.hand[Player.getRound(] = new Card();
+        playerOne.hand.deadwood.cards[Player.getRound()] = new Card();
+        //playerTwo.hand[Player.getRound(] = new Card();
+        playerTwo.hand.deadwood.cards[Player.getRound()] = new Card();
+        //user.hand[Player.getRound(] = new Card();
+        user.hand.deadwood.cards[Player.getRound()] = new Card();
 
     } // end dealDeck()
 } // end class DeckOfCards

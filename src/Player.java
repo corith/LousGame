@@ -4,11 +4,24 @@
   ***********************************/
 public class Player
 {
+    private static int round = 9;
+    private int score;
+    private boolean dealer;
+    private boolean turn;
+
     public Hand hand;  // we want this.hand.cards to be main point of dealing
-    public boolean dealer;
-    public boolean turn;
-    public int score;
-    public static int round = 9;
+
+    // getters
+    public static int getRound() { return round; }
+    public int getScore() { return score; }
+    public boolean isDealer() { return dealer; }
+    public boolean isTurn() { return turn; }
+
+    //setters
+    public static void setRound(int round) { Player.round = round; }
+    public void setScore(int score) { this.score = score; }
+    public void setDealer(boolean dealer) { this.dealer = dealer; }
+    public void setTurn(boolean turn) { this.turn = turn; }
 
     public Player()
     {
@@ -21,7 +34,7 @@ public class Player
     // sorts the players hand and adds up the points
     public void getHand()
     {
-        Hand.sortHand(this.hand.deadwood.cards , this.hand.deadwood.count);
+        Hand.sortHand(this.hand.deadwood.cards , this.hand.deadwood.getCount());
         this.hand.findRunsAndMelds(this.hand);
         System.out.println("\npoints in hand: " + this.tallyScore());
         System.out.println("Users Hand: \n");
@@ -33,7 +46,7 @@ public class Player
 
     public void pickUpCard(Card[] sDeck , int top) // from top of deck (option 0)
     {
-        for (int index = 0; index < this.hand.deadwood.count; index++)    // picks up the card from the top of the deck
+        for (int index = 0; index < this.hand.deadwood.getCount(); index++)    // picks up the card from the top of the deck
             if (this.hand.deadwood.cards[index].getSuit() == null)        // replaces the null slot in player hand
                 this.hand.deadwood.cards[index] = sDeck[top + 1];
     }
@@ -81,9 +94,9 @@ public class Player
     public int tallyScore()
     {
         int scoreSum = 0;
-        for (int i = 0; i < this.hand.deadwood.count; i += 1)
-            if (this.hand.deadwood.cards[i].number > 0 && !this.hand.deadwood.cards[i].isOfAKind() && !this.hand.deadwood.cards[i].isARun())
-                scoreSum = scoreSum + this.hand.deadwood.cards[i].number;
+        for (int i = 0; i < this.hand.deadwood.getCount(); i += 1)
+            if (this.hand.deadwood.cards[i].getCardNumber() > 0 && !this.hand.deadwood.cards[i].isOfAKind() && !this.hand.deadwood.cards[i].isARun())
+                scoreSum = scoreSum + this.hand.deadwood.cards[i].getCardNumber();
         return scoreSum;
     }
 } // end class player

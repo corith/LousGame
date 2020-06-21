@@ -3,11 +3,24 @@
 
 class HandNode
 {
-    public HandNode next;
-    public Card[] cards;            // = new Card[Player.round + 1];
-    public int powerRank;           // might be used for "ranking" a collection of cards by points it counts against the player
-    public int count;
-    public HandNode prev;
+    private int count;
+    private int powerRank;          // might be used for "ranking" a collection of cards by points it counts against the player
+    private HandNode next;          // make public ?
+    private HandNode prev;          // make public ?
+
+    public Card[] cards;            // = new Card[Player.getRound + 1];
+
+    //getters
+    public int getCount() { return count; }
+    public int getPowerRank() { return powerRank; }
+    public HandNode getNext() { return next; }
+    public HandNode getPrev() { return prev; }
+
+    // setters
+    public void setCount(int count) { this.count = count; }
+    public void setPowerRank(int powerRank) { this.powerRank = powerRank; }
+    public void setNext(HandNode next) { this.next = next; }
+    public void setPrev(HandNode prev) { this.prev = prev; }
 
     public HandNode(HandNode prev , Card[] hand , HandNode next)
     {
@@ -28,7 +41,7 @@ class HandNode
     public HandNode()
     {
         prev = null;
-        cards = new Card[Player.round + 1];
+        cards = new Card[Player.getRound() + 1];
         next = null;
     }
 } // end class HandNode

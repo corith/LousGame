@@ -1,18 +1,18 @@
 class Hand
 {
-    public Card[] hearts            = new Card[Player.round];
-    public Card[] diamonds          = new Card[Player.round];
-    public Card[] spades            = new Card[Player.round];
-    public Card[] clubs             = new Card[Player.round];
-    public Card[] wildCards         = new Card[Player.round];
-    public Card[] sameNumber        = new Card[Player.round];
-    public int heartCount           = 0;
-    public int diamondCount         = 0;
-    public int spadeCount           = 0;
-    public int clubCount            = 0;
-    public int wildCount            = 0;
-    public int sameNumCount         = 0;
-    public int deadwoodCount        = 0;
+    private Card[] hearts            = new Card[Player.getRound()];
+    private Card[] diamonds          = new Card[Player.getRound()];
+    private Card[] spades            = new Card[Player.getRound()];
+    private Card[] clubs             = new Card[Player.getRound()];
+    private Card[] wildCards         = new Card[Player.getRound()];
+    private Card[] sameNumber        = new Card[Player.getRound()];
+    private int heartCount           = 0;
+    private int diamondCount         = 0;
+    private int spadeCount           = 0;
+    private int clubCount            = 0;
+    private int wildCount            = 0;
+    private int sameNumCount         = 0;
+    private int deadwoodCount        = 0;
 
     public HandNode deadwood;
 
@@ -23,58 +23,10 @@ class Hand
     // the goal of that is to be able to use these other nodes as a "staging area" for cards that fit into either a run or an "of a kind"
     public Hand()
     {
-        deadwood        = new HandNode(null , new Card[Player.round + 1] , null);
-        deadwood.next   = new HandNode(deadwood , new Card[Player.round] , new HandNode(deadwood.next , new Card[Player.round] , null));
+        deadwood        = new HandNode(null , new Card[Player.getRound() + 1] , null);
+        deadwood.setNext(new HandNode(deadwood , new Card[Player.getRound()] , new HandNode(deadwood.getNext() , new Card[Player.getRound()] , null)));
+//        deadwood.next   = new HandNode(deadwood , new Card[Player.getRound()] , new HandNode(deadwood.next , new Card[Player.getRound()] , null));
     }
-
-//*******************************************begin quicksort******************************
-    // organizes cards strictly by number
-
-    public static void sortHand(Card[] hand)
-    {
-        quickCardSort(hand , 0 , hand.length - 1);
-    }
-
-    public static void sortHand(Card[] hand , int right)
-    {
-        if (right > 0)
-            quickCardSort(hand , 0 , right - 1);
-    }
-
-    public static void quickCardSort(Card[] array , int leftEnd , int rightEnd)
-    {
-        int left = leftEnd;
-        int right = rightEnd;
-        Card pivot = array[(left + right) / 2];
-
-        do
-        {
-            while (array[left].number < pivot.number) { left += 1; }
-            while (array[right].number > pivot.number) { right -= 1; }
-
-            if (left <= right)
-            {
-                swap(array , left , right);
-                left += 1;
-                right -= 1;
-            }
-        }
-        while (left <= right);
-
-        if (leftEnd < right)
-            quickCardSort(array, leftEnd, right);
-        if (left < rightEnd)
-            quickCardSort(array, left, rightEnd);
-    }
-
-    public static void swap(Card[] hand , int left , int right)
-    {
-        Card temp = hand[left];
-        hand[left] = hand[right];
-        hand[right] = temp;
-    }
-
-//**************************end quicksort methods*********************
     
     public boolean cardIsInHand(Card card)
     {
@@ -82,55 +34,6 @@ class Hand
             if (this.deadwood.cards[i].equals(card))
                 return true;
         return false;
-    }
-
-// puts the players hand into suit arrays for sorting
-    public void distributeHand(Hand hand)
-    {
-        // resets the suit arrays to avoid duplicate entries
-        heartCount           = 0;
-        diamondCount         = 0;
-        spadeCount           = 0;
-        clubCount            = 0;
-        wildCount            = 0;
-        sameNumCount         = 0;
-        for (int i = 0; i < hand.deadwood.cards.length; i += 1)
-        {
-            if (hand.deadwood.cards[i].isWild())
-            {
-                wildCards[wildCount] = hand.deadwood.cards[i];
-                wildCount += 1;
-                //hand.deadwood.cards[i] = null;
-            }
-            else if (hand.deadwood.cards[i].suit == "<3")
-            {
-                hearts[heartCount] = hand.deadwood.cards[i];
-                heartCount += 1;
-                //hand.deadwood.cards[i] = null;
-            }
-            else if (hand.deadwood.cards[i].suit == "<*")
-            {
-                diamonds[diamondCount] = hand.deadwood.cards[i];
-                diamondCount += 1;
-                //hand.deadwood.cards[i] = null;
-            }
-            else if (hand.deadwood.cards[i].suit == "^")
-            {
-                spades[spadeCount] = hand.deadwood.cards[i];
-                spadeCount += 1;
-                //hand.deadwood.cards[i] = null;
-            }
-            else if (hand.deadwood.cards[i].suit == "#")
-            {
-                clubs[clubCount] = hand.deadwood.cards[i];
-                clubCount += 1;
-                //hand.deadwood.cards[i] = null;
-            }
-        } // end for loop for sorting hand into arrays of suit and wilds
-        sortHand(hearts , heartCount);
-        sortHand(diamonds , diamondCount);
-        sortHand(spades , spadeCount);
-        sortHand(clubs , clubCount);
     }
 
     // this probably where the decision should be made
@@ -158,7 +61,7 @@ class Hand
         if (clubCount >= 3)
             findTheRuns(clubs , clubCount);
 
-        findTheOfAkinds(deadwood.cards , Player.round);
+        findTheOfAkinds(deadwood.cards , Player.getRound());
 
         //useWilds();
 
@@ -221,25 +124,73 @@ class Hand
     }
 //******************************** end testing methods *******************************************************
 
+    // puts the players hand into suit arrays for sorting
+    private void distributeHand(Hand hand)
+    {
+        // resets the suit arrays to avoid duplicate entries
+        heartCount           = 0;
+        diamondCount         = 0;
+        spadeCount           = 0;
+        clubCount            = 0;
+        wildCount            = 0;
+        sameNumCount         = 0;
+        for (int i = 0; i < hand.deadwood.cards.length; i += 1)
+        {
+            if (hand.deadwood.cards[i].isWild())
+            {
+                wildCards[wildCount] = hand.deadwood.cards[i];
+                wildCount += 1;
+                //hand.deadwood.cards[i] = null;
+            }
+            else if (hand.deadwood.cards[i].getSuit() == "<3")
+            {
+                hearts[heartCount] = hand.deadwood.cards[i];
+                heartCount += 1;
+                //hand.deadwood.cards[i] = null;
+            }
+            else if (hand.deadwood.cards[i].getSuit() == "<*")
+            {
+                diamonds[diamondCount] = hand.deadwood.cards[i];
+                diamondCount += 1;
+                //hand.deadwood.cards[i] = null;
+            }
+            else if (hand.deadwood.cards[i].getSuit() == "^")
+            {
+                spades[spadeCount] = hand.deadwood.cards[i];
+                spadeCount += 1;
+                //hand.deadwood.cards[i] = null;
+            }
+            else if (hand.deadwood.cards[i].getSuit() == "#")
+            {
+                clubs[clubCount] = hand.deadwood.cards[i];
+                clubCount += 1;
+                //hand.deadwood.cards[i] = null;
+            }
+        } // end for loop for sorting hand into arrays of suit and wilds
+        sortHand(hearts , heartCount);
+        sortHand(diamonds , diamondCount);
+        sortHand(spades , spadeCount);
+        sortHand(clubs , clubCount);
+    }
 
     // suitArray is one of the four suits, sorted by distributeHand()
     // count = # of cards with that suit - not sure the algorithm
     // is 100% fool proof but works decently well
-    public void findTheRuns(Card[] suitArray , int count)
+    private void findTheRuns(Card[] suitArray , int count)
     {
         int i = 0;
         while (i < count - 1 && i != count - 2)     // count wil be >= 3
         {
             // test to see if the number 2 cards ahead is sequential
             // works because the cards are sorted
-            if (suitArray[i].number == (suitArray[i + 2].number) - 2)
+            if (suitArray[i].getCardNumber() == (suitArray[i + 2].getCardNumber()) - 2)
             {
                 suitArray[i].makeItRun();
                 suitArray[i + 1].makeItRun();
                 suitArray[i + 2].makeItRun();
                 i += 2;
                 // check if the next card fits into the run or not
-                while (i < count - 1 && suitArray[i].number == (suitArray[i + 1].number - 1))
+                while (i < count - 1 && suitArray[i].getCardNumber() == (suitArray[i + 1].getCardNumber() - 1))
                 {
                     i += 1;
                     suitArray[i].makeItRun();
@@ -251,9 +202,9 @@ class Hand
 
     // Todo
     //  find the ofAKinds (3 3's 4 5's etc.) sameNumber[]
-    public void findTheOfAkinds(Card[] cards , int count)
+    private void findTheOfAkinds(Card[] cards , int count)
     {
-        Card[] store = new Card[Player.round];
+        Card[] store = new Card[Player.getRound()];
         Card target;
         Card match;
 
@@ -267,13 +218,13 @@ class Hand
             {
                 // check if the card 3 ahead of target matches target
                 // if it does then make all three ofAkind and then check for a fourth
-                if (j < cards.length-1 && target.number == cards[j+1].number)
+                if (j < cards.length-1 && target.getCardNumber() == cards[j + 1].getCardNumber())
                 {
                     cards[i].makeItOfAKind();
                     cards[i+1].makeItOfAKind();
                     cards[i+2].makeItOfAKind();
                     // check if there is a "natural" (no wilds) 4 of a kind
-                    if (i + 3 < cards.length && cards[i + 3].number == target.number)
+                    if (i + 3 < cards.length && cards[i + 3].getCardNumber() == target.getCardNumber())
                         cards[i + 3].makeItOfAKind();
                 }
             }
@@ -291,28 +242,77 @@ class Hand
 
     // Todo
     //  distribute the wild cards so that they negate the most points possible
-    public void useWilds()
+    private void useWilds()
     {
 
     }
 
     // Todo
     //  helper function for maximizing the points in a players hand (use this card in a run or an ofAkind)
-    public void maximizePoints()
+    private void maximizePoints()
     {
 
     }
 
+
     // Todo: figure out if this belongs here or in Player.java
-    public static int tallyScore(Card[] hand , int count)
+    private static int tallyScore(Card[] hand , int count)
     {
         int scoreSum = 0;
         for (int i = 0; i < count; i += 1)
-            if (hand[i].number > 0 && !hand[i].isOfAKind() && !hand[i].isARun())
-                scoreSum = scoreSum + hand[i].number;
+        if (hand[i].getCardNumber() > 0 && !hand[i].isOfAKind() && !hand[i].isARun())
+        scoreSum = scoreSum + hand[i].getCardNumber();
         return scoreSum;
     }
 
+    //****************************begin quicksort**************************************
+
+    // organizes cards strictly by number
+    public static void sortHand(Card[] hand)
+    {
+        quickCardSort(hand , 0 , hand.length - 1);
+    }
+
+    public static void sortHand(Card[] hand , int right)
+    {
+        if (right > 0)
+            quickCardSort(hand , 0 , right - 1);
+    }
+
+    private static void quickCardSort(Card[] array , int leftEnd , int rightEnd)
+    {
+        int left = leftEnd;
+        int right = rightEnd;
+        Card pivot = array[(left + right) / 2];
+
+        do
+        {
+            while (array[left].getCardNumber() < pivot.getCardNumber()) { left += 1; }
+            while (array[right].getCardNumber() > pivot.getCardNumber()) { right -= 1; }
+
+            if (left <= right)
+            {
+                swap(array , left , right);
+                left += 1;
+                right -= 1;
+            }
+        }
+        while (left <= right);
+
+        if (leftEnd < right)
+            quickCardSort(array, leftEnd, right);
+        if (left < rightEnd)
+            quickCardSort(array, left, rightEnd);
+    }
+
+    private static void swap(Card[] hand , int left , int right)
+    {
+        Card temp = hand[left];
+        hand[left] = hand[right];
+        hand[right] = temp;
+    }
+
+    //**************************end quicksort methods**********************************
 } // end class Hand
 
 
@@ -334,8 +334,8 @@ class HandTest
         deck = DeckOfCards.shuffleDeck(deck);
         DeckOfCards.dealDeck(deck , test , test1 , test2);
 
-        System.out.println(test.hand.deadwood.count);
-        System.out.println("deadwood count: " + test.hand.deadwood.count);
+        System.out.println(test.hand.deadwood.getCount());
+        System.out.println("deadwood count: " + test.hand.deadwood.getCount());
         System.out.println("deadwood sorted:");
 //        make 3 or 4 of a kind for testing purposes
 //        test.hand.deadwood.cards[0] = new Card("<3" , 10);

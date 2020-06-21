@@ -27,7 +27,7 @@ class PlayWizard extends AssDriver
 
         discardCard.setNumber(discardNumber);
         System.out.print("Now, enter the suit: ");
-        while (discardCard.suit == null)
+        while (discardCard.getSuit() == null)
         {
             lou = new Scanner(System.in);
             discardSuit = lou.nextLine();

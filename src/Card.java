@@ -5,28 +5,29 @@
 
 public class Card
 {
-    public int number;
-    public String suit;
+    private int number;
+    private String suit;
     private boolean isARun;
     private boolean isOfAKind;
     private boolean isWild = false;
+
 // getters
-    public int getNumber() { return number; }
+    public int getCardNumber() { return number; }
     public String getSuit() { return suit; }
     public boolean isARun() { return isARun; }
     public boolean isOfAKind() { return isOfAKind; }
     public boolean isWild() { return isWild; }
 // setters
+    public void setNumber(int number) { this.number = number; }
+    public void setSuit(String suit)  { this.suit = suit; }
     public void makeItRun() { this.isARun = true; }
     public void makeItOfAKind() { this.isOfAKind = true; }
     public void makeItWild() { this.isWild = true; }    // currently sets the wild card attribute in the second constructor
-    public void setNumber(int number) { this.number = number; }
-    public void setSuit(String suit)  { this.suit = suit; }
 
     public Card()
     {
-        this.suit = null;
-        this.number = -1;
+        this.setSuit(null);
+        this.setNumber(-1);
         isARun = false;
         isOfAKind = false;
         isWild = false;
@@ -34,62 +35,62 @@ public class Card
 
     public Card(String suit , int number)
     {
-        this.suit = suit;
-        this.number = number;
+        this.setSuit(suit);
+        this.setNumber(number);
         isARun = false;
         isOfAKind = false;
-        isWild = this.number == Player.round;
+        isWild = this.getCardNumber() == Player.getRound();
     }
 
     @Override
     public String toString()
     {
-        if (this.suit == null)
+        if (this.getSuit() == null)
             return Ansi.HIGH_INTENSITY + Ansi.MAGENTA + "|_|" + Ansi.RESET;
-        else if (this.suit.equals("<3"))
+        else if (this.getSuit().equals("<3"))
         {
-            if (this.number >= 11 || this.number == 1)
-                return faceCard(this) + " " + Ansi.RED + Ansi.HIGH_INTENSITY + this.suit + Ansi.RESET;
+            if (this.getCardNumber() >= 11 || this.getCardNumber() == 1)
+                return faceCard(this) + " " + Ansi.RED + Ansi.HIGH_INTENSITY + this.getSuit() + Ansi.RESET;
 
-            return this.number + " " + Ansi.RED + Ansi.HIGH_INTENSITY + "<3" + Ansi.RESET + "";
+            return this.getCardNumber() + " " + Ansi.RED + Ansi.HIGH_INTENSITY + "<3" + Ansi.RESET + "";
         }
-        else if (this.suit.equals("<*"))
+        else if (this.getSuit().equals("<*"))
         {
-            if (this.number >= 11 || this.number == 1)
-                return faceCard(this) + " " + Ansi.RED + Ansi.HIGH_INTENSITY + this.suit + Ansi.RESET;
+            if (this.getCardNumber() >= 11 || this.getCardNumber() == 1)
+                return faceCard(this) + " " + Ansi.RED + Ansi.HIGH_INTENSITY + this.getSuit() + Ansi.RESET;
 
-            return this.number + " " + Ansi.RED + Ansi.HIGH_INTENSITY + "<*" + Ansi.RESET + "";
+            return this.getCardNumber() + " " + Ansi.RED + Ansi.HIGH_INTENSITY + "<*" + Ansi.RESET + "";
         }
-        else if (this.suit.equals("^"))
+        else if (this.getSuit().equals("^"))
         {
-            if (this.number >= 11 || this.number == 1)
-                return faceCard(this) + " " + Ansi.BACKGROUND_WHITE + Ansi.BLACK + Ansi.HIGH_INTENSITY + this.suit + Ansi.RESET;
+            if (this.getCardNumber() >= 11 || this.getCardNumber() == 1)
+                return faceCard(this) + " " + Ansi.BACKGROUND_WHITE + Ansi.BLACK + Ansi.HIGH_INTENSITY + this.getSuit() + Ansi.RESET;
 
-            return this.number + " " + Ansi.BACKGROUND_WHITE + Ansi.BLACK + Ansi.HIGH_INTENSITY + "^" + Ansi.RESET + "";
+            return this.getCardNumber() + " " + Ansi.BACKGROUND_WHITE + Ansi.BLACK + Ansi.HIGH_INTENSITY + "^" + Ansi.RESET + "";
         }
-        else if (this.suit.equals("#"))
+        else if (this.getSuit().equals("#"))
         {
-            if (this.number >= 11 || this.number == 1)
-                return faceCard(this) + " " + Ansi.BACKGROUND_WHITE + Ansi.BLACK + Ansi.HIGH_INTENSITY + this.suit + Ansi.RESET;
+            if (this.getCardNumber() >= 11 || this.getCardNumber() == 1)
+                return faceCard(this) + " " + Ansi.BACKGROUND_WHITE + Ansi.BLACK + Ansi.HIGH_INTENSITY + this.getSuit() + Ansi.RESET;
 
-            return this.number + " " + Ansi.BACKGROUND_WHITE + Ansi.BLACK + Ansi.HIGH_INTENSITY + "#" + Ansi.RESET + "";
+            return this.getCardNumber() + " " + Ansi.BACKGROUND_WHITE + Ansi.BLACK + Ansi.HIGH_INTENSITY + "#" + Ansi.RESET + "";
         }
         else
-            return this.number + " " + this.suit + "";
+            return this.getCardNumber() + " " + this.getSuit() + "";
     }
 
     public String faceCard(Card card)
     {
-        if (card.number == 1)
+        if (card.getCardNumber() == 1)
             // make it an ace
             return "A";
-        else if (card.number == 11)
+        else if (card.getCardNumber() == 11)
             // make it a jack
             return "J";
-        else if (card.number == 12)
+        else if (card.getCardNumber() == 12)
             //make it a queen
             return "Q";
-        else if (card.number == 13)
+        else if (card.getCardNumber() == 13)
             // make a king
             return "K";
         else
@@ -105,7 +106,7 @@ public class Card
         if (exampleTwo == null)
             return false;
         Card exampleDeux = (Card)exampleTwo;
-        return suit.equals(exampleDeux.suit) && number == exampleDeux.number;
+        return getSuit().equals(exampleDeux.getSuit()) && getCardNumber() == exampleDeux.getCardNumber();
     }
 } // end class Card
 

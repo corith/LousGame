@@ -33,7 +33,7 @@ public class AssDriver extends LousReady {
     int topCard        = 0; // represents the top of the deck i think
     int theOption;
 
-    System.out.println(user.hand.deadwood.count);
+    System.out.println(user.hand.deadwood.getCount());
 
     while (running)
     {
