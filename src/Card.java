@@ -97,6 +97,7 @@ public class Card
     }
 
     // Todo: check exampleTwo's class so the editor shuts up
+    @Override
     public boolean equals(Object exampleTwo)
     {
         if (this == exampleTwo)

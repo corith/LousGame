@@ -50,15 +50,23 @@ public class AssDriver extends LousReady {
       while (sDeck[topCard].getSuit() == null)
       {
         topCard += 1;
+        if (topCard == 51)
+        {
+          System.out.println("******************************OUT OF FUCKING CARDS ALERT ALERT***********************");
+          DeckOfCards.initializeDeck(sDeck);
+          sDeck = DeckOfCards.shuffleDeck(sDeck);
+          topCard = 0;
+        }
         if (sDeck[topCard].getSuit() != null && playPlate[0] == null)
         {
           playPlate[0] = sDeck[topCard];
         }
       }
       sDeck[topCard] = new Card();
-      user.getHand();  // prints user hand
+      user.getHand();
       System.out.println("The " + Ansi.CYAN + "discard " + Ansi.RESET + "pile contains: " + playPlate[0]);
       theOption = gameOptions();
+      System.out.println("sDeck+1: " + sDeck[topCard+1] + "\n" + "topcard: " + topCard);
       user.userTakeTurn(theOption , sDeck , playPlate , topCard);
       // next turn()
       // next turn()
