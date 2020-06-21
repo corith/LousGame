@@ -1,7 +1,4 @@
-/****************************************************
- ** Cory Sebastian Main Class for Lous stupid game **
- ** (first from scratch project. Start: 12/20/18)  **
- *****************************************************/
+// An assistant driver to LousReady.java
 
 import java.util.Scanner;
 
