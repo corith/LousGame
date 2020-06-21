@@ -170,6 +170,8 @@ class Hand
 
         //useWilds();
 
+        // removeOrphans();
+
 
 // loops for testing finding the runs.
 //        testMethod(heartCount, hearts);
@@ -327,11 +329,6 @@ class Hand
     }
 
 } // end class Hand
-
-
-
-
-
 
 
 

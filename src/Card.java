@@ -102,8 +102,6 @@ public class Card
             return "error";
     }
 
-
-
     // Todo: check exampleTwo's class so the editor shuts up
     public boolean equals(Object exampleTwo)
     {
