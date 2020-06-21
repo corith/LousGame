@@ -41,6 +41,7 @@ class Hand
     // and the ofAkinds.
     public void findRunsAndMelds(Hand hand)
     {
+        clearCardStatus(deadwood.cards);
         distributeHand(hand);
         // make sure distribute is working (debugging code)
         System.out.println();
@@ -87,42 +88,17 @@ class Hand
         printRuns(clubCount , clubs);
         System.out.println("***Your OfAKinds***");
         printKinds(sameNumCount , sameNumber);
-// end of testing for loops
 } // end find runs and melds method
-// **************************** testing methods - will be deleted after hand.java is done ************************
-    private void testMethod(int cardCount, Card[] suit) {
-        for (int index = 0; index < cardCount; index += 1)
-        {
-            System.out.println();
-            System.out.println(suit[index]);
-            System.out.println(suit[index].isARun());
-            if (suit[index].isOfAKind() && sameNumCount >= 3)
-                System.out.println("yes");
-            else
-                System.out.println("nah");
-        }
-    }
-    private void printRuns(int cardCount, Card[] suit) {
-        for (int index = 0; index < cardCount; index += 1)
-        {
-            if (suit[index].isARun())
-            {
-                System.out.println(suit[index]);
-                System.out.println(suit[index].isARun());
-            }
-        }
-    }
-    private void printKinds(int cardCount, Card[] suit)
+
+    private void clearCardStatus(Card[] hand)
     {
-        for (int index = 0; index < cardCount; index += 1)
-        {
-            if (suit[index].isOfAKind() && sameNumCount >= 3)
-                System.out.println(suit[index]);
-            if (suit[index].isOfAKind() && sameNumCount >= 3)
-                System.out.println("yes");
+        for (int i = 0; i < hand.length; i++) {
+            Card card = hand[i];
+
+            card.clearStatus();
         }
     }
-//******************************** end testing methods *******************************************************
+
 
     // puts the players hand into suit arrays for sorting
     private void distributeHand(Hand hand)
@@ -207,7 +183,6 @@ class Hand
         Card[] store = new Card[Player.getRound()];
         Card target;
         Card match;
-
         int tally = 0;
         sortHand(cards,count);
         
@@ -313,6 +288,40 @@ class Hand
     }
 
     //**************************end quicksort methods**********************************
+    // **************************** testing methods - will be deleted after hand.java is done ************************
+    private void testMethod(int cardCount, Card[] suit) {
+        for (int index = 0; index < cardCount; index += 1)
+        {
+            System.out.println();
+            System.out.println(suit[index]);
+            System.out.println(suit[index].isARun());
+            if (suit[index].isOfAKind() && sameNumCount >= 3)
+                System.out.println("yes");
+            else
+                System.out.println("nah");
+        }
+    }
+    private void printRuns(int cardCount, Card[] suit) {
+        for (int index = 0; index < cardCount; index += 1)
+        {
+            if (suit[index].isARun())
+            {
+                System.out.println(suit[index]);
+                System.out.println(suit[index].isARun());
+            }
+        }
+    }
+    private void printKinds(int cardCount, Card[] suit)
+    {
+        for (int index = 0; index < cardCount; index += 1)
+        {
+            if (suit[index].isOfAKind() && sameNumCount >= 3)
+                System.out.println(suit[index]);
+            if (suit[index].isOfAKind() && sameNumCount >= 3)
+                System.out.println("yes");
+        }
+    }
+//******************************** end testing methods *******************************************************
 } // end class Hand
 
 

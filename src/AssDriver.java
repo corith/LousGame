@@ -13,20 +13,21 @@ public class AssDriver extends LousReady {
   public static int gameOptions() {
     Scanner lou = new Scanner(System.in);
     int decision = 2;
+
     System.out.println("Would you like to draw a card? (0)\n" +
-            "Or take " + "the one from the " + Ansi.CYAN + "discard" + Ansi.RESET + " pile? (1)");
-    while (decision > 1 || decision < 0) {
+            "Or take the one from the " + Ansi.CYAN + "discard" + Ansi.RESET + " pile? (1)");
+
+    while (true) {
       lou = new Scanner(System.in);
-      if (lou.hasNextInt()) {
-      decision = lou.nextInt();
-      }
-      if (decision == 0 || decision == 1) {
+
+      if (lou.hasNextInt())
+        decision = lou.nextInt();
+      if (decision == 0 || decision == 1)
         return decision;
-      }
+
       System.out.println("Please enter either a 1 or a 0!");
-    } // end while loop
-    return 2; // this would mean an error
-  } // end game options
+    }
+  }
 
   public static void playLoop(Card[] sDeck, Player playerOne, Player playerTwo, Player user) {
     boolean running    = true;
@@ -41,6 +42,8 @@ public class AssDriver extends LousReady {
       while (sDeck[topCard].getSuit() == null)
       {
         topCard += 1;
+        // check for end of deck
+        // Todo: something more game like (reshuffle playplate)
         if (topCard == 51)
         {
           System.out.println("******************************OUT OF FUCKING CARDS ALERT ALERT***********************");
@@ -49,16 +52,16 @@ public class AssDriver extends LousReady {
           topCard = 0;
         }
         if (sDeck[topCard].getSuit() != null && playPlate[0] == null)
-        {
           playPlate[0] = sDeck[topCard];
-        }
       }
+
       sDeck[topCard] = new Card();
       user.getHand();
       System.out.println("The " + Ansi.CYAN + "discard " + Ansi.RESET + "pile contains: " + playPlate[0]);
       theOption = gameOptions();
       System.out.println("sDeck+1: " + sDeck[topCard+1] + "\n" + "topcard: " + topCard);
       user.userTakeTurn(theOption , sDeck , playPlate , topCard);
+
       // next turn()
       // next turn()
       // if (user.hand.isAWinner())

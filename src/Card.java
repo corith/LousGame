@@ -22,6 +22,7 @@ public class Card
     public void setSuit(String suit)  { this.suit = suit; }
     public void makeItRun() { this.isARun = true; }
     public void makeItOfAKind() { this.isOfAKind = true; }
+    public void clearStatus() { this.isARun = false; this.isOfAKind = false; }
     public void makeItWild() { this.isWild = true; }    // currently sets the wild card attribute in the second constructor
 
     public Card()
