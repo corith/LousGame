@@ -13,8 +13,6 @@ public class DeckOfCards extends Card {
     public static Card[] getDeck()
     {
         Card[] deck = new Card[52];
-        for (int i = 0; i < deck.length; i++)
-            deck[i] = new Card();
         initializeDeck(deck);
         return deck;
     } // end getDeck();

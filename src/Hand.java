@@ -23,7 +23,7 @@ class Hand
     // the goal of that is to be able to use these other nodes as a "staging area" for cards that fit into either a run or an "of a kind"
     public Hand()
     {
-        deadwood        = new HandNode(null , new Card[Player.getRound() + 1] , null);
+        deadwood = new HandNode(null , new Card[Player.getRound() + 1] , null);
         deadwood.setNext(new HandNode(deadwood , new Card[Player.getRound()] , new HandNode(deadwood.getNext() , new Card[Player.getRound()] , null)));
 //        deadwood.next   = new HandNode(deadwood , new Card[Player.getRound()] , new HandNode(deadwood.next , new Card[Player.getRound()] , null));
     }
