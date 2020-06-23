@@ -53,6 +53,7 @@ class Hand
         System.out.println();
         // end distribute test
 
+        findTheOfAkinds(deadwood.cards , Player.getRound());
         if (heartCount >= 3)
             findTheRuns(hearts , heartCount);
         if (diamondCount >= 3)
@@ -62,9 +63,8 @@ class Hand
         if (clubCount >= 3)
             findTheRuns(clubs , clubCount);
 
-        findTheOfAkinds(deadwood.cards , Player.getRound());
         this.calculateWorth(deadwood.cards);        // for use with deciding where to put
-                                                    // a card if it fits in more than one set
+        //maximizePoints(deadwood.cards);                         // a card if it fits in more than one set
 
         //useWilds();
 
@@ -163,17 +163,23 @@ class Hand
         {
             // test to see if the number 2 cards ahead is sequential
             // works because the cards are sorted
-            if (suitArray[i].getCardNumber() == (suitArray[i + 2].getCardNumber()) - 2)
+            boolean isOccupied = suitArray[i].isBeingUsed() || suitArray[i+1].isBeingUsed() || suitArray[i + 2].isBeingUsed();
+            if (suitArray[i].getCardNumber() == (suitArray[i + 2].getCardNumber()) - 2 && !isOccupied)
             {
+//                if (!suitArray[i].isBeingUsed())
                 suitArray[i].makeItRun();
                 suitArray[i + 1].makeItRun();
                 suitArray[i + 2].makeItRun();
+                suitArray[i].use();
+                suitArray[i + 1].use();
+                suitArray[i + 2].use();
                 i += 2;
                 // check if the next card fits into the run or not
                 while (i < count - 1 && suitArray[i].getCardNumber() == (suitArray[i + 1].getCardNumber() - 1))
                 {
                     i += 1;
                     suitArray[i].makeItRun();
+                    suitArray[i].use();
                 }
             }
             i += 1;
@@ -202,9 +208,14 @@ class Hand
                     cards[i].makeItOfAKind();
                     cards[i+1].makeItOfAKind();
                     cards[i+2].makeItOfAKind();
+                    cards[i].use();
+                    cards[i + 1].use();
+                    cards[i + 2].use();
                     // check if there is a "natural" (no wilds) 4 of a kind
-                    if (i + 3 < cards.length && cards[i + 3].getCardNumber() == target.getCardNumber())
+                    if (i + 3 < cards.length && cards[i + 3].getCardNumber() == target.getCardNumber()) {
                         cards[i + 3].makeItOfAKind();
+                        cards[i + 3].use();
+                    }
                 }
             }
         }
