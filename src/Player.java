@@ -113,11 +113,12 @@ class PlayerTest
     int round = LousReady.round;
 
     System.out.println(LousReady.round);
-    Card[] deck = DeckOfCards.getDeck();
-    DeckOfCards.initializeDeck(deck);
-    Card[] shuffledDeck = DeckOfCards.shuffleDeck(deck);
+    DeckOfCards deck = new DeckOfCards(1);
+    deck.getDeck();
+    deck = deck.shuffleDeck();
 
-    DeckOfCards.dealDeck(shuffledDeck, one , two , three);
+
+    deck.dealDeck(one , two , three);
 
     one.getHand();
     two.getHand();
