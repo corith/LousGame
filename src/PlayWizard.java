@@ -24,9 +24,9 @@ class PlayWizard extends AssDriver
         }
 
         discardCard.setNumber(discardNumber);
-
-        System.out.print("Please enter a number representing a suit\n");
-        System.out.print("8 = <3 | 6 = <* | 4 = # | 2 = ^\n");
+        System.out.println("\nCard Number = " + Ansi.CYAN + discardCard.getCardNumber() + Ansi.RESET);
+        System.out.print("\nP***lease enter a number representing a suit***\n");
+        System.out.print(Ansi.CYAN + "| 8 = <3 | 6 = <* | 4 = # | 2 = ^ |" + Ansi.RESET + "\n");
         System.out.print("Enter number for suit: ");
 
         int theSuitput = 5;
@@ -40,8 +40,8 @@ class PlayWizard extends AssDriver
             if (!isSuitNumber)
             {
                 theSuitput = 5;
-                System.out.print("Please enter a number representing a suit\n");
-                System.out.print("8 = <3 | 6 = <* | 4 = # | 2 = ^\n");
+                System.out.print("\n***Please enter a number representing a suit***\n");
+                System.out.print(Ansi.RED + "| 8 = <3 | 6 = <* | 4 = # | 2 = ^ |" + Ansi.RESET + "\n");
                 System.out.print("Please enter one of the suit numbers: ");
 //                System.out.print("Enter number for suit: ");
             }

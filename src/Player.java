@@ -79,7 +79,7 @@ public class Player
 
         this.getHand();
         System.out.println("Now, which card would you like to discard?");
-        System.out.print("Please enter the number of the card first: ");
+        System.out.print("Please enter the " + Ansi.CYAN + "number" + Ansi.RESET + " of the card first: ");
         discardCard = PlayWizard.getDiscardCard();
         while (!this.hand.cardIsInHand(discardCard))
         {
