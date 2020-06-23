@@ -29,7 +29,7 @@ public class AssDriver extends LousReady {
     }
   }
 
-  public static void playLoop(Card[] sDeck, Player playerOne, Player playerTwo, Player user) {
+  public static void playLoop(DeckOfCards sDeck, Player playerOne, Player playerTwo, Player user) {
     boolean running    = true;
     int topCard        = 0; // represents the top of the deck i think
     int theOption;
@@ -39,7 +39,7 @@ public class AssDriver extends LousReady {
     while (running)
     {
       // this while loop moves the index passed shuffled/dealt cards
-      while (sDeck[topCard].getSuit() == null)
+      while (sDeck.deck[topCard].getSuit() == null)
       {
         topCard += 1;
         // check for end of deck
@@ -47,20 +47,20 @@ public class AssDriver extends LousReady {
         if (topCard == 51)
         {
           System.out.println("******************************OUT OF FUCKING CARDS ALERT ALERT***********************");
-          DeckOfCards.initializeDeck(sDeck);
-          sDeck = DeckOfCards.shuffleDeck(sDeck);
+          sDeck.getDeck();
+          sDeck = sDeck.shuffleDeck();;
           topCard = 0;
         }
-        if (sDeck[topCard].getSuit() != null && playPlate[0] == null)
-          playPlate[0] = sDeck[topCard];
+        if (sDeck.deck[topCard].getSuit() != null && playPlate[0] == null)
+          playPlate[0] = sDeck.deck[topCard];
       }
 
-      sDeck[topCard] = new Card();
+      sDeck.deck[topCard] = new Card();
       user.getHand();
       System.out.println("The " + Ansi.CYAN + "discard " + Ansi.RESET + "pile contains: " + playPlate[0]);
       theOption = gameOptions();
-      System.out.println("sDeck+1: " + sDeck[topCard+1] + "\n" + "topcard: " + topCard);
-      user.userTakeTurn(theOption , sDeck , playPlate , topCard);
+      System.out.println("sDeck.deck+1: " + sDeck.deck[topCard+1] + "\n" + "topcard: " + topCard);
+      user.userTakeTurn(theOption , sDeck.deck , playPlate , topCard);
 
       // next turn()
       // next turn()

@@ -12,8 +12,9 @@ class LousReady
 
     public static void main(String[] args)
     {
-        Card[] deck = DeckOfCards.getDeck();
-        deck = DeckOfCards.shuffleDeck(deck);
+        DeckOfCards deck = new DeckOfCards(1);
+        deck.getDeck();
+        deck = deck.shuffleDeck();
 
         if (!Greeting.userGreeting())
         {
@@ -25,7 +26,7 @@ class LousReady
             System.out.println("Okay sweet! Let's begin! Here is your hand!");
         }
 
-        DeckOfCards.dealDeck(deck , playerOne , playerTwo , user);          // players hands are full. playplate gets filled in playLoop()
+        deck.dealDeck(playerOne , playerTwo , user);          // players hands are full. playplate gets filled in playLoop()
         AssDriver.playLoop(deck, playerOne , playerTwo , user);             // commences game
 /*
         while (round < 14)

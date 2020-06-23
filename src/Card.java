@@ -7,28 +7,40 @@ public class Card
 {
     private int number;
     private String suit;
+    private int worth;
+    private boolean isBeingUsed;
     private boolean isARun;
     private boolean isOfAKind;
     private boolean isWild = false;
 
-// getters
+
+
+    // getters
     public int getCardNumber() { return number; }
     public String getSuit() { return suit; }
+    public int getWorth() { return worth; }
+    public boolean isBeingUsed() { return isBeingUsed; }
     public boolean isARun() { return isARun; }
     public boolean isOfAKind() { return isOfAKind; }
     public boolean isWild() { return isWild; }
 // setters
     public void setNumber(int number) { this.number = number; }
     public void setSuit(String suit)  { this.suit = suit; }
-    public void makeItRun() { this.isARun = true; }
-    public void makeItOfAKind() { this.isOfAKind = true; }
+    public void setWorth(int worth) { this.worth = worth; }
+    public void makeItRun() { this.isARun = !this.isBeingUsed; }
+    public void makeItOfAKind() { this.isOfAKind = !this.isBeingUsed; }
     public void clearStatus() { this.isARun = false; this.isOfAKind = false; }
     public void makeItWild() { this.isWild = true; }    // currently sets the wild card attribute in the second constructor
+// used for setting the status of a card in a set
+    public void release() { this.isBeingUsed = false; }
+    public void use() { this.isBeingUsed = true; }
 
     public Card()
     {
         this.setSuit(null);
         this.setNumber(-1);
+        worth = 0;
+        isBeingUsed = false;
         isARun = false;
         isOfAKind = false;
         isWild = false;
@@ -38,11 +50,15 @@ public class Card
     {
         this.setSuit(suit);
         this.setNumber(number);
+        worth = 0;
         isARun = false;
         isOfAKind = false;
         isWild = this.getCardNumber() == Player.getRound();
     }
 
+    /**
+        prints face cards and aces else prints the default card suit and number
+     **/
     @Override
     public String toString()
     {
@@ -54,48 +70,43 @@ public class Card
                 return faceCard(this) + " " + Ansi.RED + Ansi.HIGH_INTENSITY + this.getSuit() + Ansi.RESET;
 
             return this.getCardNumber() + " " + Ansi.RED + Ansi.HIGH_INTENSITY + "<3" + Ansi.RESET + "";
-        }
-        else if (this.getSuit().equals("<*"))
-        {
+        } else if (this.getSuit().equals("<*")) {
             if (this.getCardNumber() >= 11 || this.getCardNumber() == 1)
                 return faceCard(this) + " " + Ansi.RED + Ansi.HIGH_INTENSITY + this.getSuit() + Ansi.RESET;
 
             return this.getCardNumber() + " " + Ansi.RED + Ansi.HIGH_INTENSITY + "<*" + Ansi.RESET + "";
-        }
-        else if (this.getSuit().equals("^"))
-        {
+        } else if (this.getSuit().equals("^")) {
             if (this.getCardNumber() >= 11 || this.getCardNumber() == 1)
                 return faceCard(this) + " " + Ansi.BACKGROUND_WHITE + Ansi.BLACK + Ansi.HIGH_INTENSITY + this.getSuit() + Ansi.RESET;
 
             return this.getCardNumber() + " " + Ansi.BACKGROUND_WHITE + Ansi.BLACK + Ansi.HIGH_INTENSITY + "^" + Ansi.RESET + "";
-        }
-        else if (this.getSuit().equals("#"))
-        {
+        } else if (this.getSuit().equals("#")) {
             if (this.getCardNumber() >= 11 || this.getCardNumber() == 1)
                 return faceCard(this) + " " + Ansi.BACKGROUND_WHITE + Ansi.BLACK + Ansi.HIGH_INTENSITY + this.getSuit() + Ansi.RESET;
 
             return this.getCardNumber() + " " + Ansi.BACKGROUND_WHITE + Ansi.BLACK + Ansi.HIGH_INTENSITY + "#" + Ansi.RESET + "";
-        }
-        else
+        } else
             return this.getCardNumber() + " " + this.getSuit() + "";
     }
 
     public String faceCard(Card card)
     {
-        if (card.getCardNumber() == 1)
-            // make it an ace
-            return "A";
-        else if (card.getCardNumber() == 11)
-            // make it a jack
-            return "J";
-        else if (card.getCardNumber() == 12)
-            //make it a queen
-            return "Q";
-        else if (card.getCardNumber() == 13)
-            // make a king
-            return "K";
-        else
-            return "error";
+        switch (card.getCardNumber()) {
+            case 1:
+                // make it an ace
+                return "A";
+            case 11:
+                // make it a jack
+                return "J";
+            case 12:
+                //make it a queen
+                return "Q";
+            case 13:
+                // make a king
+                return "K";
+            default:
+                return "oops";
+        }
     }
 
     // Todo: check exampleTwo's class so the editor shuts up

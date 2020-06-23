@@ -19,8 +19,9 @@ class CompWizard extends Player {
 
   public static void main(String[] args) {
     CompWizard test = new CompWizard();
-    Card[] deck = DeckOfCards.getDeck();
-    DeckOfCards.initializeDeck(deck);
+    DeckOfCards deck = new DeckOfCards(1);
+    deck.getDeck();
+    deck = deck.shuffleDeck();
 
 /*
     for (Card card : deck) {

@@ -39,10 +39,10 @@ class Hand
     // this probably where the decision should be made
     // call some helper function after we've found the runs
     // and the ofAkinds.
-    public void findRunsAndMelds(Hand hand)
+    public void findRunsAndMelds()
     {
         clearCardStatus(deadwood.cards);
-        distributeHand(hand);
+        this.distributeHand();
         // make sure distribute is working (debugging code)
         System.out.println();
         System.out.println(wildCards.length + " " + wildCount);
@@ -53,6 +53,7 @@ class Hand
         System.out.println();
         // end distribute test
 
+        findTheOfAkinds(deadwood.cards , Player.getRound());
         if (heartCount >= 3)
             findTheRuns(hearts , heartCount);
         if (diamondCount >= 3)
@@ -62,25 +63,12 @@ class Hand
         if (clubCount >= 3)
             findTheRuns(clubs , clubCount);
 
-        findTheOfAkinds(deadwood.cards , Player.getRound());
+        this.calculateWorth(deadwood.cards);        // for use with deciding where to put
+        //maximizePoints(deadwood.cards);                         // a card if it fits in more than one set
 
         //useWilds();
 
-        // removeOrphans();
-
-
 // loops for testing finding the runs.
-//        testMethod(heartCount, hearts);
-//        System.out.println("hearts score is : " + tallyScore(hearts , heartCount));
-//        testMethod(diamondCount, diamonds);
-//        System.out.println("diamonds score is : " + tallyScore(diamonds , diamondCount));
-//        testMethod(spadeCount, spades);
-//        System.out.println("spades score is : " + tallyScore(spades , spadeCount));
-//        testMethod(clubCount, clubs);
-//        System.out.println("clubs score is : " + tallyScore(clubs , clubCount));
-//        System.out.println("\n***same numbers (" + sameNumCount+") *** ");
-//        testMethod(sameNumCount , sameNumber);
-
         System.out.println("***Your Runs***");
         printRuns(heartCount , hearts);
         printRuns(diamondCount , diamonds);
@@ -88,20 +76,36 @@ class Hand
         printRuns(clubCount , clubs);
         System.out.println("***Your OfAKinds***");
         printKinds(sameNumCount , sameNumber);
-} // end find runs and melds method
+    }
+
+    public void calculateWorth(Card[] cards)
+    {
+//        hand.findRunsAndMelds();
+        for (int i = 0; i < cards.length; i++) {
+
+            if (cards[i].isOfAKind()) {
+                cards[i].setWorth(cards[i].getCardNumber());
+            } else if (cards[i].isARun()) {
+                cards[i].setWorth(69);
+            } else {
+                cards[i].setWorth(0);
+            }
+
+        }
+    }
 
     private void clearCardStatus(Card[] hand)
     {
         for (int i = 0; i < hand.length; i++) {
             Card card = hand[i];
-
             card.clearStatus();
+            card.release();
         }
     }
 
 
     // puts the players hand into suit arrays for sorting
-    private void distributeHand(Hand hand)
+    private void distributeHand()
     {
         // resets the suit arrays to avoid duplicate entries
         heartCount           = 0;
@@ -110,37 +114,37 @@ class Hand
         clubCount            = 0;
         wildCount            = 0;
         sameNumCount         = 0;
-        for (int i = 0; i < hand.deadwood.cards.length; i += 1)
+        for (int i = 0; i < this.deadwood.cards.length; i += 1)
         {
-            if (hand.deadwood.cards[i].isWild())
+            if (this.deadwood.cards[i].isWild())
             {
-                wildCards[wildCount] = hand.deadwood.cards[i];
+                wildCards[wildCount] = this.deadwood.cards[i];
                 wildCount += 1;
-                //hand.deadwood.cards[i] = null;
+                //this.deadwood.cards[i] = null;
             }
-            else if (hand.deadwood.cards[i].getSuit() == "<3")
+            else if (this.deadwood.cards[i].getSuit() == "<3")
             {
-                hearts[heartCount] = hand.deadwood.cards[i];
+                hearts[heartCount] = this.deadwood.cards[i];
                 heartCount += 1;
-                //hand.deadwood.cards[i] = null;
+                //this.deadwood.cards[i] = null;
             }
-            else if (hand.deadwood.cards[i].getSuit() == "<*")
+            else if (this.deadwood.cards[i].getSuit() == "<*")
             {
-                diamonds[diamondCount] = hand.deadwood.cards[i];
+                diamonds[diamondCount] = this.deadwood.cards[i];
                 diamondCount += 1;
-                //hand.deadwood.cards[i] = null;
+                //this.deadwood.cards[i] = null;
             }
-            else if (hand.deadwood.cards[i].getSuit() == "^")
+            else if (this.deadwood.cards[i].getSuit() == "^")
             {
-                spades[spadeCount] = hand.deadwood.cards[i];
+                spades[spadeCount] = this.deadwood.cards[i];
                 spadeCount += 1;
-                //hand.deadwood.cards[i] = null;
+                //this.deadwood.cards[i] = null;
             }
-            else if (hand.deadwood.cards[i].getSuit() == "#")
+            else if (this.deadwood.cards[i].getSuit() == "#")
             {
-                clubs[clubCount] = hand.deadwood.cards[i];
+                clubs[clubCount] = this.deadwood.cards[i];
                 clubCount += 1;
-                //hand.deadwood.cards[i] = null;
+                //this.deadwood.cards[i] = null;
             }
         } // end for loop for sorting hand into arrays of suit and wilds
         sortHand(hearts , heartCount);
@@ -159,17 +163,23 @@ class Hand
         {
             // test to see if the number 2 cards ahead is sequential
             // works because the cards are sorted
-            if (suitArray[i].getCardNumber() == (suitArray[i + 2].getCardNumber()) - 2)
+            boolean isOccupied = suitArray[i].isBeingUsed() || suitArray[i+1].isBeingUsed() || suitArray[i + 2].isBeingUsed();
+            if (suitArray[i].getCardNumber() == (suitArray[i + 2].getCardNumber()) - 2 && !isOccupied)
             {
+//                if (!suitArray[i].isBeingUsed())
                 suitArray[i].makeItRun();
                 suitArray[i + 1].makeItRun();
                 suitArray[i + 2].makeItRun();
+                suitArray[i].use();
+                suitArray[i + 1].use();
+                suitArray[i + 2].use();
                 i += 2;
                 // check if the next card fits into the run or not
                 while (i < count - 1 && suitArray[i].getCardNumber() == (suitArray[i + 1].getCardNumber() - 1))
                 {
                     i += 1;
                     suitArray[i].makeItRun();
+                    suitArray[i].use();
                 }
             }
             i += 1;
@@ -195,12 +205,22 @@ class Hand
                 // if it does then make all three ofAkind and then check for a fourth
                 if (j < cards.length-1 && target.getCardNumber() == cards[j + 1].getCardNumber())
                 {
-                    cards[i].makeItOfAKind();
-                    cards[i+1].makeItOfAKind();
-                    cards[i+2].makeItOfAKind();
-                    // check if there is a "natural" (no wilds) 4 of a kind
-                    if (i + 3 < cards.length && cards[i + 3].getCardNumber() == target.getCardNumber())
-                        cards[i + 3].makeItOfAKind();
+                    boolean isOccupied = cards[i].isBeingUsed() || cards[i+1].isBeingUsed() || cards[i + 2].isBeingUsed();
+                    if (!isOccupied)
+                    {
+                        cards[i].makeItOfAKind();
+                        cards[i+1].makeItOfAKind();
+                        cards[i+2].makeItOfAKind();
+                        cards[i].use();
+                        cards[i + 1].use();
+                        cards[i + 2].use();
+
+                        // check if there is a "natural" (no wilds) 4 of a kind
+                        if (i + 3 < cards.length && cards[i + 3].getCardNumber() == target.getCardNumber()) {
+                            cards[i + 3].makeItOfAKind();
+                            cards[i + 3].use();
+                        }
+                    }
                 }
             }
         }
@@ -339,9 +359,12 @@ class HandTest
         Player test1 = new Player();
         Player test2 = new Player();
 
-        Card[] deck = DeckOfCards.getDeck();
-        deck = DeckOfCards.shuffleDeck(deck);
-        DeckOfCards.dealDeck(deck , test , test1 , test2);
+
+        DeckOfCards deck = new DeckOfCards(1);
+        deck.getDeck();
+        deck = deck.shuffleDeck();
+
+        deck.dealDeck(test , test1 , test2);
 
         System.out.println(test.hand.deadwood.getCount());
         System.out.println("deadwood count: " + test.hand.deadwood.getCount());

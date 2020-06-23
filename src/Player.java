@@ -18,7 +18,7 @@ public class Player
     public boolean isTurn() { return turn; }
 
     //setters
-    public static void setRound(int round) { Player.round = round; }
+    public void setRound(int round) { Player.round = round; }
     public void setScore(int score) { this.score = score; }
     public void setDealer(boolean dealer) { this.dealer = dealer; }
     public void setTurn(boolean turn) { this.turn = turn; }
@@ -35,7 +35,7 @@ public class Player
     public void getHand()
     {
         Hand.sortHand(this.hand.deadwood.cards , this.hand.deadwood.getCount());
-        this.hand.findRunsAndMelds(this.hand);
+        this.hand.findRunsAndMelds();
         System.out.println("\npoints in hand: " + this.tallyScore());
         System.out.println("Users Hand: \n");
 
@@ -113,11 +113,12 @@ class PlayerTest
     int round = LousReady.round;
 
     System.out.println(LousReady.round);
-    Card[] deck = DeckOfCards.getDeck();
-    DeckOfCards.initializeDeck(deck);
-    Card[] shuffledDeck = DeckOfCards.shuffleDeck(deck);
+    DeckOfCards deck = new DeckOfCards(1);
+    deck.getDeck();
+    deck = deck.shuffleDeck();
 
-    DeckOfCards.dealDeck(shuffledDeck, one , two , three);
+
+    deck.dealDeck(one , two , three);
 
     one.getHand();
     two.getHand();
