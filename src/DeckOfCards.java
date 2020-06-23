@@ -30,11 +30,11 @@ public class DeckOfCards extends Card {
 
         for (int i = 0; i < this.deck.length; i++)
         {
-            t = randomInt(0 , 51);
+            t = this.getRandomCard(0 , 51);
             temp = this.deck[t];
             while (temp.getSuit() == null)
             {
-                t = randomInt(0 , 51);
+                t = this.getRandomCard(0 , 51);
                 temp = this.deck[t];
             }
             deckShuffled.deck[i] = temp;
@@ -98,10 +98,15 @@ public class DeckOfCards extends Card {
          }
      }
 
-     private static int randomInt(int min, int max)
+     private int getRandomCard(int min, int max)
      {
          return (int)((Math.random()*((max-min)+1))+min);
      }
+
+//     private static int getRandomCard(int min, int max)
+//     {
+//         return (int)((Math.random()*((max-min)+1))+min);
+//     }
 
  } // end class DeckOfCards
 
