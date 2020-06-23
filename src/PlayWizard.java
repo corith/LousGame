@@ -24,32 +24,49 @@ class PlayWizard extends AssDriver
         }
 
         discardCard.setNumber(discardNumber);
-        System.out.print("Now, enter the suit: ");
-        while (discardCard.getSuit() == null)
+
+        System.out.print("Please enter a number representing a suit\n");
+        System.out.print("8 = <3 | 6 = <* | 4 = # | 2 = ^\n");
+        System.out.print("Enter number for suit: ");
+
+        int theSuitput = 5;
+        while (theSuitput % 2 != 0 && theSuitput != 0)
         {
             lou = new Scanner(System.in);
-            discardSuit = lou.nextLine();
-//            discardCard.setSuit(lou.nextLine());
-
-            // this switch statement provides suit validation
-            switch (discardSuit) {
-                case "<3":
-                    discardCard.setSuit(discardSuit);
-                    break;
-                case "<*":
-                    discardCard.setSuit(discardSuit);
-                    break;
-                case "^":
-                    discardCard.setSuit(discardSuit);
-                    break;
-                case "#":
-                    discardCard.setSuit(discardSuit);
-                    break;
-                default:
-                    System.out.print("Please enter one of the suits: ");
-                    break;
+            if (lou.hasNextInt()) {
+                theSuitput = lou.nextInt();
+            }
+            boolean isSuitNumber =  theSuitput == 2 || theSuitput == 4 || theSuitput == 6 || theSuitput == 8;
+            if (!isSuitNumber)
+            {
+                theSuitput = 5;
+                System.out.print("Please enter a number representing a suit\n");
+                System.out.print("8 = <3 | 6 = <* | 4 = # | 2 = ^\n");
+                System.out.print("Please enter one of the suit numbers: ");
+//                System.out.print("Enter number for suit: ");
             }
         }
+
+
+        // this switch statement provides suit validation
+        switch (theSuitput) {
+            case 8:
+                discardCard.setSuit("<3");
+                break;
+            case 6:
+                discardCard.setSuit("<*");
+                break;
+            case 2:
+                discardCard.setSuit("^");
+                break;
+            case 4:
+                discardCard.setSuit("#");
+                break;
+            default:
+//                System.out.print("Please enter one of the suits: ");
+                break;
+        }
+
         return discardCard;
     }
 

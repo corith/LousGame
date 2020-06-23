@@ -84,7 +84,7 @@ public class Player
         while (!this.hand.cardIsInHand(discardCard))
         {
             System.out.println("**Please enter a card that is in your hand**");
-            System.out.print("enter the number: ");
+            System.out.print("Enter the number: ");
             discardCard = PlayWizard.getDiscardCard();
         }
         this.putDownDiscard(discardCard);                         // puts the card the player wishes to discard in playplate
