@@ -205,16 +205,21 @@ class Hand
                 // if it does then make all three ofAkind and then check for a fourth
                 if (j < cards.length-1 && target.getCardNumber() == cards[j + 1].getCardNumber())
                 {
-                    cards[i].makeItOfAKind();
-                    cards[i+1].makeItOfAKind();
-                    cards[i+2].makeItOfAKind();
-                    cards[i].use();
-                    cards[i + 1].use();
-                    cards[i + 2].use();
-                    // check if there is a "natural" (no wilds) 4 of a kind
-                    if (i + 3 < cards.length && cards[i + 3].getCardNumber() == target.getCardNumber()) {
-                        cards[i + 3].makeItOfAKind();
-                        cards[i + 3].use();
+                    boolean isOccupied = cards[i].isBeingUsed() || cards[i+1].isBeingUsed() || cards[i + 2].isBeingUsed();
+                    if (!isOccupied)
+                    {
+                        cards[i].makeItOfAKind();
+                        cards[i+1].makeItOfAKind();
+                        cards[i+2].makeItOfAKind();
+                        cards[i].use();
+                        cards[i + 1].use();
+                        cards[i + 2].use();
+
+                        // check if there is a "natural" (no wilds) 4 of a kind
+                        if (i + 3 < cards.length && cards[i + 3].getCardNumber() == target.getCardNumber()) {
+                            cards[i + 3].makeItOfAKind();
+                            cards[i + 3].use();
+                        }
                     }
                 }
             }
