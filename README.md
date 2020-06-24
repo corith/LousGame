@@ -12,15 +12,18 @@ Round two of 3-13 command line Implementation :)
 ## Testing scripts
 
 - There are several testing scripts that can be used to run and remove .class files as well as test the Hand.java class functionality.
-- in order for the scripts to work you will need to make a "class" directory (mkdir class) inside of LousG-fr-2.0/
+
+- The scripts should "just work" on \*nix systems
+    - If they do not though, try making an 'out' directory in the root of the repo
 
 - These are all python scripts and for now are simply contained within the src directory
     - these will probably be moved to their own directory as more are created
 
 ## Contributing
 
-There is a todo.txt file with a loose description of things to implement. But implement anything you want!
-If you wish to contribute please make a descriptive branch and make a PR! :)
+- If you would like to contribute or fork, I would be honored ;). There are some potential thigns to implement below. But,of course implement anything you want!
+
+- If you wish to contribute please just make a descriptive branch...and then make your  PR! :)
 
 
 ### Potential Things to Implement!

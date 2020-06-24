@@ -16,6 +16,6 @@ while output.find("yes") == -1:
 
 print(output)
 print("attempts =" , count)
-os.system('mv *.class ../class/')
+os.system('mv *.class ../out/')
 
 

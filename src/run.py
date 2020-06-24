@@ -5,4 +5,7 @@ import shutil
 
 os.system('javac LousReady.java')
 os.system('java LousReady')
-os.system('mv *.class ../class/')
+if not os.path.exists('../out'):
+    os.system('mkdir ../out/')
+os.system('mv *.class ../out/')
+

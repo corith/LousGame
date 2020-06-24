@@ -2,4 +2,4 @@
 
 import os
 
-os.system('mv *.class ../class/')
+os.system('mv *.class ../out/')

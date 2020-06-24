@@ -16,6 +16,6 @@ while output.find("true") == -1 or output.find("yes") == -1:
 
 print(output)
 print("program ran: = " , count)
-os.system('mv *.class ../class/')
+os.system('mv *.class ../out/')
 
 
