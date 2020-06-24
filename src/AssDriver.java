@@ -47,24 +47,27 @@ public class AssDriver extends LousReady {
         if (topCard == 51)
         {
           System.out.println("******************************OUT OF FUCKING CARDS ALERT ALERT***********************");
-          sDeck.getDeck();
-          sDeck = sDeck.shuffleDeck();;
-          topCard = 0;
+          return;
+//          sDeck.getDeck();
+//          sDeck = sDeck.shuffleDeck();;
+//          topCard = 0;
         }
         if (sDeck.deck[topCard].getSuit() != null && playPlate[0] == null)
           playPlate[0] = sDeck.deck[topCard];
       }
-
+      System.out.print(Ansi.ANSI_CLS);  // clear the screen
       sDeck.deck[topCard] = new Card();
       user.getHand();
       System.out.println("The " + Ansi.CYAN + "discard " + Ansi.RESET + "pile contains: " + playPlate[0]);
       theOption = gameOptions();
-      user.userTakeTurn(theOption , sDeck.deck , playPlate , topCard);
+      System.out.print(Ansi.ANSI_CLS); // clear the screen
+      user.userTakeTurn(theOption , sDeck, playPlate , topCard);
+      System.out.print(Ansi.ANSI_CLS); // clear the screen
 
       // next turn()
       // next turn()
       // if (user.hand.isAWinner())
-      if(user.tallyScore() == 0)
+      if(user.isAWinner())
       {
         running = false;
         user.getHand();

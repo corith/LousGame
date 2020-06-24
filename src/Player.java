@@ -31,6 +31,10 @@ public class Player
         this.score = 0;
     }
 
+    public boolean isAWinner() {
+        return this.tallyScore() == 0;
+    }
+
     // sorts the players hand and adds up the points
     public void getHand()
     {
@@ -68,12 +72,12 @@ public class Player
 
     // takes a turn - picking up a card from one of two piles
     // putting down a discard
-    public void userTakeTurn(int theOption , Card[] sDeck , Card[] playPlate , int topCard)
+    public void userTakeTurn(int theOption , DeckOfCards sDeck , Card[] playPlate , int topCard)
     {
         Card discardCard;
 
         if (theOption == 0)
-            this.pickUpCard(sDeck, topCard);                         // moves ahead one card in the deck (away from the card that was just picked up from sDeck[i + 1])
+            this.pickUpCard(sDeck.deck, topCard);                         // moves ahead one card in the deck (away from the card that was just picked up from sDeck[i + 1])
         else if (theOption == 1)
             this.pickUpCard(playPlate);
 

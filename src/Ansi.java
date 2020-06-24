@@ -50,6 +50,8 @@ public class Ansi
 {
 	public static final String	RESET				= "\u001B[0m";
 
+	public static final String 	ANSI_CLS 			= "\u001b[2J";
+
 	public static final String	HIGH_INTENSITY		= "\u001B[1m";
 	public static final String	LOW_INTENSITY		= "\u001B[2m";
 

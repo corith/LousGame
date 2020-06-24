@@ -30,14 +30,14 @@ class PlayWizard extends AssDriver
         System.out.print("Enter number for suit: ");
 
         int theSuitput = 5;
-        while (theSuitput % 2 != 0 && theSuitput != 0)
+        while (theSuitput % 2 != 0)
         {
             lou = new Scanner(System.in);
             if (lou.hasNextInt()) {
                 theSuitput = lou.nextInt();
             }
-            boolean isSuitNumber =  theSuitput == 2 || theSuitput == 4 || theSuitput == 6 || theSuitput == 8;
-            if (!isSuitNumber)
+            boolean aSuitNumber =  theSuitput == 2 || theSuitput == 4 || theSuitput == 6 || theSuitput == 8;
+            if (!aSuitNumber)
             {
                 theSuitput = 5;
                 System.out.print("\n***Please enter a number representing a suit***\n");

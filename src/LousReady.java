@@ -16,15 +16,15 @@ class LousReady
         deck.getDeck();
         deck = deck.shuffleDeck();
 
-        if (!Greeting.userGreeting())
-        {
-            System.out.println("Okay.....goodbye.");
-            return;
-        }
-        else
-        {
-            System.out.println("Okay sweet! Let's begin! Here is your hand!");
-        }
+//        if (!Greeting.userGreeting())
+//        {
+//            System.out.println("Okay.....goodbye.");
+//            return;
+//        }
+//        else
+//        {
+//            System.out.println("Okay sweet! Let's begin! Here is your hand!");
+//        }
 
         deck.dealDeck(playerOne , playerTwo , user);          // players hands are full. playplate gets filled in playLoop()
         AssDriver.playLoop(deck, playerOne , playerTwo , user);             // commences game

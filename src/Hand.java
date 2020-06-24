@@ -44,13 +44,7 @@ class Hand
         clearCardStatus(deadwood.cards);
         this.distributeHand();
         // make sure distribute is working (debugging code)
-        System.out.println();
-        System.out.println(wildCards.length + " " + wildCount);
-        System.out.println(heartCount + " <3");
-        System.out.println(diamondCount + " <*");
-        System.out.println(spadeCount + " ^");
-        System.out.println(clubCount + " #");
-        System.out.println();
+
         // end distribute test
 
         findTheOfAkinds(deadwood.cards , Player.getRound());
@@ -231,6 +225,7 @@ class Hand
             {
                 sameNumber[sameNumCount] = cards[i];
                 sameNumCount+=1;
+
             }
         }
     }
@@ -369,6 +364,7 @@ class HandTest
         System.out.println(test.hand.deadwood.getCount());
         System.out.println("deadwood count: " + test.hand.deadwood.getCount());
         System.out.println("deadwood sorted:");
+
 //        make 3 or 4 of a kind for testing purposes
 //        test.hand.deadwood.cards[0] = new Card("<3" , 10);
 //        test.hand.deadwood.cards[1] = new Card("<*" , 10);
