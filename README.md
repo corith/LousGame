@@ -6,7 +6,8 @@ Round two of 3-13 command line Implementation :)
 
 1. git clone https://github.com/corith/LousG-fr-2.0.git
 2. cd into LousG-fr-2.0/src
-3. run `javac LousReady.java && java LousReady`
+3. ./run.py
+4. OR run `javac LousReady.java && java LousReady`
 
 
 ## Testing scripts

@@ -46,8 +46,7 @@ class PlayWizard extends AssDriver
 //                System.out.print("Enter number for suit: ");
             }
         }
-
-
+//        System.out.println(Ansi.ANSI_CLS);
         // this switch statement provides suit validation
         switch (theSuitput) {
             case 8:

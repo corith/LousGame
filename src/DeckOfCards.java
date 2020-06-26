@@ -43,6 +43,7 @@ public class DeckOfCards extends Card {
         return deckShuffled;
     }
 
+//    public void dealDeck(ComputerPlayer playerOne, ComputerPlayer playerTwo, Player user)
     public void dealDeck(Player playerOne, Player playerTwo, Player user)
     {
         int nextCard = 0; // variable for pulling the next card from the shuffled deck
@@ -67,11 +68,8 @@ public class DeckOfCards extends Card {
             this.deck[nextCard] = new Card();
             nextCard++;
         }
-        //playerOne.hand[Player.getRound(] = new Card();
         playerOne.hand.deadwood.cards[Player.getRound()] = new Card();
-        //playerTwo.hand[Player.getRound(] = new Card();
         playerTwo.hand.deadwood.cards[Player.getRound()] = new Card();
-        //user.hand[Player.getRound(] = new Card();
         user.hand.deadwood.cards[Player.getRound()] = new Card();
 
     }
