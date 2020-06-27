@@ -9,7 +9,8 @@ class LousReady
     public static ComputerPlayer playerOne = new ComputerPlayer(1);
 //    public static Player playerTwo = new Player();
     public static ComputerPlayer playerTwo = new ComputerPlayer(2);
-    public static Player user = new Player();
+//    public static Player user = new Player();
+    public static  ComputerPlayer user = new ComputerPlayer(3);
     public static int round = 3;
 
     public static void main(String[] args)

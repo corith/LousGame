@@ -43,20 +43,26 @@ class ComputerPlayer extends Player {
 
       // if score after pick up is less then go ahead and pick up the card at the top of playplate
       if (scoreAfterPickUp < scoreBefore && playPlate.isBeingUsed())
+      {
+          System.out.println("Picked up from playPlate");
           return 1;
+      }
       else
+      {
+          System.out.println("Picked up from top of deck");
           return 0;
+      }
   }
 
   public void computerTakeTurn(DeckOfCards sDeck , Card[] playPlate , int topCard)
   {
       System.out.println(Ansi.RED + "COMPUTER (" + this.playerNumber + ") IS TAKING ITS TURN" + Ansi.RESET);
-      this.getHand();
       Card discardCard = new Card();
 
-      if (this.getComputerDecision(playPlate[0]) == 0)
+      boolean decision = this.getComputerDecision(playPlate[0]) == 0;
+      if (!decision)
           this.pickUpCard(sDeck.deck, topCard);
-      else if (this.getComputerDecision(playPlate[0]) == 1)
+      else
           this.pickUpCard(playPlate);
 
       for (int i = 0; i < this.hand.deadwood.getCount(); i++)
@@ -68,6 +74,7 @@ class ComputerPlayer extends Player {
       }
       playPlate[0] = discardCard;                               // end process of physical discard and swap to playplate
       this.putDownDiscard(discardCard);
+      this.getHand();
   }
 
   public static void main(String[] args) {
