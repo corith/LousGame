@@ -2,6 +2,13 @@
 Round two of 3-13 command line Implementation :)
 
 
+This game is known as Diablo, 3-13, Chicken, Lous Stupid Game, etc...
+
+Here is a good source for getting up to speed with the game
+    - https://www.pagat.com/rummy/3-13.html
+
+##### THIS GAME DOES NOT FOLLOW THE SOURCE(s) EXACTLY
+
 ## How to run
 
 1. git clone https://github.com/corith/LousG-fr-2.0.git
