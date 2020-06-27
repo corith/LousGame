@@ -2,9 +2,12 @@
 
 class ComputerPlayer extends Player {
 
-  public ComputerPlayer()
+    int playerNumber;
+
+  public ComputerPlayer(int playerNumber)
   {
-      super();
+      super(("Computer " + playerNumber));
+      this.playerNumber = playerNumber;
   }
 
 //  public void computerPickUpCard(Card[] sDeck, int top)
@@ -25,7 +28,7 @@ class ComputerPlayer extends Player {
 
   private int getComputerDecision(Card playPlate)
   {
-      this.hand.findRunsAndMelds();
+      this.hand.findRunsAndMelds(false);
       int scoreBefore = this.tallyScore();
       int scoreAfterPickUp = 0;
 
@@ -35,23 +38,31 @@ class ComputerPlayer extends Player {
               this.hand.deadwood.cards[index] = playPlate;
 
       // re count the hand and see if it improved
-      this.hand.findRunsAndMelds();
+      this.hand.findRunsAndMelds(false);
       scoreAfterPickUp = this.tallyScore();
 
       // if score after pick up is less then go ahead and pick up the card at the top of playplate
-      if (scoreAfterPickUp < scoreBefore || scoreAfterPickUp == scoreBefore)
+      if (scoreAfterPickUp < scoreBefore && playPlate.isBeingUsed())
+      {
+          System.out.println("Picked up from playPlate");
           return 1;
+      }
       else
+      {
+          System.out.println("Picked up from top of deck");
           return 0;
+      }
   }
 
   public void computerTakeTurn(DeckOfCards sDeck , Card[] playPlate , int topCard)
   {
+      System.out.println(Ansi.RED + "COMPUTER (" + this.playerNumber + ") IS TAKING ITS TURN" + Ansi.RESET);
       Card discardCard = new Card();
 
-      if (this.getComputerDecision(playPlate[0]) == 0)
+      boolean decision = this.getComputerDecision(playPlate[0]) == 0;
+      if (!decision)
           this.pickUpCard(sDeck.deck, topCard);
-      else if (this.getComputerDecision(playPlate[0]) == 1)
+      else
           this.pickUpCard(playPlate);
 
       for (int i = 0; i < this.hand.deadwood.getCount(); i++)
@@ -59,10 +70,11 @@ class ComputerPlayer extends Player {
           if (!this.hand.deadwood.cards[i].isBeingUsed())
           {
               discardCard = this.hand.deadwood.cards[i];
-              this.putDownDiscard(this.hand.deadwood.cards[i]);
           }
       }
       playPlate[0] = discardCard;                               // end process of physical discard and swap to playplate
+      this.putDownDiscard(discardCard);
+      this.getHand();
   }
 
   public static void main(String[] args) {

@@ -8,6 +8,7 @@ public class Player
     private int score;
     private boolean dealer;
     private boolean turn;
+    private String playerName;
 
     public Hand hand;  // we want this.hand.cards to be main point of dealing
 
@@ -29,6 +30,16 @@ public class Player
         this.dealer = false;
         this.turn = false;
         this.score = 0;
+        this.playerName = "User";
+    }
+
+    public Player(String name)
+    {
+        this.hand = new Hand();
+        this.dealer = false;
+        this.turn = false;
+        this.score = 0;
+        this.playerName = name;
     }
 
     public boolean isAWinner() {
@@ -39,9 +50,9 @@ public class Player
     public void getHand()
     {
         Hand.sortHand(this.hand.deadwood.cards , this.hand.deadwood.getCount());
-        this.hand.findRunsAndMelds();
-        System.out.println("\npoints in hand: " + this.tallyScore());
-        System.out.println("Users Hand: \n");
+        this.hand.findRunsAndMelds(true);
+        System.out.println(this.playerName + "'s Hand");
+        System.out.println("points in hand: " + this.tallyScore() + "\n");
 
         for (int i = 0; i < this.hand.deadwood.cards.length; i++)
             if (this.hand.deadwood.cards[i] != null)

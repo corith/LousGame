@@ -39,7 +39,7 @@ class Hand
     // this probably where the decision should be made
     // call some helper function after we've found the runs
     // and the ofAkinds.
-    public void findRunsAndMelds()
+    public void findRunsAndMelds(boolean on)
     {
         clearCardStatus(deadwood.cards);
         this.distributeHand();
@@ -63,13 +63,15 @@ class Hand
         //useWilds();
 
 // loops for testing finding the runs.
-        System.out.println("***Your Runs***");
-        printRuns(heartCount , hearts);
-        printRuns(diamondCount , diamonds);
-        printRuns(spadeCount , spades);
-        printRuns(clubCount , clubs);
-        System.out.println("***Your OfAKinds***");
-        printKinds(sameNumCount , sameNumber);
+        if (on) {
+            System.out.println("***Your Runs***");
+            printRuns(heartCount , hearts);
+            printRuns(diamondCount , diamonds);
+            printRuns(spadeCount , spades);
+            printRuns(clubCount , clubs);
+            System.out.println("***Your OfAKinds***");
+            printKinds(sameNumCount , sameNumber);
+        }
     }
 
     public void calculateWorth(Card[] cards)

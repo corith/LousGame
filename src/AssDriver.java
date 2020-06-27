@@ -28,8 +28,8 @@ public class AssDriver extends LousReady {
       System.out.println("Please enter either a 1 or a 0!");
     }
   }
-
-  public static void playLoop(DeckOfCards sDeck, Player playerOne, Player playerTwo, Player user) {
+  public static void playLoop(DeckOfCards sDeck, ComputerPlayer playerOne, ComputerPlayer playerTwo, ComputerPlayer user) {
+//  public static void playLoop(DeckOfCards sDeck, Player playerOne, Player playerTwo, Player user) {
     boolean running    = true;
     int topCard        = 0; // represents the top of the deck i think
     int theOption;
@@ -55,23 +55,38 @@ public class AssDriver extends LousReady {
         if (sDeck.deck[topCard].getSuit() != null && playPlate[0] == null)
           playPlate[0] = sDeck.deck[topCard];
       }
-      System.out.print(Ansi.ANSI_CLS);  // clear the screen
+//      System.out.print(Ansi.ANSI_CLS);  // clear the screen
       sDeck.deck[topCard] = new Card();
-      user.getHand();
+//      user.getHand();
       System.out.println("The " + Ansi.CYAN + "discard " + Ansi.RESET + "pile contains: " + playPlate[0]);
-      theOption = gameOptions();
-      System.out.print(Ansi.ANSI_CLS); // clear the screen
-      user.userTakeTurn(theOption , sDeck, playPlate , topCard);
-      System.out.print(Ansi.ANSI_CLS); // clear the screen
+//      theOption = gameOptions();
+//      System.out.print(Ansi.ANSI_CLS); // clear the screen
+//      user.userTakeTurn(theOption,sDeck,playPlate, topCard);
+      user.computerTakeTurn(sDeck, playPlate , topCard);
+//      System.out.print(Ansi.ANSI_CLS); // clear the screen
 
-      // next turn()
-      // next turn()
-      // if (user.hand.isAWinner())
+      playerOne.computerTakeTurn(sDeck, playPlate, topCard);
+        System.out.println("The " + Ansi.CYAN + "discard " + Ansi.RESET + "pile contains: " + playPlate[0]);
+      playerTwo.computerTakeTurn(sDeck, playPlate, topCard);
+//      System.out.println("The " + Ansi.CYAN + "discard " + Ansi.RESET + "pile contains: " + playPlate[0]);
+
       if(user.isAWinner())
       {
         running = false;
         user.getHand();
         System.out.println("YOU HAVE WON");
+      }
+      else if(playerOne.isAWinner())
+      {
+        running = false;
+        playerOne.getHand();
+        System.out.println("Computer One has WON yalll ...... amazing");
+      }
+      else if(playerTwo.isAWinner())
+      {
+        running = false;
+        playerTwo.getHand();
+        System.out.println("Computer Two has WON yalll ...... amazing");
       }
     }
   }
