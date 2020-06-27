@@ -5,8 +5,10 @@
 
 class LousReady
 {
-    public static Player playerOne = new Player();
-    public static Player playerTwo = new Player();
+//    public static Player playerOne = new Player();
+    public static ComputerPlayer playerOne = new ComputerPlayer(1);
+//    public static Player playerTwo = new Player();
+    public static ComputerPlayer playerTwo = new ComputerPlayer(2);
     public static Player user = new Player();
     public static int round = 3;
 

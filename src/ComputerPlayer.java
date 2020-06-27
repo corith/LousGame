@@ -2,9 +2,12 @@
 
 class ComputerPlayer extends Player {
 
-  public ComputerPlayer()
+    int playerNumber;
+
+  public ComputerPlayer(int playerNumber)
   {
       super();
+      this.playerNumber = playerNumber;
   }
 
 //  public void computerPickUpCard(Card[] sDeck, int top)
@@ -39,7 +42,7 @@ class ComputerPlayer extends Player {
       scoreAfterPickUp = this.tallyScore();
 
       // if score after pick up is less then go ahead and pick up the card at the top of playplate
-      if (scoreAfterPickUp < scoreBefore || scoreAfterPickUp == scoreBefore)
+      if (scoreAfterPickUp < scoreBefore)
           return 1;
       else
           return 0;
@@ -47,6 +50,8 @@ class ComputerPlayer extends Player {
 
   public void computerTakeTurn(DeckOfCards sDeck , Card[] playPlate , int topCard)
   {
+      System.out.println("COMPUTER (" + this.playerNumber + ") IS TAKING ITS TURN");
+      this.getHand();
       Card discardCard = new Card();
 
       if (this.getComputerDecision(playPlate[0]) == 0)
@@ -59,10 +64,10 @@ class ComputerPlayer extends Player {
           if (!this.hand.deadwood.cards[i].isBeingUsed())
           {
               discardCard = this.hand.deadwood.cards[i];
-              this.putDownDiscard(this.hand.deadwood.cards[i]);
           }
       }
       playPlate[0] = discardCard;                               // end process of physical discard and swap to playplate
+      this.putDownDiscard(discardCard);
   }
 
   public static void main(String[] args) {

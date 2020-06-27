@@ -30,7 +30,7 @@ public class Card
     public void makeItRun() { this.isARun = !this.isBeingUsed; }
     public void makeItOfAKind() { this.isOfAKind = !this.isBeingUsed; }
     public void clearStatus() { this.isARun = false; this.isOfAKind = false; }
-    public void makeItWild() { this.isWild = true; }    // currently sets the wild card attribute in the second constructor
+//    public void makeItWild() { this.isWild = true; }    // currently sets the wild card attribute in the second constructor
 // used for setting the status of a card in a set
     public void release() { this.isBeingUsed = false; }
     public void use() { this.isBeingUsed = true; }
@@ -53,7 +53,8 @@ public class Card
         worth = 0;
         isARun = false;
         isOfAKind = false;
-        isWild = this.getCardNumber() == Player.getRound();
+        isWild = false;
+//        isWild = this.getCardNumber() == Player.getRound();
     }
 
     /**
