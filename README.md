@@ -1,5 +1,5 @@
 # LousG-fr-2.0
-Round two of 3-13 command line Implementation :)
+Round two of Lous Stupid Game - AKA "Chicken" - The Command Line implementation :)
 
 
 This game is known as Diablo, 3-13, Chicken, Lous Stupid Game, etc...
