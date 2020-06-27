@@ -6,7 +6,7 @@ class ComputerPlayer extends Player {
 
   public ComputerPlayer(int playerNumber)
   {
-      super();
+      super(("Computer " + playerNumber));
       this.playerNumber = playerNumber;
   }
 
@@ -28,7 +28,7 @@ class ComputerPlayer extends Player {
 
   private int getComputerDecision(Card playPlate)
   {
-      this.hand.findRunsAndMelds();
+      this.hand.findRunsAndMelds(false);
       int scoreBefore = this.tallyScore();
       int scoreAfterPickUp = 0;
 
@@ -38,11 +38,11 @@ class ComputerPlayer extends Player {
               this.hand.deadwood.cards[index] = playPlate;
 
       // re count the hand and see if it improved
-      this.hand.findRunsAndMelds();
+      this.hand.findRunsAndMelds(false);
       scoreAfterPickUp = this.tallyScore();
 
       // if score after pick up is less then go ahead and pick up the card at the top of playplate
-      if (scoreAfterPickUp < scoreBefore)
+      if (scoreAfterPickUp < scoreBefore && playPlate.isBeingUsed())
           return 1;
       else
           return 0;
@@ -50,7 +50,7 @@ class ComputerPlayer extends Player {
 
   public void computerTakeTurn(DeckOfCards sDeck , Card[] playPlate , int topCard)
   {
-      System.out.println("COMPUTER (" + this.playerNumber + ") IS TAKING ITS TURN");
+      System.out.println(Ansi.RED + "COMPUTER (" + this.playerNumber + ") IS TAKING ITS TURN" + Ansi.RESET);
       this.getHand();
       Card discardCard = new Card();
 
