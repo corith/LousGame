@@ -59,11 +59,13 @@ public class Player
                 System.out.println(this.hand.deadwood.cards[i]);
     }
 
-    public void pickUpCard(Card[] sDeck , int top) // from top of deck (option 0)
+    public void pickUpCard(DeckOfCards sDeck , int top) // from top of deck (option 0)
     {
         for (int index = 0; index < this.hand.deadwood.getCount(); index++)    // picks up the card from the top of the deck
             if (this.hand.deadwood.cards[index].getSuit() == null)        // replaces the null slot in player hand
-                this.hand.deadwood.cards[index] = sDeck[top + 1];
+                this.hand.deadwood.cards[index] = sDeck.deck[top + 1];
+
+        System.out.println("Top card was: " + sDeck.deck[top +1]);
     }
 
     public void pickUpCard(Card[] playPlate)      // from discard pile (option 1)
@@ -88,7 +90,7 @@ public class Player
         Card discardCard;
 
         if (theOption == 0)
-            this.pickUpCard(sDeck.deck, topCard);                         // moves ahead one card in the deck (away from the card that was just picked up from sDeck[i + 1])
+            this.pickUpCard(sDeck, topCard);                         // moves ahead one card in the deck (away from the card that was just picked up from sDeck[i + 1])
         else if (theOption == 1)
             this.pickUpCard(playPlate);
 

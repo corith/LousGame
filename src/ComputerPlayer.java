@@ -49,7 +49,7 @@ class ComputerPlayer extends Player {
       }
       else
       {
-          System.out.println("Picked up from top of deck");
+          System.out.println("Picked up from top of deck" );
           return 0;
       }
   }
@@ -59,9 +59,9 @@ class ComputerPlayer extends Player {
       System.out.println(Ansi.RED + "COMPUTER (" + this.playerNumber + ") IS TAKING ITS TURN" + Ansi.RESET);
       Card discardCard = new Card();
 
-      boolean decision = this.getComputerDecision(playPlate[0]) == 0;
-      if (!decision)
-          this.pickUpCard(sDeck.deck, topCard);
+      boolean fromDeck = this.getComputerDecision(playPlate[0]) == 0;
+      if (fromDeck)
+          this.pickUpCard(sDeck, topCard);
       else
           this.pickUpCard(playPlate);
 
@@ -74,6 +74,7 @@ class ComputerPlayer extends Player {
       }
       playPlate[0] = discardCard;                               // end process of physical discard and swap to playplate
       this.putDownDiscard(discardCard);
+      System.out.println("Discarded " + discardCard);
       this.getHand();
   }
 

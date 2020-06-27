@@ -28,7 +28,7 @@ public class AssDriver extends LousReady {
       System.out.println("Please enter either a 1 or a 0!");
     }
   }
-  public static void playLoop(DeckOfCards sDeck, ComputerPlayer playerOne, ComputerPlayer playerTwo, ComputerPlayer user) {
+  public static void playLoop(DeckOfCards sDeck, ComputerPlayer playerOne, ComputerPlayer playerTwo, Player user) {
 //  public static void playLoop(DeckOfCards sDeck, Player playerOne, Player playerTwo, Player user) {
     boolean running    = true;
     int topCard        = 0; // represents the top of the deck i think
@@ -57,14 +57,14 @@ public class AssDriver extends LousReady {
       }
 //      System.out.print(Ansi.ANSI_CLS);  // clear the screen
       sDeck.deck[topCard] = new Card();
-//      user.getHand();
+      user.getHand();
       System.out.println("The " + Ansi.CYAN + "discard " + Ansi.RESET + "pile contains: " + playPlate[0]);
-//      theOption = gameOptions();
+      theOption = gameOptions();
 //      System.out.print(Ansi.ANSI_CLS); // clear the screen
-//      user.userTakeTurn(theOption,sDeck,playPlate, topCard);
-      user.computerTakeTurn(sDeck, playPlate , topCard);
+      user.userTakeTurn(theOption,sDeck,playPlate, topCard);
+//      user.computerTakeTurn(sDeck, playPlate , topCard);
 //      System.out.print(Ansi.ANSI_CLS); // clear the screen
-
+      System.out.println("The " + Ansi.CYAN + "discard " + Ansi.RESET + "pile contains: " + playPlate[0]);
       playerOne.computerTakeTurn(sDeck, playPlate, topCard);
         System.out.println("The " + Ansi.CYAN + "discard " + Ansi.RESET + "pile contains: " + playPlate[0]);
       playerTwo.computerTakeTurn(sDeck, playPlate, topCard);
