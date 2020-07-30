@@ -29,41 +29,28 @@ Here is a good source for getting up to speed with the game
 
 ## Contributing
 
-- If you would like to contribute or fork, I would be honored ;). There are some potential thigns to implement below. But,of course implement anything you want!
+- If you would like to contribute or fork, I would be honored ;). There are some potential things to implement below, feel free to add additional implementation ideas!
 
-- If you wish to contribute please just make a descriptive branch...and then make your  PR! :)
-
+- If you wish to contribute please just make a descriptive branch and then make your PR! :)
 
 ### Potential Things to Implement!
-    - recognize an "out" hand
-	- this is a hand where every card is part of some set of 3 or more cards
+- potentially work PlayWizard into checking for winning hand?
+    - or add a referee class? 
 
-    - potentially work PlayWizard into checking for winning hand?
-        - or add a referee class? 
+- Enhance the computers turn
+    - currently has an issue with discard card where player may be presented with the card they discarded 
+    - add more intelligent decision system
+        - currently it prioritizes ofAKinds over runs
+        - it also does not consider the value of cards in a pair - will drop a card in a pair sometimes instead of a single unused card
 
-    - make a computer turn (probably make the best move possible to start?)
+- improve interface 
+    - allow player to type letter instead of number for face cards and Ace (1,11,12,13)
 
-    - improve interface
-        - 1) potentially display cards better
-        - 2) accept KQJA or 11\12\13\1
-
-    - work on scoring the hand
-        - still need to implement a decision system
-            - currently it prioritizes ofAKinds over runs
-
-    - probably do a complete overhaul of AssDriver.java
-        - clean it up as well AND set it up for more functionality
-
-    - look into the dynamic of AssDriver and PlayWizard
-        - I like the idea of PlayWizard but it only has one function right now and I am not sure
-            it belongs in that class.
-        - but this class may have a good purpose for other stuff
-
+- look into the dynamic of AssDriver and PlayWizard
+    - I like the idea of PlayWizard but it only has one function right now and I am not sure it belongs in that class.
+    - but this class may have a good purpose for other stuff
 
 ### Refactor
     - looking to refactor the players hand so that instead of playerOne.hand.deadwood.cards[i] it will be
 	playerOne.hand.cards[i]
 
-    - userTakeTurn()
-        - maybe put theOption has player attribute like getPlayerChoice(return this.playersChoice;)
-        - maybe put topCard as an attribute of DeckOfCards ?? 
