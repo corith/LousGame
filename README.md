@@ -33,24 +33,41 @@ Here is a good source for getting up to speed with the game
 
 - If you wish to contribute please just make a descriptive branch and then make your PR! :)
 
-### Potential Things to Implement!
-- potentially work PlayWizard into checking for winning hand?
-    - or add a referee class? 
+### Potential Todos!
 
-- Enhance the computers turn
-    - currently has an issue with discard card where player may be presented with the card they discarded 
-    - add more intelligent decision system
-        - currently it prioritizes ofAKinds over runs
-        - it also does not consider the value of cards in a pair - will drop a card in a pair sometimes instead of a single unused card
+- fix the "overstayed welcome" discard card
+    - currently has an issue with discard card where player may be presented with the card they discarded
 
-- improve interface 
+- make it so the discard cards are saved and reshuffled when the deck runs out of cards
+    - make this true for added decks as well
+
+- implement wild cards
+    - incorporate them into the computer decision making system
+
+- improve "decision" system of the computer player
+    - currently it prioritizes ofAKinds over runs
+    - it also does not consider the value of cards in a pair - will drop a card in a pair sometimes instead of a single unused card
+
+- fine tune the "discard" and "pick-up" interface for the player
+    - possibly a "vim like" interface for the four suits
     - allow player to type letter instead of number for face cards and Ace (1,11,12,13)
 
-- look into the dynamic of AssDriver and PlayWizard
+- fine tune the way cards are displayed as well as how runs and melds are displayed
+
+- create an interface that allows for selection of play or simulation "mode" at game start
+
+- fix any crashes that occur sporadically
+    - I believe it occurs when sorting the hand
+
+- looking to refactor the players hand so that instead of playerOne.hand.deadwood.cards[i] it will be playerOne.hand.cards[i]
+
+- look into the function between AssDriver and PlayWizard
     - I like the idea of PlayWizard but it only has one function right now and I am not sure it belongs in that class.
     - but this class may have a good purpose for other stuff
+    - potentially work PlayWizard into checking for winning hand? - or add a referee class?
 
-### Refactor
-    - looking to refactor the players hand so that instead of playerOne.hand.deadwood.cards[i] it will be
-	playerOne.hand.cards[i]
+- add the ability for a player to insert their name at start of game
 
+#### Far out
+    - try to implement an SSH multiplayer version
+    - turn it into a gui game with something like swing
