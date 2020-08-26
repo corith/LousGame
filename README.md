@@ -35,26 +35,26 @@ Here is a good source for getting up to speed with the game
 
 ### Potential Todos!
 
-- fix the "overstayed welcome" discard card
+- fix the "overstayed welcome" discard card (LG-44)
     - currently has an issue with discard card where player may be presented with the card they discarded
 
-- make it so the discard cards are saved and reshuffled when the deck runs out of cards
+- make it so the discard cards are saved and reshuffled when the deck runs out of cards (LG-88)
     - make this true for added decks as well
 
-- implement wild cards
+- implement wild cards (LG-100)
     - incorporate them into the computer decision making system
 
-- improve "decision" system of the computer player
+- improve "decision" system of the computer player (LG-101)
     - currently it prioritizes ofAKinds over runs
     - it also does not consider the value of cards in a pair - will drop a card in a pair sometimes instead of a single unused card
 
-- fine tune the "discard" and "pick-up" interface for the player
+- fine tune the "discard" and "pick-up" interface for the player (LG-102)
     - possibly a "vim like" interface for the four suits
     - allow player to type letter instead of number for face cards and Ace (1,11,12,13)
 
-- fine tune the way cards are displayed as well as how runs and melds are displayed
+- fine tune the way cards are displayed as well as how runs and melds are displayed (LG-103)
 
-- create an interface that allows for selection of play or simulation "mode" at game start
+- create an interface that allows for selection of play or simulation "mode" at game start (LG-104)
 
 - fix any crashes that occur sporadically
     - I believe it occurs when sorting the hand
