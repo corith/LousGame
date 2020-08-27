@@ -1,10 +1,14 @@
 // An assistant driver to LousReady.java
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Scanner;
+import java.util.Stack;
 
 public class AssDriver extends LousReady {
   public static PlayWizard wizard = new PlayWizard();
   public static Card[] playPlate = new Card[2];
+  public static Deque<Card> discardPile = new ArrayDeque<Card>();
 
   public static int randomInt(int min, int max) {
       return (int)((Math.random()*((max-min)+1))+min);
@@ -28,7 +32,7 @@ public class AssDriver extends LousReady {
       System.out.println("Please enter either a 1 or a 0!");
     }
   }
-  public static void playLoop(DeckOfCards sDeck, ComputerPlayer playerOne, ComputerPlayer playerTwo, Player user) {
+  public static int playLoop(DeckOfCards sDeck, ComputerPlayer playerOne, ComputerPlayer playerTwo, Player user) {
 //  public static void playLoop(DeckOfCards sDeck, Player playerOne, Player playerTwo, Player user) {
     boolean running    = true;
     int topCard        = 0; // represents the top of the deck i think
@@ -41,33 +45,30 @@ public class AssDriver extends LousReady {
       // this while loop moves the index passed shuffled/dealt cards
       while (sDeck.deck[topCard].getSuit() == null)
       {
-        topCard += 1;
-        // check for end of deck
-        // Todo: something more game like (reshuffle playplate)
-        if (topCard == 51)
-        {
-          System.out.println("******************************OUT OF FUCKING CARDS ALERT ALERT***********************");
-          return;
-//          sDeck.getDeck();
-//          sDeck = sDeck.shuffleDeck();;
-//          topCard = 0;
-        }
-        if (sDeck.deck[topCard].getSuit() != null && playPlate[0] == null)
-          playPlate[0] = sDeck.deck[topCard];
+          topCard += 1;
+          // check for end of deck
+          // Todo: something more game like (reshuffle playplate)
+          if (topCard == 51)
+          {
+            System.out.println("******************************OUT OF CARDS ALERT***********************");
+            return 0;
+          }
+          if (sDeck.deck[topCard].getSuit() != null && discardPile.isEmpty()) {
+            discardPile.push(sDeck.deck[topCard]);
+  //          playPlate[0] = sDeck.deck[topCard];
+          }
       }
-//      System.out.print(Ansi.ANSI_CLS);  // clear the screen
+
       sDeck.deck[topCard] = new Card();
       user.getHand();
-      System.out.println("The " + Ansi.CYAN + "discard " + Ansi.RESET + "pile contains: " + playPlate[0]);
+      System.out.println("The " + Ansi.CYAN + "discard " + Ansi.RESET + "pile contains: " + discardPile.peek());
       theOption = gameOptions();
-//      System.out.print(Ansi.ANSI_CLS); // clear the screen
-      user.userTakeTurn(theOption,sDeck,playPlate, topCard);
+      user.userTakeTurn(theOption,sDeck,discardPile.pop(), topCard);
 //      user.computerTakeTurn(sDeck, playPlate , topCard);
-//      System.out.print(Ansi.ANSI_CLS); // clear the screen
-      System.out.println("The " + Ansi.CYAN + "discard " + Ansi.RESET + "pile contains: " + playPlate[0]);
-      playerOne.computerTakeTurn(sDeck, playPlate, topCard);
-        System.out.println("The " + Ansi.CYAN + "discard " + Ansi.RESET + "pile contains: " + playPlate[0]);
-      playerTwo.computerTakeTurn(sDeck, playPlate, topCard);
+      System.out.println("The " + Ansi.CYAN + "discard " + Ansi.RESET + "pile contains: " + discardPile.peek());
+      playerOne.computerTakeTurn(sDeck, discardPile.pop(), topCard);
+        System.out.println("The " + Ansi.CYAN + "discard " + Ansi.RESET + "pile contains: " + discardPile.peek());
+      playerTwo.computerTakeTurn(sDeck, discardPile.pop(), topCard);
 //      System.out.println("The " + Ansi.CYAN + "discard " + Ansi.RESET + "pile contains: " + playPlate[0]);
 
       if(user.isAWinner())
@@ -75,20 +76,24 @@ public class AssDriver extends LousReady {
         running = false;
         user.getHand();
         System.out.println("YOU HAVE WON");
+        return 1;
       }
       else if(playerOne.isAWinner())
       {
         running = false;
         playerOne.getHand();
         System.out.println("Computer One has WON yalll ...... amazing");
+        return 1;
       }
       else if(playerTwo.isAWinner())
       {
         running = false;
         playerTwo.getHand();
         System.out.println("Computer Two has WON yalll ...... amazing");
+        return 1;
       }
     }
+    return 0;
   }
 } // end class
 

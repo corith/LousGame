@@ -30,19 +30,29 @@ class LousReady
 //        }
 
         deck.dealDeck(playerOne , playerTwo , user);          // players hands are full. playplate gets filled in playLoop()
-        AssDriver.playLoop(deck, playerOne , playerTwo , user);             // commences game
-/*
-        while (round < 14)
+//        AssDriver.playLoop(deck, playerOne , playerTwo , user);             // commences game
+///*
+        while (Player.getRound() < 14)
         {
-            deck = DeckOfCards.getDeck();
-            deck = DeckOfCards.shuffleDeck(deck);
-            DeckOfCards.dealDeck(deck , playerOne , playerTwo , user);
+            //Makes sure that each players hand size corresponds to round number
+            playerOne.hand = new Hand();
+            playerTwo.hand = new Hand();
+            user.hand = new Hand();
 
-            if (AssDriver.playLoop(deck, playerOne , playerTwo , user) )
-            {
-                round += 1;
+            deck.getDeck();
+            deck = deck.shuffleDeck();
+            deck.dealDeck(playerOne , playerTwo , user);
+
+            int wasAwinner = AssDriver.playLoop(deck, playerOne , playerTwo , user);
+            if (wasAwinner == 1) {
+                PlayWizard.grossScore();
             }
+            Player.setRound(Player.getRound() + 1);
         }
-*/
+        System.out.println("GAME OVER");
+        System.out.println("Player one point total: " + playerOne.getScore());
+        System.out.println("Player two point total: " + playerTwo.getScore());
+        System.out.println("Player user point total: " + user.getScore());
+//*/
     }
 }

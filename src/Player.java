@@ -1,10 +1,12 @@
- /***********************************
+import java.util.Stack;
+
+/***********************************
   **          Cory Sebastian       **
   **           Player Class        **
   ***********************************/
 public class Player
 {
-    private static int round = 9;
+    private static int round = 13;
     private int score;
     private boolean dealer;
     private boolean turn;
@@ -19,7 +21,7 @@ public class Player
     public boolean isTurn() { return turn; }
 
     //setters
-    public void setRound(int round) { Player.round = round; }
+    public static void setRound(int round) { Player.round = round; }
     public void setScore(int score) { this.score = score; }
     public void setDealer(boolean dealer) { this.dealer = dealer; }
     public void setTurn(boolean turn) { this.turn = turn; }
@@ -65,15 +67,16 @@ public class Player
             if (this.hand.deadwood.cards[index].getSuit() == null)        // replaces the null slot in player hand
                 this.hand.deadwood.cards[index] = sDeck.deck[top + 1];
 
-        System.out.println("Top card was: " + sDeck.deck[top +1]);
+        System.out.println("Top card was: " + sDeck.deck[top + 1]);
+        top += 1;
     }
 
-    public void pickUpCard(Card[] playPlate)      // from discard pile (option 1)
+    public void pickUpCard(Card playPlate)      // from discard pile (option 1)
     {
         // swaps the empty spot in players hands
         for (int index = 0; index < this.hand.deadwood.cards.length; index++)
             if (this.hand.deadwood.cards[index].getSuit() == null)       //  with the card in playplate[]
-                this.hand.deadwood.cards[index] = playPlate[0];
+                this.hand.deadwood.cards[index] = playPlate;
     }
 
     public void putDownDiscard(Card discardCard)
@@ -85,7 +88,7 @@ public class Player
 
     // takes a turn - picking up a card from one of two piles
     // putting down a discard
-    public void userTakeTurn(int theOption , DeckOfCards sDeck , Card[] playPlate , int topCard)
+    public void userTakeTurn(int theOption , DeckOfCards sDeck , Card playPlate , int topCard)
     {
         Card discardCard;
 
@@ -105,7 +108,7 @@ public class Player
             discardCard = PlayWizard.getDiscardCard();
         }
         this.putDownDiscard(discardCard);                         // puts the card the player wishes to discard in playplate
-        playPlate[0] = discardCard;                               // end process of physical discard and swap to playplate
+        AssDriver.discardPile.push(discardCard);                               // end process of physical discard and swap to playplate
     }
 
     public int tallyScore()

@@ -1,11 +1,11 @@
 class Hand
 {
-    private Card[] hearts            = new Card[Player.getRound()];
-    private Card[] diamonds          = new Card[Player.getRound()];
-    private Card[] spades            = new Card[Player.getRound()];
-    private Card[] clubs             = new Card[Player.getRound()];
-    private Card[] wildCards         = new Card[Player.getRound()];
-    private Card[] sameNumber        = new Card[Player.getRound()];
+    private Card[] hearts            = new Card[Player.getRound() + 1];
+    private Card[] diamonds          = new Card[Player.getRound() + 1];
+    private Card[] spades            = new Card[Player.getRound() + 1];
+    private Card[] clubs             = new Card[Player.getRound() + 1];
+    private Card[] wildCards         = new Card[Player.getRound() + 1];
+    private Card[] sameNumber        = new Card[Player.getRound() + 1];
     private int heartCount           = 0;
     private int diamondCount         = 0;
     private int spadeCount           = 0;

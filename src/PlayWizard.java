@@ -2,6 +2,13 @@ import java.util.Scanner;
 
 class PlayWizard extends AssDriver
 {
+    // calculate all the players total score
+    public static void grossScore()
+    {
+        playerOne.setScore(playerOne.getScore() + playerOne.tallyScore());
+        playerTwo.setScore(playerTwo.getScore() + playerTwo.tallyScore());
+        user.setScore(user.getScore() + user.tallyScore());
+    }
 
     public static Card getDiscardCard()
     {
@@ -25,7 +32,7 @@ class PlayWizard extends AssDriver
 
         discardCard.setNumber(discardNumber);
         System.out.println("\nCard Number = " + Ansi.CYAN + discardCard.getCardNumber() + Ansi.RESET);
-        System.out.print("\nP***lease enter a number representing a suit***\n");
+        System.out.print("\n***Please enter a number representing a suit***\n");
         System.out.print(Ansi.CYAN + "| 8 = <3 | 6 = <* | 4 = # | 2 = ^ |" + Ansi.RESET + "\n");
         System.out.print("Enter number for suit: ");
 
