@@ -1,5 +1,7 @@
 // Todo: the whole class pretty much
 
+import java.util.Stack;
+
 class ComputerPlayer extends Player {
 
     int playerNumber;
@@ -54,12 +56,12 @@ class ComputerPlayer extends Player {
       }
   }
 
-  public void computerTakeTurn(DeckOfCards sDeck , Card playPlate , int topCard)
+  public void computerTakeTurn(DeckOfCards sDeck , Stack<Card> playPlate , int topCard)
   {
       System.out.println(Ansi.RED + "COMPUTER (" + this.playerNumber + ") IS TAKING ITS TURN" + Ansi.RESET);
       Card discardCard = new Card();
 
-      boolean fromDeck = this.getComputerDecision(playPlate) == 0;
+      boolean fromDeck = this.getComputerDecision(playPlate.peek()) == 0;
       if (fromDeck)
           this.pickUpCard(sDeck, topCard);
       else
@@ -72,7 +74,7 @@ class ComputerPlayer extends Player {
               discardCard = this.hand.deadwood.cards[i];
           }
       }
-      AssDriver.discardPile.push(discardCard);                               // end process of physical discard and swap to playplate
+//      AssDriver.discardPile.push(discardCard);                               // end process of physical discard and swap to playplate
       this.putDownDiscard(discardCard);
       System.out.println("Discarded " + discardCard);
       this.getHand();

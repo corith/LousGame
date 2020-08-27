@@ -1,46 +1,60 @@
- /****************************************************
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+/****************************************************
   **                Cory Sebastian                  **
   **               DeckOfCards class                **
   ****************************************************/
 
 public class DeckOfCards extends Card {
 
-     public Card[] deck;
-     private final int numOfDecks;
+//     public Card[] deck;
+     public Deque<Card> deck;
+//     private final int numOfDecks;
 
-     public DeckOfCards(int numberOfDecks)
+     public DeckOfCards()
      {
-         this.deck = new Card[52 * numberOfDecks];
-         this.numOfDecks = numberOfDecks;
+         this.deck = new ArrayDeque<Card>();
      }
 
     public void getDeck()
     {
-        this.deck = new Card[52 * this.numOfDecks];
         this.initializeDeck();
+//        this.shuffleDeck();
     }
 
      // returns a new deck that has been scrambled
      // will make every card in d null in the process
-    public DeckOfCards shuffleDeck()
+    public void shuffleDeck()
     {
-        DeckOfCards deckShuffled = new DeckOfCards(this.numOfDecks);
-        Card temp = new Card();
+        Card[] cards = new Card[this.deck.size()];
+        Card[] shuffledCards = new Card[this.deck.size()];
+        Card temp;
         int t;
 
-        for (int i = 0; i < this.deck.length; i++)
+        System.out.println("SHUFFLING DECK - taking from a stack of size: " + deck.size() );
+
+        for (int i = 0; i < cards.length; i++) {
+            cards[i] = this.deck.pop();
+        }
+
+        for (int i = 0; i < cards.length; i++)
         {
             t = this.getRandomCard(0 , 51);
-            temp = this.deck[t];
+            temp = cards[t];
             while (temp.getSuit() == null)
             {
                 t = this.getRandomCard(0 , 51);
-                temp = this.deck[t];
+                temp = cards[t];
             }
-            deckShuffled.deck[i] = temp;
-            this.deck[t] = new Card();
+            shuffledCards[i] = temp;
+            cards[t] = new Card();
+//            deck.push(temp);
         }
-        return deckShuffled;
+
+        for (Card card : shuffledCards) {
+            deck.push(card);
+        }
     }
 
 //    public void dealDeck(ComputerPlayer playerOne, ComputerPlayer playerTwo, Player user)
@@ -51,22 +65,19 @@ public class DeckOfCards extends Card {
         for (int i = 0; i < playerOne.hand.deadwood.cards.length; i++)
         {
             //playerOne.hand[i] = this.deck[nextCard];
-            playerOne.hand.deadwood.cards[i] = this.deck[nextCard];
+            playerOne.hand.deadwood.cards[i] = this.deck.pop(); //this.deck[nextCard];
             playerOne.hand.deadwood.setCount(playerOne.hand.deadwood.getCount() + 1);
-            this.deck[nextCard] = new Card();
-            nextCard++;
+//            nextCard++;
 
             //playerTwo.hand[i] = this.deck.deck[nextCard];
-            playerTwo.hand.deadwood.cards[i] = this.deck[nextCard];
+            playerTwo.hand.deadwood.cards[i] = this.deck.pop(); //this.deck[nextCard];
             playerTwo.hand.deadwood.setCount(playerTwo.hand.deadwood.getCount() + 1);
-            this.deck[nextCard] = new Card();
-            nextCard++;
+//            nextCard++;
 
             //user.hand[i] = this.deck.deck[nextCard];
-            user.hand.deadwood.cards[i] = this.deck[nextCard];
+            user.hand.deadwood.cards[i] = this.deck.pop(); //this.deck[nextCard];
             user.hand.deadwood.setCount(user.hand.deadwood.getCount() + 1);
-            this.deck[nextCard] = new Card();
-            nextCard++;
+//            nextCard++;
         }
         playerOne.hand.deadwood.cards[Player.getRound()] = new Card();
         playerTwo.hand.deadwood.cards[Player.getRound()] = new Card();
@@ -85,7 +96,7 @@ public class DeckOfCards extends Card {
              if (suitIndex == 4)
                  suitIndex-=1;
 
-             this.deck[i] = new Card(suits[suitIndex] , num);
+             this.deck.push(new Card(suits[suitIndex] , num));
              num++;
 
              if (num == 14)
@@ -119,21 +130,22 @@ class DeckTest
         Player playerOne = new Player();
         Player playerTwo = new Player();
         Player user = new Player();
-        DeckOfCards deck = new DeckOfCards(1);
+        DeckOfCards deck = new DeckOfCards();
         deck.getDeck();
 
         //DeckOfCards.dealDeck(shuffledDeck , playerOne , playerTwo , user);
-        System.out.println("This is deadwood.cards");
-        for (int i = 0; i < deck.deck.length; i++)
+        System.out.println("This is the deck of cards");
+//        for (int i = 0; i < deck.deck.size(); i++)
+        while (!deck.deck.isEmpty())
         {
-            System.out.println(deck.deck[i]);
+            System.out.println(deck.deck.pop());
         }
         System.out.println("*********************");
-        deck = deck.shuffleDeck();
-//        Hand.sortHand(user.hand.deadwood.cards);
-        for (int i = 0; i < deck.deck.length; i++)
+        deck.getDeck();
+        deck.shuffleDeck();
+        while (!deck.deck.isEmpty())
         {
-            System.out.println(deck.deck[i]);
+            System.out.println(deck.deck.pop());
         }
     }
 }     // end main method (used for testing purposes)

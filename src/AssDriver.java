@@ -7,8 +7,7 @@ import java.util.Stack;
 
 public class AssDriver extends LousReady {
   public static PlayWizard wizard = new PlayWizard();
-  public static Card[] playPlate = new Card[2];
-  public static Deque<Card> discardPile = new ArrayDeque<Card>();
+  public static Stack<Card> discardPile = new Stack<Card>();
 
   public static int randomInt(int min, int max) {
       return (int)((Math.random()*((max-min)+1))+min);
@@ -43,53 +42,57 @@ public class AssDriver extends LousReady {
     while (running)
     {
       // this while loop moves the index passed shuffled/dealt cards
-      while (sDeck.deck[topCard].getSuit() == null)
+      // check for end of deck
+      // Todo: something more game like (reshuffle playplate)
+      if (sDeck.deck.size() == 1)
       {
-          topCard += 1;
-          // check for end of deck
-          // Todo: something more game like (reshuffle playplate)
-          if (topCard == 51)
+          System.out.println("******************************OUT OF CARDS ALERT***********************");
+          System.out.println("Reloading deck deque with "+discardPile.size()+" cards");
+          while (!discardPile.empty())
           {
-            System.out.println("******************************OUT OF CARDS ALERT***********************");
-            return 0;
-          }
-          if (sDeck.deck[topCard].getSuit() != null && discardPile.isEmpty()) {
-            discardPile.push(sDeck.deck[topCard]);
-  //          playPlate[0] = sDeck.deck[topCard];
+              sDeck.deck.push(discardPile.pop());
           }
       }
 
-      sDeck.deck[topCard] = new Card();
+      if (discardPile.isEmpty()) {
+        discardPile.push(sDeck.deck.pop());
+//          playPlate[0] = sDeck.deck[topCard];
+      }
+      System.out.println("The number or cards left in the deck is: " + sDeck.deck.size());
+      System.out.println("The number or cards in the discardPile is: " + discardPile.size());
+
       user.getHand();
       System.out.println("The " + Ansi.CYAN + "discard " + Ansi.RESET + "pile contains: " + discardPile.peek());
+
       theOption = gameOptions();
-      user.userTakeTurn(theOption,sDeck,discardPile.pop(), topCard);
-//      user.computerTakeTurn(sDeck, playPlate , topCard);
+      user.userTakeTurn(theOption,sDeck,discardPile, topCard);
       System.out.println("The " + Ansi.CYAN + "discard " + Ansi.RESET + "pile contains: " + discardPile.peek());
-      playerOne.computerTakeTurn(sDeck, discardPile.pop(), topCard);
-        System.out.println("The " + Ansi.CYAN + "discard " + Ansi.RESET + "pile contains: " + discardPile.peek());
-      playerTwo.computerTakeTurn(sDeck, discardPile.pop(), topCard);
+
+      playerOne.computerTakeTurn(sDeck, discardPile, topCard);
+      System.out.println("The " + Ansi.CYAN + "discard " + Ansi.RESET + "pile contains: " + discardPile.peek());
+
+      playerTwo.computerTakeTurn(sDeck, discardPile, topCard);
 //      System.out.println("The " + Ansi.CYAN + "discard " + Ansi.RESET + "pile contains: " + playPlate[0]);
 
       if(user.isAWinner())
       {
         running = false;
         user.getHand();
-        System.out.println("YOU HAVE WON");
+        System.out.println(Ansi.BACKGROUND_MAGENTA + Ansi.CYAN + "YOU HAVE WON" + Ansi.RESET);
         return 1;
       }
       else if(playerOne.isAWinner())
       {
         running = false;
         playerOne.getHand();
-        System.out.println("Computer One has WON yalll ...... amazing");
+        System.out.println(Ansi.BACKGROUND_MAGENTA + Ansi.CYAN + "Computer One has WON yalll ...... amazing" + Ansi.RESET);
         return 1;
       }
       else if(playerTwo.isAWinner())
       {
         running = false;
         playerTwo.getHand();
-        System.out.println("Computer Two has WON yalll ...... amazing");
+        System.out.println(Ansi.BACKGROUND_MAGENTA + Ansi.CYAN + "Computer Two has WON yalll ...... amazing" + Ansi.RESET);
         return 1;
       }
     }

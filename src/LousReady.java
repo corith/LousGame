@@ -1,3 +1,5 @@
+import java.util.Deque;
+
 /****************************************************
  ** Cory Sebastian Main Class for Lous stupid game **
  ** (first from scratch project. Start: 12/20/18)  **
@@ -15,9 +17,10 @@ class LousReady
 
     public static void main(String[] args)
     {
-        DeckOfCards deck = new DeckOfCards(1);
-        deck.getDeck();
-        deck = deck.shuffleDeck();
+        DeckOfCards deck = new DeckOfCards();
+//        deck.getDeck();
+//        deck.shuffleDeck();
+//        deck.shuffleDeck();
 
 //        if (!Greeting.userGreeting())
 //        {
@@ -29,7 +32,7 @@ class LousReady
 //            System.out.println("Okay sweet! Let's begin! Here is your hand!");
 //        }
 
-        deck.dealDeck(playerOne , playerTwo , user);          // players hands are full. playplate gets filled in playLoop()
+//        deck.dealDeck(playerOne , playerTwo , user);          // players hands are full. playplate gets filled in playLoop()
 //        AssDriver.playLoop(deck, playerOne , playerTwo , user);             // commences game
 ///*
         while (Player.getRound() < 14)
@@ -40,7 +43,7 @@ class LousReady
             user.hand = new Hand();
 
             deck.getDeck();
-            deck = deck.shuffleDeck();
+            deck.shuffleDeck();
             deck.dealDeck(playerOne , playerTwo , user);
 
             int wasAwinner = AssDriver.playLoop(deck, playerOne , playerTwo , user);

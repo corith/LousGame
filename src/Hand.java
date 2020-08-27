@@ -357,9 +357,9 @@ class HandTest
         Player test2 = new Player();
 
 
-        DeckOfCards deck = new DeckOfCards(1);
+        DeckOfCards deck = new DeckOfCards();
         deck.getDeck();
-        deck = deck.shuffleDeck();
+//        deck = deck.shuffleDeck();
 
         deck.dealDeck(test , test1 , test2);
 
