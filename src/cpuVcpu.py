@@ -6,12 +6,19 @@ import shutil
 import string
 
 os.system('javac LousReady.java')
-result = subprocess.run(['java', 'LousReady'] , stdout=subprocess.PIPE)
+try:
+    result = subprocess.run(['java', 'LousReady'] , stdout=subprocess.PIPE, timeout=3)
+except TimeoutExpired:
+    print("timedout")
+    
 output = result.stdout.decode('utf-8')
 count = 0
 while output.find("WON") == -1:
     count+=1
-    result = subprocess.run(['java', 'LousReady'] , stdout=subprocess.PIPE)
+    try:
+        result = subprocess.run(['java', 'LousReady'] , stdout=subprocess.PIPE, timeout=3)
+    except TimedoutExpired:
+        print("timedout")
     output = result.stdout.decode('utf-8')
 
 print(output)
