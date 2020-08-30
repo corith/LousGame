@@ -1,4 +1,4 @@
-import java.util.NoSuchElementException;
+
 import java.util.Stack;
 
 /***********************************
@@ -7,7 +7,7 @@ import java.util.Stack;
   ***********************************/
 public class Player
 {
-    private static int round = 13;
+    private static int round = 3;
     private int score;
     private boolean dealer;
     private boolean turn;
@@ -62,41 +62,55 @@ public class Player
                 System.out.println(this.hand.deadwood.cards[i]);
     }
 
-    public void pickUpCard(DeckOfCards sDeck , int top) // from top of deck (option 0)
+    public void pickUpCard(DeckOfCards sDeck) // from top of deck (option 0)
     {
         System.out.println("Top card was: " + sDeck.deck.peek());
 
-        for (int index = 0; index < this.hand.deadwood.getCount(); index++)    // picks up the card from the top of the deck
+        for (int index = 0; index < this.hand.deadwood.getCount(); index++) {   // picks up the card from the top of the deck
             if (this.hand.deadwood.cards[index].getSuit() == null) {
-                this.hand.deadwood.cards[index] = sDeck.deck.pop();
+                try {
+                    this.hand.deadwood.cards[index] = sDeck.deck.pop();
+                } catch (Exception NoSuchElementException) {
+                    if (sDeck.deck.size() == 3) {
+                        System.out.println("******************************OUT OF CARDS ALERT***********************");
+                        System.out.println("Reloading deck deque with " + AssDriver.discardPile.size() + " cards");
+                        while (!AssDriver.discardPile.empty()) {
+                            sDeck.deck.push(AssDriver.discardPile.pop());
+                        }
+                    }
+                }
             }
+        }
     }
 
     public void pickUpCard(Stack<Card> playPlate)      // from discard pile (option 1)
     {
         // swaps the empty spot in players hands
-        for (int index = 0; index < this.hand.deadwood.cards.length; index++)
-            if (this.hand.deadwood.cards[index].getSuit() == null)       //  with the card in playplate[]
+        for (int index = 0; index < this.hand.deadwood.cards.length; index++) {
+            if (this.hand.deadwood.cards[index].getSuit() == null) {
                 this.hand.deadwood.cards[index] = playPlate.pop();
+            }
+        }
     }
 
-    public void putDownDiscard(Card discardCard)
-    {
+    public void putDownDiscard(Card discardCard) {
         AssDriver.discardPile.push(discardCard);
 
-        for (int z = 0; z < this.hand.deadwood.cards.length; z++)
-            if (this.hand.deadwood.cards[z].equals(discardCard))
+        for (int z = 0; z < this.hand.deadwood.cards.length; z++) {
+            if (this.hand.deadwood.cards[z].equals(discardCard)) {
                 this.hand.deadwood.cards[z] = new Card();
+            }
+        }
     }
 
     // takes a turn - picking up a card from one of two piles
     // putting down a discard
-    public void userTakeTurn(int theOption , DeckOfCards sDeck , Stack<Card> playPlate , int topCard)
+    public void userTakeTurn(int theOption, DeckOfCards sDeck, Stack<Card> playPlate)
     {
         Card discardCard;
 
         if (theOption == 0)
-            this.pickUpCard(sDeck, topCard);                         // moves ahead one card in the deck (away from the card that was just picked up from sDeck[i + 1])
+            this.pickUpCard(sDeck);                         // moves ahead one card in the deck (away from the card that was just picked up from sDeck[i + 1])
         else if (theOption == 1)
             this.pickUpCard(playPlate);
 

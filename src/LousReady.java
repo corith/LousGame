@@ -7,34 +7,14 @@ import java.util.Deque;
 
 class LousReady
 {
-//    public static Player playerOne = new Player();
     public static ComputerPlayer playerOne = new ComputerPlayer(1);
-//    public static Player playerTwo = new Player();
     public static ComputerPlayer playerTwo = new ComputerPlayer(2);
-    public static Player user = new Player();
-//    public static  ComputerPlayer user = new ComputerPlayer(3);
+    public static ComputerPlayer user = new ComputerPlayer(3);
     public static int round = 3;
 
     public static void main(String[] args)
     {
-        DeckOfCards deck = new DeckOfCards();
-//        deck.getDeck();
-//        deck.shuffleDeck();
-//        deck.shuffleDeck();
 
-//        if (!Greeting.userGreeting())
-//        {
-//            System.out.println("Okay.....goodbye.");
-//            return;
-//        }
-//        else
-//        {
-//            System.out.println("Okay sweet! Let's begin! Here is your hand!");
-//        }
-
-//        deck.dealDeck(playerOne , playerTwo , user);          // players hands are full. playplate gets filled in playLoop()
-//        AssDriver.playLoop(deck, playerOne , playerTwo , user);             // commences game
-///*
         while (Player.getRound() < 14)
         {
             //Makes sure that each players hand size corresponds to round number
@@ -42,6 +22,7 @@ class LousReady
             playerTwo.hand = new Hand();
             user.hand = new Hand();
 
+            DeckOfCards deck = new DeckOfCards();
             deck.getDeck();
             deck.shuffleDeck();
             deck.dealDeck(playerOne , playerTwo , user);
@@ -56,6 +37,5 @@ class LousReady
         System.out.println("Player one point total: " + playerOne.getScore());
         System.out.println("Player two point total: " + playerTwo.getScore());
         System.out.println("Player user point total: " + user.getScore());
-//*/
     }
 }
