@@ -32,7 +32,7 @@ class ComputerPlayer extends Player {
   {
       this.hand.findRunsAndMelds(false);
       int scoreBefore = this.tallyScore();
-      int scoreAfterPickUp = 0;
+      int scoreAfterPickUp;
 
       // put the card in the hand
       for (int index = 0; index < this.hand.deadwood.cards.length; index++)
@@ -56,14 +56,26 @@ class ComputerPlayer extends Player {
       }
   }
 
-  public void computerTakeTurn(DeckOfCards sDeck , Stack<Card> playPlate , int topCard)
+  private int decide() {
+      if (this.playerNumber == 1) {
+          return 1;
+      } else if (this.playerNumber == 2) {
+          return 0;
+      } else if (this.playerNumber == 3) {
+          return 1;
+      }
+      return 0;
+  }
+
+  public void computerTakeTurn(DeckOfCards sDeck, Stack<Card> playPlate)
   {
       System.out.println(Ansi.RED + "COMPUTER (" + this.playerNumber + ") IS TAKING ITS TURN" + Ansi.RESET);
       Card discardCard = new Card();
 
-      boolean fromDeck = this.getComputerDecision(playPlate.peek()) == 0;
-      if (fromDeck)
-          this.pickUpCard(sDeck, topCard);
+//      boolean fromDeck = this.getComputerDecision(playPlate.peek()) == 0;
+      boolean temp = this.decide() == 0;
+      if (temp)
+          this.pickUpCard(sDeck);
       else
           this.pickUpCard(playPlate);
 
