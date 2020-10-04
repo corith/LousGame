@@ -29,24 +29,19 @@ Here is a good source for getting up to speed with the game
 
 ## Contributing
 
-- If you would like to contribute or fork, I would be honored ;). There are some potential things to implement below, feel free to add additional implementation ideas!
+- If you would like to contribute or fork feel free :) There are some potential things to implement below, feel free to add additional implementation ideas as well!
 
 - If you wish to contribute please just make a descriptive branch and then make your PR! :)
 
 ### Potential Todos!
 
-- fix the "overstayed welcome" discard card (LG-44)
-    - currently has an issue with discard card where player may be presented with the card they discarded
-
-- make it so the discard cards are saved and reshuffled when the deck runs out of cards (LG-88)
-    - make this true for added decks as well
-
 - implement wild cards (LG-100)
     - incorporate them into the computer decision making system
 
 - improve "decision" system of the computer player (LG-101)
-    - currently it prioritizes ofAKinds over runs
-    - it also does not consider the value of cards in a pair - will drop a card in a pair sometimes instead of a single unused card
+    - currently hard coded decisions for development purposes (that whole function will be removed soon)
+    - for the real decision system thouhg it currently it prioritizes ofAKinds over runs
+        - it also does not consider the value of cards in a pair - will drop a card in a pair sometimes instead of a single unused card
 
 - fine tune the "discard" and "pick-up" interface for the player (LG-102)
     - possibly a "vim like" interface for the four suits
@@ -54,17 +49,12 @@ Here is a good source for getting up to speed with the game
 
 - fine tune the way cards are displayed as well as how runs and melds are displayed (LG-103)
 
-- create an interface that allows for selection of play or simulation "mode" at game start (LG-104)
+- create an interface that allows for selection of "user play" or simulation "mode" at game start (LG-104)
 
 - fix any crashes that occur sporadically
-    - I believe it occurs when sorting the hand
+    - ex: there is an EmptyStackException that causes problems as a result of an empty playPlate.
 
 - looking to refactor the players hand so that instead of playerOne.hand.deadwood.cards[i] it will be playerOne.hand.cards[i]
-
-- look into the function between AssDriver and PlayWizard
-    - I like the idea of PlayWizard but it only has one function right now and I am not sure it belongs in that class.
-    - but this class may have a good purpose for other stuff
-    - potentially work PlayWizard into checking for winning hand? - or add a referee class?
 
 - add the ability for a player to insert their name at start of game
 
