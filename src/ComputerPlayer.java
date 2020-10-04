@@ -55,16 +55,30 @@ class ComputerPlayer extends Player {
       }
   }
 
-  public void computerTakeTurn(DeckOfCards sDeck , Stack<Card> playPlate , int topCard)
+  public int decide() {
+      if (this.playerNumber == 1) {
+          System.out.println("Picked up from playPlate");
+          return 1;
+      } else if (this.playerNumber == 2) {
+          System.out.println("Picked up from top of deck" );
+          return 0;
+      } else {
+          System.out.println("Picked up from playPlate");
+          return 1;
+      }
+  }
+
+  public void computerTakeTurn(DeckOfCards sDeck, Stack<Card> playPlate)
   {
       System.out.println(Ansi.RED + "COMPUTER (" + this.playerNumber + ") IS TAKING ITS TURN" + Ansi.RESET);
       this.getHand();
       Card discardCard = new Card();
       Card pp = playPlate.peek();
 
-      boolean fromDeck = this.getComputerDecision(playPlate.peek()) == 0;
-      if (fromDeck) {
-          this.pickUpCard(sDeck, topCard);
+//      boolean fromDeck = this.getComputerDecision(playPlate.peek()) == 0;
+      boolean temp = this.decide() == 0;
+      if (temp) {
+          this.pickUpCard(sDeck);
       } else {
           this.pickUpCard(playPlate);
       }
@@ -80,6 +94,12 @@ class ComputerPlayer extends Player {
       System.out.println("Discarded " + discardCard);
       this.getHand();
   }
+
+
+
+
+
+
 
   public static void main(String[] args) {
 

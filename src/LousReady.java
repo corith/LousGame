@@ -1,4 +1,6 @@
+import javax.xml.ws.soap.Addressing;
 import java.util.Deque;
+import java.util.Stack;
 
 /****************************************************
  ** Cory Sebastian Main Class for Lous stupid game **
@@ -11,13 +13,12 @@ class LousReady
     public static ComputerPlayer playerOne = new ComputerPlayer(1);
 //    public static Player playerTwo = new Player();
     public static ComputerPlayer playerTwo = new ComputerPlayer(2);
-    public static Player user = new Player();
-//    public static  ComputerPlayer user = new ComputerPlayer(3);
+//    public static Player user = new Player();
+    public static  ComputerPlayer user = new ComputerPlayer(3);
     public static int round = 3;
 
     public static void main(String[] args)
     {
-        DeckOfCards deck = new DeckOfCards();
 //        deck.getDeck();
 //        deck.shuffleDeck();
 //        deck.shuffleDeck();
@@ -42,6 +43,9 @@ class LousReady
             playerTwo.hand = new Hand();
             user.hand = new Hand();
 
+
+            DeckOfCards deck = new DeckOfCards();
+//            AssDriver.discardPile.clear();
             deck.getDeck();
             deck.shuffleDeck();
             deck.dealDeck(playerOne , playerTwo , user);

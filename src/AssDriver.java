@@ -1,7 +1,5 @@
 // An assistant driver to LousReady.java
 
-import java.util.ArrayDeque;
-import java.util.Deque;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -31,7 +29,7 @@ public class AssDriver extends LousReady {
       System.out.println("Please enter either a 1 or a 0!");
     }
   }
-  public static int playLoop(DeckOfCards sDeck, ComputerPlayer playerOne, ComputerPlayer playerTwo, Player user) {
+  public static int playLoop(DeckOfCards sDeck, ComputerPlayer playerOne, ComputerPlayer playerTwo, ComputerPlayer user) {
 //  public static void playLoop(DeckOfCards sDeck, Player playerOne, Player playerTwo, Player user) {
     boolean running    = true;
     int topCard        = 0; // represents the top of the deck i think
@@ -56,22 +54,23 @@ public class AssDriver extends LousReady {
 
       if (discardPile.isEmpty()) {
         discardPile.push(sDeck.deck.pop());
-//          playPlate[0] = sDeck.deck[topCard];
       }
+
       System.out.println("The number or cards left in the deck is: " + sDeck.deck.size());
       System.out.println("The number or cards in the discardPile is: " + discardPile.size());
 
-      user.getHand();
+//      user.getHand();
       System.out.println("The " + Ansi.CYAN + "discard " + Ansi.RESET + "pile contains: " + discardPile.peek());
 
-      theOption = gameOptions();
-      user.userTakeTurn(theOption,sDeck,discardPile, topCard);
+//      theOption = gameOptions();
+//      user.userTakeTurn(theOption,sDeck,discardPile);
+      user.computerTakeTurn(sDeck,discardPile);
       System.out.println("The " + Ansi.CYAN + "discard " + Ansi.RESET + "pile contains: " + discardPile.peek());
 
-      playerOne.computerTakeTurn(sDeck, discardPile, topCard);
+      playerOne.computerTakeTurn(sDeck, discardPile);
       System.out.println("The " + Ansi.CYAN + "discard " + Ansi.RESET + "pile contains: " + discardPile.peek());
 
-      playerTwo.computerTakeTurn(sDeck, discardPile, topCard);
+      playerTwo.computerTakeTurn(sDeck, discardPile);
 //      System.out.println("The " + Ansi.CYAN + "discard " + Ansi.RESET + "pile contains: " + playPlate[0]);
 
       if(user.isAWinner())
