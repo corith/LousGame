@@ -166,6 +166,7 @@ class Hand
                 suitArray[i].makeItRun();
                 suitArray[i + 1].makeItRun();
                 suitArray[i + 2].makeItRun();
+
                 suitArray[i].use();
                 suitArray[i + 1].use();
                 suitArray[i + 2].use();
@@ -182,8 +183,6 @@ class Hand
         }
     }
 
-    // Todo
-    //  find the ofAKinds (3 3's 4 5's etc.) sameNumber[]
     private void findTheOfAkinds(Card[] cards , int count)
     {
         Card[] store = new Card[Player.getRound()];
@@ -247,7 +246,7 @@ class Hand
     }
 
 
-    // Todo: figure out if this belongs here or in Player.java
+    // Todo: figure out if this belongs here or in Player.java or if needed in both then change a name
     private static int tallyScore(Card[] hand , int count)
     {
         int scoreSum = 0;

@@ -7,7 +7,7 @@ import java.util.Stack;
   ***********************************/
 public class Player
 {
-    private static int round = 13;
+    private static int round = 3;
     private int score;
     private boolean dealer;
     private boolean turn;
@@ -82,11 +82,13 @@ public class Player
 
     public void putDownDiscard(Card discardCard)
     {
-        AssDriver.discardPile.push(discardCard);
+//        AssDriver.discardPile.push(discardCard);
 
         for (int z = 0; z < this.hand.deadwood.cards.length; z++)
-            if (this.hand.deadwood.cards[z].equals(discardCard))
+            if (this.hand.deadwood.cards[z].equals(discardCard)) {
+                AssDriver.discardPile.push(this.hand.deadwood.cards[z]);
                 this.hand.deadwood.cards[z] = new Card();
+            }
     }
 
     // takes a turn - picking up a card from one of two piles
