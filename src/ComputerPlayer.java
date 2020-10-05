@@ -84,9 +84,11 @@ class ComputerPlayer extends Player {
               discardCard = this.hand.deadwood.cards[i];
           }
       }
+      if (discardCard.getSuit() == null)
+          discardCard = this.hand.deadwood.cards[this.hand.deadwood.getCount()];
       this.putDownDiscard(discardCard);
       System.out.println("Discarded " + discardCard);
-      this.getHand();
+      this.getHand(1);
   }
 
 

@@ -29,7 +29,7 @@ class LousReady
 //            System.out.println("Okay sweet! Let's begin! Here is your hand!");
 //        }
 
-        while (Player.getRound() < 6)
+        while (Player.getRound() < 14)
         {
             //Makes sure that each players hand size corresponds to round number
             playerOne.hand = new Hand();

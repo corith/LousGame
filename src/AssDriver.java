@@ -61,19 +61,19 @@ public class AssDriver extends LousReady {
 //      theOption = gameOptions();
 //      user.userTakeTurn(theOption,sDeck,discardPile);
       user.computerTakeTurn(sDeck,discardPile);
-
+      System.out.println("**********************************end user (3) turn****************************************");
       System.out.println("The " + Ansi.CYAN + "discard " + Ansi.RESET + "pile contains: " + discardPile.peek());
       System.out.println("The number or cards left in the deck is: " + sDeck.deck.size());
       System.out.println("The number or cards in the discardPile is: " + discardPile.size());
 
       playerOne.computerTakeTurn(sDeck, discardPile);
-
+      System.out.println("**********************************end Comp 1 turn****************************************");
       System.out.println("The " + Ansi.CYAN + "discard " + Ansi.RESET + "pile contains: " + discardPile.peek());
       System.out.println("The number or cards left in the deck is: " + sDeck.deck.size());
       System.out.println("The number or cards in the discardPile is: " + discardPile.size());
 
       playerTwo.computerTakeTurn(sDeck, discardPile);
-
+      System.out.println("**********************************end Comp 2 turn****************************************");
       if (PlayWizard.checkForWinner(user, playerOne, playerTwo) == 1) {
         return 1;
       }

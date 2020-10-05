@@ -22,7 +22,7 @@ while output.find("GAME OVER") == -1:
         output = result.stdout.decode('utf-8')
     except:
         result = 1
-        print("timedout")
+        print("timed out")
         if count == 10:
            break 
 

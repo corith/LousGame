@@ -6,7 +6,7 @@ import java.util.Stack;
   ***********************************/
 public class Player
 {
-    private static int round = 5;
+    private static int round = 3;
     private int score;
     private boolean dealer;
     private boolean turn;
@@ -51,9 +51,21 @@ public class Player
     // sorts the players hand and adds up the points
     public void getHand()
     {
+        System.out.println(Ansi.BACKGROUND_GREEN + Ansi.CYAN + this.playerName + "'s Hand" + Ansi.RESET);
         Hand.sortHand(this.hand.deadwood.cards , this.hand.deadwood.getCount());
         this.hand.findRunsAndMelds(true);
-        System.out.println(this.playerName + "'s Hand");
+        System.out.println("points in hand: " + this.tallyScore() + "\n");
+
+        for (int i = 0; i < this.hand.deadwood.cards.length; i++)
+            if (this.hand.deadwood.cards[i] != null)
+                System.out.println(this.hand.deadwood.cards[i]);
+    }
+
+    public void getHand(int one)
+    {
+        System.out.println(Ansi.BACKGROUND_GREEN + Ansi.CYAN + this.playerName + "'s Hand (After turn)" + Ansi.RESET);
+        Hand.sortHand(this.hand.deadwood.cards , this.hand.deadwood.getCount());
+//        this.hand.findRunsAndMelds(true);
         System.out.println("points in hand: " + this.tallyScore() + "\n");
 
         for (int i = 0; i < this.hand.deadwood.cards.length; i++)
