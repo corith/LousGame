@@ -53,7 +53,7 @@ public class DeckOfCards extends Card {
 
     public void dealDeck(Player playerOne, Player playerTwo, Player user)
     {
-        for (int i = 0; i < playerOne.hand.deadwood.cards.length; i++)
+        for (int i = 0; i < playerOne.hand.deadwood.cards.length-1; i++)
         {
             playerOne.hand.deadwood.cards[i] = this.deck.pop();
             playerOne.hand.deadwood.setCount(playerOne.hand.deadwood.getCount() + 1);

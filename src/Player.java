@@ -57,7 +57,7 @@ public class Player
         System.out.println("points in hand: " + this.tallyScore() + "\n");
 
         for (int i = 0; i < this.hand.deadwood.cards.length; i++)
-//            if (this.hand.deadwood.cards[i] != null)
+            if (this.hand.deadwood.cards[i] != null)
                 System.out.println(this.hand.deadwood.cards[i]);
     }
 
@@ -66,7 +66,7 @@ public class Player
         System.out.println("Top card was: " + sDeck.deck.peek());
 
         // picks up the card from the top of the deck
-        for (int index = 0; index < this.hand.deadwood.getCount(); index++) {
+        for (int index = 0; index <= this.hand.deadwood.getCount(); index++) {
             if (this.hand.deadwood.cards[index].getSuit() == null) {
                 try {
                     this.hand.deadwood.cards[index] = sDeck.deck.pop();
