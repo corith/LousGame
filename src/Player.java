@@ -65,7 +65,7 @@ public class Player
     {
         System.out.println(Ansi.BACKGROUND_GREEN + Ansi.CYAN + this.playerName + "'s Hand (After turn)" + Ansi.RESET);
         Hand.sortHand(this.hand.deadwood.cards , this.hand.deadwood.getCount());
-//        this.hand.findRunsAndMelds(true);
+        this.hand.findRunsAndMelds(false);
         System.out.println("points in hand: " + this.tallyScore() + "\n");
 
         for (int i = 0; i < this.hand.deadwood.cards.length; i++)
