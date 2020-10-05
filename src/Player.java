@@ -57,7 +57,7 @@ public class Player
         System.out.println("points in hand: " + this.tallyScore() + "\n");
 
         for (int i = 0; i < this.hand.deadwood.cards.length; i++)
-            if (this.hand.deadwood.cards[i] != null)
+//            if (this.hand.deadwood.cards[i] != null)
                 System.out.println(this.hand.deadwood.cards[i]);
     }
 

@@ -348,10 +348,9 @@ class HandTest
 
         DeckOfCards deck = new DeckOfCards();
         deck.getDeck();
-//        deck = deck.shuffleDeck();
+        deck.shuffleDeck();
 
         deck.dealDeck(test , test1 , test2);
-
         System.out.println(test.hand.deadwood.getCount());
         System.out.println("deadwood count: " + test.hand.deadwood.getCount());
         System.out.println("deadwood sorted:");
