@@ -16,11 +16,13 @@ class Hand
 
     public HandNode deadwood;
 
-    // a hand consists of a doubly linked list of HandNodes with the head node being the "main area"
-    // deadwood is the players hand - anything left in here at the end of a round
-        // goes against the player (player.score = player.score + deadwood.total)
-    // deadwood.next points to another HandNode which points to one more hand node.
-    // the goal of that is to be able to use these other nodes as a "staging area" for cards that fit into either a run or an "of a kind"
+    /*
+     a hand consists of a doubly linked list of HandNodes with the head node being the "main area"
+     deadwood is the players hand - anything left in here at the end of a round
+     goes against the player (player.score = player.score + deadwood.total)
+     deadwood.next points to another HandNode which points to one more hand node.
+     the goal of that is to be able to use these other nodes as a "staging area" for cards that fit into either a run or an "of a kind"
+    */
     public Hand()
     {
         deadwood = new HandNode(null , new Card[Player.getRound() + 1] , null);
@@ -36,16 +38,10 @@ class Hand
         return false;
     }
 
-    // this probably where the decision should be made
-    // call some helper function after we've found the runs
-    // and the ofAkinds.
     public void findRunsAndMelds(boolean on)
     {
         clearCardStatus(deadwood.cards);
         this.distributeHand();
-        // make sure distribute is working (debugging code)
-
-        // end distribute test
 
         findTheOfAkinds(deadwood.cards , Player.getRound());
         if (heartCount >= 3)
@@ -59,10 +55,9 @@ class Hand
 
         this.calculateWorth(deadwood.cards);        // for use with deciding where to put
         //maximizePoints(deadwood.cards);                         // a card if it fits in more than one set
-
         //useWilds();
 
-// loops for testing finding the runs.
+        // loops for testing finding the runs.
         if (on) {
             System.out.println("***Your Runs***");
             printRuns(heartCount , hearts);
@@ -116,31 +111,26 @@ class Hand
             {
                 wildCards[wildCount] = this.deadwood.cards[i];
                 wildCount += 1;
-                //this.deadwood.cards[i] = null;
             }
             else if (this.deadwood.cards[i].getSuit() == "<3")
             {
                 hearts[heartCount] = this.deadwood.cards[i];
                 heartCount += 1;
-                //this.deadwood.cards[i] = null;
             }
             else if (this.deadwood.cards[i].getSuit() == "<*")
             {
                 diamonds[diamondCount] = this.deadwood.cards[i];
                 diamondCount += 1;
-                //this.deadwood.cards[i] = null;
             }
             else if (this.deadwood.cards[i].getSuit() == "^")
             {
                 spades[spadeCount] = this.deadwood.cards[i];
                 spadeCount += 1;
-                //this.deadwood.cards[i] = null;
             }
             else if (this.deadwood.cards[i].getSuit() == "#")
             {
                 clubs[clubCount] = this.deadwood.cards[i];
                 clubCount += 1;
-                //this.deadwood.cards[i] = null;
             }
         } // end for loop for sorting hand into arrays of suit and wilds
         sortHand(hearts , heartCount);

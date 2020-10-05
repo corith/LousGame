@@ -1,16 +1,14 @@
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-/****************************************************
+/*****************************************************
   **                Cory Sebastian                  **
   **               DeckOfCards class                **
   ****************************************************/
 
 public class DeckOfCards extends Card {
 
-//     public Card[] deck;
      public Deque<Card> deck;
-//     private final int numOfDecks;
 
      public DeckOfCards()
      {
@@ -20,11 +18,8 @@ public class DeckOfCards extends Card {
     public void getDeck()
     {
         this.initializeDeck();
-//        this.shuffleDeck();
     }
 
-     // returns a new deck that has been scrambled
-     // will make every card in d null in the process
     public void shuffleDeck()
     {
         Card[] cards = new Card[this.deck.size()];
@@ -49,7 +44,6 @@ public class DeckOfCards extends Card {
             }
             shuffledCards[i] = temp;
             cards[t] = new Card();
-//            deck.push(temp);
         }
 
         for (Card card : shuffledCards) {
@@ -57,27 +51,18 @@ public class DeckOfCards extends Card {
         }
     }
 
-//    public void dealDeck(ComputerPlayer playerOne, ComputerPlayer playerTwo, Player user)
     public void dealDeck(Player playerOne, Player playerTwo, Player user)
     {
-        int nextCard = 0; // variable for pulling the next card from the shuffled deck
-
         for (int i = 0; i < playerOne.hand.deadwood.cards.length; i++)
         {
-            //playerOne.hand[i] = this.deck[nextCard];
-            playerOne.hand.deadwood.cards[i] = this.deck.pop(); //this.deck[nextCard];
+            playerOne.hand.deadwood.cards[i] = this.deck.pop();
             playerOne.hand.deadwood.setCount(playerOne.hand.deadwood.getCount() + 1);
-//            nextCard++;
 
-            //playerTwo.hand[i] = this.deck.deck[nextCard];
-            playerTwo.hand.deadwood.cards[i] = this.deck.pop(); //this.deck[nextCard];
+            playerTwo.hand.deadwood.cards[i] = this.deck.pop();
             playerTwo.hand.deadwood.setCount(playerTwo.hand.deadwood.getCount() + 1);
-//            nextCard++;
 
-            //user.hand[i] = this.deck.deck[nextCard];
-            user.hand.deadwood.cards[i] = this.deck.pop(); //this.deck[nextCard];
+            user.hand.deadwood.cards[i] = this.deck.pop();
             user.hand.deadwood.setCount(user.hand.deadwood.getCount() + 1);
-//            nextCard++;
         }
         playerOne.hand.deadwood.cards[Player.getRound()] = new Card();
         playerTwo.hand.deadwood.cards[Player.getRound()] = new Card();
@@ -111,11 +96,6 @@ public class DeckOfCards extends Card {
      {
          return (int)((Math.random()*((max-min)+1))+min);
      }
-
-//     private static int getRandomCard(int min, int max)
-//     {
-//         return (int)((Math.random()*((max-min)+1))+min);
-//     }
 
  } // end class DeckOfCards
 

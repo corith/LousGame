@@ -30,12 +30,6 @@ class ComputerPlayer extends Player {
       this.hand.findRunsAndMelds(false);
       scoreAfterPickUp = this.tallyScore();
 
-//      for (int i=0; i < this.hand.deadwood.cards.length; i++) {
-//          if (this.hand.deadwood.cards[i].equals(playPlate)) {
-//              plateCheck = this.hand.deadwood.cards[i];
-//          }
-//      }
-
       // if score after pick up is less then go ahead and pick up the card at the top of playplate
       if (scoreAfterPickUp < scoreBefore )
       {
@@ -75,9 +69,9 @@ class ComputerPlayer extends Player {
       Card discardCard = new Card();
       Card pp = playPlate.peek();
 
-//      boolean fromDeck = this.getComputerDecision(playPlate.peek()) == 0;
-      boolean temp = this.decide() == 0;
-      if (temp) {
+      boolean fromDeck = this.getComputerDecision(playPlate.peek()) == 0;
+//      boolean temp = this.decide() == 0;
+      if (fromDeck) {
           this.pickUpCard(sDeck);
       } else {
           this.pickUpCard(playPlate);

@@ -6,7 +6,7 @@ import java.util.Stack;
   ***********************************/
 public class Player
 {
-    private static int round = 3;
+    private static int round = 5;
     private int score;
     private boolean dealer;
     private boolean turn;
@@ -71,7 +71,7 @@ public class Player
                 try {
                     this.hand.deadwood.cards[index] = sDeck.deck.pop();
                 } catch (Exception NoSuchElementException) {
-                    if (sDeck.deck.size() <= 3) {
+                    if (sDeck.deck.size() < 1) {
                         System.out.println("******************************OUT OF CARDS ALERT***********************");
                         System.out.println("Reloading deck deque with "+AssDriver.discardPile.size()+" cards");
                         while(!AssDriver.discardPile.empty()) {
@@ -103,8 +103,6 @@ public class Player
 
     public void putDownDiscard(Card discardCard)
     {
-//        AssDriver.discardPile.push(discardCard);
-
         for (int z = 0; z < this.hand.deadwood.cards.length; z++)
             if (this.hand.deadwood.cards[z].equals(discardCard)) {
                 AssDriver.discardPile.push(this.hand.deadwood.cards[z]);
