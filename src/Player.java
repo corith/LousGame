@@ -77,6 +77,7 @@ public class Player
                         while(!AssDriver.discardPile.empty()) {
                             sDeck.deck.push(AssDriver.discardPile.pop());
                         }
+                        this.hand.deadwood.cards[index] = sDeck.deck.pop();
                     }
                 }
             }
@@ -90,7 +91,12 @@ public class Player
         for (int index = 0; index < this.hand.deadwood.cards.length; index++) {
             if (this.hand.deadwood.cards[index].getSuit() == null)       //  with the card in playplate[]
             {
-                this.hand.deadwood.cards[index] = playPlate.pop();
+                try {
+                    this.hand.deadwood.cards[index] = playPlate.pop();
+                } catch (Exception EmptyStackException) {
+                    System.out.println("Caught that bitch");
+                }
+
             }
         }
     }

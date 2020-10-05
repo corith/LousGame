@@ -12,7 +12,7 @@ try:
     output = result.stdout.decode('utf-8')
 except:
     result = 1;
-    print("timedout")
+    print("timed out")
     output = "not game over"
 count = 0
 while output.find("GAME OVER") == -1:
@@ -23,6 +23,8 @@ while output.find("GAME OVER") == -1:
     except:
         result = 1
         print("timedout")
+        if count == 10:
+           break 
 
 print(output)
 print("program ran: = " , count)
