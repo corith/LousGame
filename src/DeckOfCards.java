@@ -8,9 +8,9 @@ import java.util.Deque;
 
 public class DeckOfCards extends Card {
 
-     public Deque<Card> deck;
+    public Deque<Card> deck;
 
-     public DeckOfCards()
+    public DeckOfCards()
      {
          this.deck = new ArrayDeque<Card>();
      }
@@ -53,7 +53,7 @@ public class DeckOfCards extends Card {
 
     public void dealDeck(Player playerOne, Player playerTwo, Player user)
     {
-        for (int i = 0; i < playerOne.hand.deadwood.cards.length-1; i++)
+        for (int i = 0; i < playerOne.hand.deadwood.cards.length - 1; i++)
         {
             playerOne.hand.deadwood.cards[i] = this.deck.pop();
             playerOne.hand.deadwood.setCount(playerOne.hand.deadwood.getCount() + 1);

@@ -27,7 +27,6 @@ class Hand
     {
         deadwood = new HandNode(null , new Card[Player.getRound() + 1] , null);
         deadwood.setNext(new HandNode(deadwood , new Card[Player.getRound()] , new HandNode(deadwood.getNext() , new Card[Player.getRound()] , null)));
-//        deadwood.next   = new HandNode(deadwood , new Card[Player.getRound()] , new HandNode(deadwood.next , new Card[Player.getRound()] , null));
     }
     
     public boolean cardIsInHand(Card card)
@@ -53,8 +52,8 @@ class Hand
         if (clubCount >= 3)
             findTheRuns(clubs , clubCount);
 
-        this.calculateWorth(deadwood.cards);        // for use with deciding where to put
-        //maximizePoints(deadwood.cards);                         // a card if it fits in more than one set
+        this.calculateWorth(deadwood.cards);
+        //maximizePoints(deadwood.cards);
         //useWilds();
 
         // loops for testing finding the runs.
@@ -145,28 +144,34 @@ class Hand
     private void findTheRuns(Card[] suitArray , int count)
     {
         int i = 0;
+        boolean isOccupied = true;
+
         while (i < count - 1 && i != count - 2)     // count wil be >= 3
         {
             // test to see if the number 2 cards ahead is sequential
             // works because the cards are sorted
-            boolean isOccupied = suitArray[i].isBeingUsed() || suitArray[i+1].isBeingUsed() || suitArray[i + 2].isBeingUsed();
-            if (suitArray[i].getCardNumber() == (suitArray[i + 2].getCardNumber()) - 2 && !isOccupied)
-            {
-//                if (!suitArray[i].isBeingUsed())
-                suitArray[i].makeItRun();
-                suitArray[i + 1].makeItRun();
-                suitArray[i + 2].makeItRun();
+            if (suitArray[i] != null) {
+                isOccupied = suitArray[i].isBeingUsed() || suitArray[i+1].isBeingUsed() || suitArray[i + 2].isBeingUsed();
 
-                suitArray[i].use();
-                suitArray[i + 1].use();
-                suitArray[i + 2].use();
-                i += 2;
-                // check if the next card fits into the run or not
-                while (i < count - 1 && suitArray[i].getCardNumber() == (suitArray[i + 1].getCardNumber() - 1))
+                if (suitArray[i].getCardNumber() == (suitArray[i + 2].getCardNumber()) - 2 && !isOccupied)
                 {
-                    i += 1;
-                    suitArray[i].makeItRun();
-                    suitArray[i].use();
+                    if (!suitArray[i].isBeingUsed()) {
+                        suitArray[i].makeItRun();
+                        suitArray[i + 1].makeItRun();
+                        suitArray[i + 2].makeItRun();
+
+                        suitArray[i].use();
+                        suitArray[i + 1].use();
+                        suitArray[i + 2].use();
+                        i += 2;
+                    }
+                    // check if the next card fits into the run or not
+                    while (i < count - 1 && suitArray[i].getCardNumber() == (suitArray[i + 1].getCardNumber() - 1))
+                    {
+                        i += 1;
+                        suitArray[i].makeItRun();
+                        suitArray[i].use();
+                    }
                 }
             }
             i += 1;
@@ -257,7 +262,7 @@ class Hand
     public static void sortHand(Card[] hand , int right)
     {
         if (right > 0)
-            quickCardSort(hand , 0 , right - 1);
+            quickCardSort(hand , 0 , right);
     }
 
     private static void quickCardSort(Card[] array , int leftEnd , int rightEnd)
@@ -268,6 +273,12 @@ class Hand
 
         do
         {
+            if (array[left] == null) {
+                left += 1;
+            }
+            if (array[right] == null) {
+                right -= 1;
+            }
             while (array[left].getCardNumber() < pivot.getCardNumber()) { left += 1; }
             while (array[right].getCardNumber() > pivot.getCardNumber()) { right -= 1; }
 
@@ -294,6 +305,9 @@ class Hand
     }
 
     //**************************end quicksort methods**********************************
+
+
+
     // **************************** testing methods - will be deleted after hand.java is done ************************
     private void testMethod(int cardCount, Card[] suit) {
         for (int index = 0; index < cardCount; index += 1)
@@ -310,7 +324,7 @@ class Hand
     private void printRuns(int cardCount, Card[] suit) {
         for (int index = 0; index < cardCount; index += 1)
         {
-            if (suit[index].isARun())
+            if (suit[index] != null && suit[index].isARun())
             {
                 System.out.println(suit[index]);
                 System.out.println(suit[index].isARun());
@@ -329,9 +343,6 @@ class Hand
     }
 //******************************** end testing methods *******************************************************
 } // end class Hand
-
-
-
 
 
 

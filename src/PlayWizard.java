@@ -79,20 +79,20 @@ class PlayWizard extends AssDriver
     public static int checkForWinner(Player user , Player p1, Player p2) {
         if(user.isAWinner())
         {
-            user.getHand();
             System.out.println(Ansi.BACKGROUND_MAGENTA + Ansi.CYAN + "YOU HAVE WON" + Ansi.RESET);
+            user.getHand();
             return 1;
         }
         else if(p1.isAWinner())
         {
-            p1.getHand();
             System.out.println(Ansi.BACKGROUND_MAGENTA + Ansi.CYAN + "Computer One has WON yalll ...... amazing" + Ansi.RESET);
+            p1.getHand();
             return 1;
         }
         else if(p2.isAWinner())
         {
-            p2.getHand();
             System.out.println(Ansi.BACKGROUND_MAGENTA + Ansi.CYAN + "Computer Two has WON yalll ...... amazing" + Ansi.RESET);
+            p2.getHand();
             return 1;
         }
         return 0;

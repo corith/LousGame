@@ -14,6 +14,7 @@ class ComputerPlayer extends Player {
 
   private int getComputerDecision(Card playPlate)
   {
+//      Hand.sortHand(this.hand.deadwood.cards , this.hand.deadwood.getCount());
       this.hand.findRunsAndMelds(false);
       int scoreBefore = this.tallyScore();
       int scoreAfterPickUp = 0;
@@ -27,6 +28,7 @@ class ComputerPlayer extends Player {
       }
 
       // re count the hand and see if it improved
+//      Hand.sortHand(this.hand.deadwood.cards , this.hand.deadwood.getCount());
       this.hand.findRunsAndMelds(false);
       scoreAfterPickUp = this.tallyScore();
 

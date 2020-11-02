@@ -45,6 +45,10 @@ public class Player
     }
 
     public boolean isAWinner() {
+        System.out.println("checked for winner and the score for " + this.playerName + " is: " + this.tallyScore());
+//        this.getHand();
+//        Hand.sortHand(this.hand.deadwood.cards , this.hand.deadwood.getCount());
+        this.hand.findRunsAndMelds(false);
         return this.tallyScore() == 0;
     }
 
@@ -56,9 +60,12 @@ public class Player
         this.hand.findRunsAndMelds(true);
         System.out.println("points in hand: " + this.tallyScore() + "\n");
 
-        for (int i = 0; i < this.hand.deadwood.cards.length; i++)
-            if (this.hand.deadwood.cards[i] != null)
+        for (int i = 0; i < this.hand.deadwood.cards.length; i++) {
+            if (this.hand.deadwood.cards[i] != null) {
                 System.out.println(this.hand.deadwood.cards[i]);
+                System.out.println(this.hand.deadwood.cards[i].isBeingUsed());
+            }
+        }
     }
 
     public void getHand(int one)
@@ -78,7 +85,7 @@ public class Player
         System.out.println("Top card was: " + sDeck.deck.peek());
 
         // picks up the card from the top of the deck
-        for (int index = 0; index <= this.hand.deadwood.getCount(); index++) {
+        for (int index = 0; index < this.hand.deadwood.cards.length; index++) {
             if (this.hand.deadwood.cards[index].getSuit() == null) {
                 try {
                     this.hand.deadwood.cards[index] = sDeck.deck.pop();
@@ -106,7 +113,7 @@ public class Player
                 try {
                     this.hand.deadwood.cards[index] = playPlate.pop();
                 } catch (Exception EmptyStackException) {
-                    System.out.println("Caught that bitch");
+                    System.out.println("Caught that thang");
                 }
 
             }
@@ -149,7 +156,7 @@ public class Player
     public int tallyScore()
     {
         int scoreSum = 0;
-        for (int i = 0; i < this.hand.deadwood.getCount(); i += 1)
+        for (int i = 0; i <= this.hand.deadwood.getCount(); i += 1)
             if (this.hand.deadwood.cards[i].getCardNumber() > 0 && !this.hand.deadwood.cards[i].isOfAKind() && !this.hand.deadwood.cards[i].isARun())
                 scoreSum = scoreSum + this.hand.deadwood.cards[i].getCardNumber();
         return scoreSum;
@@ -164,13 +171,13 @@ class PlayerTest
   {
     Player one = new Player();
     Player two = new Player();
-    Player three = new Player();
+    ComputerPlayer three = new ComputerPlayer(3);
     int round = LousReady.round;
 
     System.out.println(LousReady.round);
     DeckOfCards deck = new DeckOfCards();
     deck.getDeck();
-//    deck = deck.shuffleDeck();
+    deck.shuffleDeck();
 
 
     deck.dealDeck(one , two , three);
@@ -181,9 +188,10 @@ class PlayerTest
 
     //one.sortPlayerHand();
     System.out.println("this should be sorted");
-    one.getHand();
+    one.getHand(1);
     //two.sortPlayerHand();
-    two.getHand();
+    two.getHand(1);
+    three.getHand(1);
 
   }
 }

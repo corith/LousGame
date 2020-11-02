@@ -31,11 +31,9 @@ public class AssDriver extends LousReady {
   }
 
   public static int playLoop(DeckOfCards sDeck, ComputerPlayer playerOne, ComputerPlayer playerTwo, ComputerPlayer user) {
-//  public static void playLoop(DeckOfCards sDeck, Player playerOne, Player playerTwo, Player user) {
-    boolean running    = true;
     int theOption;
 
-    while (running)
+    while (true)
     {
       // check for end of deck
       if (sDeck.deck.size() < 1)
@@ -74,34 +72,10 @@ public class AssDriver extends LousReady {
 
       playerTwo.computerTakeTurn(sDeck, discardPile);
       System.out.println("**********************************end Comp 2 turn****************************************");
+
       if (PlayWizard.checkForWinner(user, playerOne, playerTwo) == 1) {
         return 1;
       }
     }
-    return 0;
   }
 } // end class
-
-
-
-
-
-
-
-
-
-
-
-
-
-//**************************begin computer turn **************************************
-
-  // computerTurn(PlayerOne)
-  // computerTurn(PlayerTwo)
-
-
-    // check playerHands: if True for one of the players
-    // return something to do with class Score.
-    // else continue playLoop loop!
-    // return a score of some sort.
-    // or update each player score variable??
