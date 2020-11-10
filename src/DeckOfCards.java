@@ -35,11 +35,11 @@ public class DeckOfCards extends Card {
 
         for (int i = 0; i < cards.length; i++)
         {
-            t = this.getRandomCard(0 , 51);
+            t = this.getRandomCard(0 , cards.length - 1);
             temp = cards[t];
             while (temp.getSuit() == null)
             {
-                t = this.getRandomCard(0 , 51);
+                t = this.getRandomCard(0 , cards.length - 1);
                 temp = cards[t];
             }
             shuffledCards[i] = temp;

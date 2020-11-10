@@ -45,9 +45,6 @@ public class Player
     }
 
     public boolean isAWinner() {
-        System.out.println("checked for winner and the score for " + this.playerName + " is: " + this.tallyScore());
-//        this.getHand();
-//        Hand.sortHand(this.hand.deadwood.cards , this.hand.deadwood.getCount());
         this.hand.findRunsAndMelds(false);
         return this.tallyScore() == 0;
     }
@@ -63,7 +60,6 @@ public class Player
         for (int i = 0; i < this.hand.deadwood.cards.length; i++) {
             if (this.hand.deadwood.cards[i] != null) {
                 System.out.println(this.hand.deadwood.cards[i]);
-                System.out.println(this.hand.deadwood.cards[i].isBeingUsed());
             }
         }
     }
@@ -90,12 +86,13 @@ public class Player
                 try {
                     this.hand.deadwood.cards[index] = sDeck.deck.pop();
                 } catch (Exception NoSuchElementException) {
-                    if (sDeck.deck.size() < 1) {
+                    if (sDeck.deck.size() == 0) {
                         System.out.println("******************************OUT OF CARDS ALERT***********************");
                         System.out.println("Reloading deck deque with "+AssDriver.discardPile.size()+" cards");
                         while(!AssDriver.discardPile.empty()) {
                             sDeck.deck.push(AssDriver.discardPile.pop());
                         }
+                        System.out.println("The new top card was: " + sDeck.deck.peek());
                         this.hand.deadwood.cards[index] = sDeck.deck.pop();
                     }
                 }
@@ -122,11 +119,13 @@ public class Player
 
     public void putDownDiscard(Card discardCard)
     {
-        for (int z = 0; z < this.hand.deadwood.cards.length; z++)
+        for (int z = 0; z < this.hand.deadwood.cards.length; z++) {
             if (this.hand.deadwood.cards[z].equals(discardCard)) {
                 AssDriver.discardPile.push(this.hand.deadwood.cards[z]);
                 this.hand.deadwood.cards[z] = new Card();
+                break;
             }
+        }
     }
 
     // takes a turn - picking up a card from one of two piles
@@ -157,8 +156,11 @@ public class Player
     {
         int scoreSum = 0;
         for (int i = 0; i <= this.hand.deadwood.getCount(); i += 1)
-            if (this.hand.deadwood.cards[i].getCardNumber() > 0 && !this.hand.deadwood.cards[i].isOfAKind() && !this.hand.deadwood.cards[i].isARun())
+            if (this.hand.deadwood.cards[i].getCardNumber() > 0
+                    && !this.hand.deadwood.cards[i].isOfAKind()
+                    && !this.hand.deadwood.cards[i].isARun()) {
                 scoreSum = scoreSum + this.hand.deadwood.cards[i].getCardNumber();
+            }
         return scoreSum;
     }
 } // end class player

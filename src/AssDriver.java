@@ -36,15 +36,16 @@ public class AssDriver extends LousReady {
     while (true)
     {
       // check for end of deck
-      if (sDeck.deck.size() < 1)
-      {
-          System.out.println("******************************OUT OF CARDS ALERT (called from beginning of playloop ***********************");
-          System.out.println("Reloading deck deque with "+discardPile.size()+" cards");
-          while (!discardPile.empty())
-          {
-              sDeck.deck.push(discardPile.pop());
-          }
-      }
+//      if (sDeck.deck.size() < 1)
+//      {
+//          System.out.println("******************************OUT OF CARDS ALERT (called from beginning of playloop ***********************");
+//          System.out.println("Reloading deck deque with "+discardPile.size()+" cards");
+//          while (!discardPile.empty())
+//          {
+//              sDeck.deck.push(discardPile.pop());
+//          }
+//          sDeck.shuffleDeck();
+//      }
 
       if (discardPile.isEmpty()) {
         discardPile.push(sDeck.deck.pop());

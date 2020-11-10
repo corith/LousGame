@@ -58,12 +58,13 @@ class Hand
 
         // loops for testing finding the runs.
         if (on) {
-            System.out.println("***Your Runs***");
+            System.out.println(Ansi.BACKGROUND_RED + Ansi.YELLOW + "***Your Runs***" + Ansi.RESET);
             printRuns(heartCount , hearts);
             printRuns(diamondCount , diamonds);
             printRuns(spadeCount , spades);
             printRuns(clubCount , clubs);
-            System.out.println("***Your OfAKinds***");
+            System.out.println();
+            System.out.println(Ansi.BACKGROUND_RED + Ansi.YELLOW + "***Your OfAKinds***" + Ansi.RESET);
             printKinds(sameNumCount , sameNumber);
         }
     }
@@ -276,7 +277,7 @@ class Hand
             if (array[left] == null) {
                 left += 1;
             }
-            if (array[right] == null) {
+            if (right > array.length - 1 || array[right] == null) {
                 right -= 1;
             }
             while (array[left].getCardNumber() < pivot.getCardNumber()) { left += 1; }

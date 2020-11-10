@@ -33,13 +33,15 @@ Here is a good source for getting up to speed with the game
 
 - If you wish to contribute please just make a descriptive branch and then make your PR! :)
 
-### Potential Todos!
+### Todos!
 
 - implement wild cards (LG-100)
     - incorporate them into the computer decision making system
 
+- fix duplicate card bug
+    - pretty sure it is a result of the reshuffle adding duplicate cards
+
 - improve "decision" system of the computer player (LG-101)
-    - currently hard coded decisions for development purposes (that whole function will be removed soon)
     - for the real decision system thouhg it currently it prioritizes ofAKinds over runs
         - it also does not consider the value of cards in a pair - will drop a card in a pair sometimes instead of a single unused card
 
@@ -50,9 +52,6 @@ Here is a good source for getting up to speed with the game
 - fine tune the way cards are displayed as well as how runs and melds are displayed (LG-103)
 
 - create an interface that allows for selection of "user play" or simulation "mode" at game start (LG-104)
-
-- fix any crashes that occur sporadically
-    - ex: there is an EmptyStackException that causes problems as a result of an empty playPlate.
 
 - looking to refactor the players hand so that instead of playerOne.hand.deadwood.cards[i] it will be playerOne.hand.cards[i]
 

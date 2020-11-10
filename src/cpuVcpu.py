@@ -8,7 +8,7 @@ import time
 
 os.system('javac LousReady.java')
 try:
-    result = subprocess.run(['java', 'LousReady'] , stdout=subprocess.PIPE, timeout=3)
+    result = subprocess.run(['java', 'LousReady'] , stdout=subprocess.PIPE, timeout=4)
     output = result.stdout.decode('utf-8')
 except:
     result = 1;
