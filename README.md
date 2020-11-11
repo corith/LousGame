@@ -33,6 +33,8 @@ Here is a good source for getting up to speed with the game
 
 - If you wish to contribute please just make a descriptive branch and then make your PR! :)
 
+- LousReady.java is main driver for the program.
+
 ### Todos!
 
 - implement wild cards (LG-100)
