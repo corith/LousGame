@@ -26,6 +26,8 @@ Here is a good source for getting up to speed with the game
 
 - These are all python scripts and for now are simply contained within the src directory
     - these will probably be moved to their own directory as more are created
+    - run.py will run the program and remove .class files after it terminates
+    - cpuVcpu.py will run a simulation until a succesful game is played and remove .class files after terminating (will time out after 10 attempts)
 
 ## Contributing
 
