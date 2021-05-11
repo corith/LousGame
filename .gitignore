@@ -6,3 +6,4 @@
 *.iml
 out/
 *.txt
+.DS_Store

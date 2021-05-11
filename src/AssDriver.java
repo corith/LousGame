@@ -48,11 +48,11 @@ public class AssDriver extends LousReady {
 //      }
 
       if (discardPile.isEmpty()) {
-        discardPile.push(sDeck.deck.pop());
+        discardPile.push(sDeck.cards.pop());
       }
 
-      System.out.println("The number or cards left in the deck is: " + sDeck.deck.size());
-      System.out.println("The number or cards in the discardPile is: " + discardPile.size());
+      System.out.println("The number of cards left in the deck is: " + sDeck.cards.size());
+      System.out.println("The number of cards in the discardPile is: " + discardPile.size());
 
 //      user.getHand();
       System.out.println("The " + Ansi.CYAN + "discard " + Ansi.RESET + "pile contains: " + discardPile.peek());
@@ -62,14 +62,14 @@ public class AssDriver extends LousReady {
       user.computerTakeTurn(sDeck,discardPile);
       System.out.println("**********************************end user (3) turn****************************************");
       System.out.println("The " + Ansi.CYAN + "discard " + Ansi.RESET + "pile contains: " + discardPile.peek());
-      System.out.println("The number or cards left in the deck is: " + sDeck.deck.size());
-      System.out.println("The number or cards in the discardPile is: " + discardPile.size());
+      System.out.println("The number of cards left in the deck is: " + sDeck.cards.size());
+      System.out.println("The number of cards in the discardPile is: " + discardPile.size());
 
       playerOne.computerTakeTurn(sDeck, discardPile);
       System.out.println("**********************************end Comp 1 turn****************************************");
       System.out.println("The " + Ansi.CYAN + "discard " + Ansi.RESET + "pile contains: " + discardPile.peek());
-      System.out.println("The number or cards left in the deck is: " + sDeck.deck.size());
-      System.out.println("The number or cards in the discardPile is: " + discardPile.size());
+      System.out.println("The number of cards left in the deck is: " + sDeck.cards.size());
+      System.out.println("The number of cards in the discardPile is: " + discardPile.size());
 
       playerTwo.computerTakeTurn(sDeck, discardPile);
       System.out.println("**********************************end Comp 2 turn****************************************");

@@ -377,7 +377,7 @@ class HandTest
         System.out.println("Array Length: " + test.hand.deadwood.cards.length);
         System.out.println("card at index 0: " + test.hand.deadwood.cards[0]);
         System.out.println("card at index " + Player.getRound() + ": " + test.hand.deadwood.cards[Player.getRound()]);
-        System.out.println("The number or cards left in the deck is: " + deck.deck.size());
+        System.out.println("The number or cards left in the deck is: " + deck.cards.size());
         System.out.println("The number or cards in the discardPile is: " + AssDriver.discardPile.size());
 
 //        test.hand.findRunsAndMelds(test.hand);

@@ -35,6 +35,11 @@ class ComputerPlayer extends Player {
       // if score after pick up is less then go ahead and pick up the card at the top of playplate
       if (scoreAfterPickUp < scoreBefore )
       {
+          for (int index = 0; index < this.hand.deadwood.cards.length; index++) {
+              if (this.hand.deadwood.cards[index].equals(playPlate)) {
+                  this.hand.deadwood.cards[index] = new Card();
+              }
+          }
           System.out.println("Picked up from playPlate");
           return 1;
       }

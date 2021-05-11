@@ -6,7 +6,7 @@ import java.util.Stack;
   ***********************************/
 public class Player
 {
-    private static int round = 3;
+    private static int round = 13;
     private int score;
     private boolean dealer;
     private boolean turn;
@@ -78,22 +78,22 @@ public class Player
 
     public void pickUpCard(DeckOfCards sDeck) // from top of deck (option 0)
     {
-        System.out.println("Top card was: " + sDeck.deck.peek());
+        System.out.println("Top card was: " + sDeck.cards.peek());
 
         // picks up the card from the top of the deck
         for (int index = 0; index < this.hand.deadwood.cards.length; index++) {
             if (this.hand.deadwood.cards[index].getSuit() == null) {
                 try {
-                    this.hand.deadwood.cards[index] = sDeck.deck.pop();
+                    this.hand.deadwood.cards[index] = sDeck.cards.pop();
                 } catch (Exception NoSuchElementException) {
-                    if (sDeck.deck.size() == 0) {
+                    if (sDeck.cards.size() == 0) {
                         System.out.println("******************************OUT OF CARDS ALERT***********************");
                         System.out.println("Reloading deck deque with "+AssDriver.discardPile.size()+" cards");
                         while(!AssDriver.discardPile.empty()) {
-                            sDeck.deck.push(AssDriver.discardPile.pop());
+                            sDeck.cards.push(AssDriver.discardPile.pop());
                         }
-                        System.out.println("The new top card was: " + sDeck.deck.peek());
-                        this.hand.deadwood.cards[index] = sDeck.deck.pop();
+                        System.out.println("The new top card was: " + sDeck.cards.peek());
+                        this.hand.deadwood.cards[index] = sDeck.cards.pop();
                     }
                 }
             }
