@@ -1,11 +1,11 @@
 class Hand
 {
-    private Card[] hearts            = new Card[Player.getRound() + 1];
-    private Card[] diamonds          = new Card[Player.getRound() + 1];
-    private Card[] spades            = new Card[Player.getRound() + 1];
-    private Card[] clubs             = new Card[Player.getRound() + 1];
-    private Card[] wildCards         = new Card[Player.getRound() + 1];
-    private Card[] sameNumber        = new Card[Player.getRound() + 1];
+    private Card[] hearts            = new Card[LousReady.getRound() + 1];
+    private Card[] diamonds          = new Card[LousReady.getRound() + 1];
+    private Card[] spades            = new Card[LousReady.getRound() + 1];
+    private Card[] clubs             = new Card[LousReady.getRound() + 1];
+    private Card[] wildCards         = new Card[LousReady.getRound() + 1];
+    private Card[] sameNumber        = new Card[LousReady.getRound() + 1];
     private int heartCount           = 0;
     private int diamondCount         = 0;
     private int spadeCount           = 0;
@@ -25,8 +25,8 @@ class Hand
     */
     public Hand()
     {
-        deadwood = new HandNode(null , new Card[Player.getRound() + 1] , null);
-        deadwood.setNext(new HandNode(deadwood , new Card[Player.getRound()] , new HandNode(deadwood.getNext() , new Card[Player.getRound()] , null)));
+        deadwood = new HandNode(null , new Card[LousReady.getRound() + 1] , null);
+        deadwood.setNext(new HandNode(deadwood , new Card[LousReady.getRound()] , new HandNode(deadwood.getNext() , new Card[LousReady.getRound()] , null)));
     }
     
     public boolean cardIsInHand(Card card)
@@ -42,7 +42,7 @@ class Hand
         clearCardStatus(deadwood.cards);
         this.distributeHand();
 
-        findTheOfAkinds(deadwood.cards , Player.getRound());
+        findTheOfAkinds(deadwood.cards , LousReady.getRound());
         if (heartCount >= 3)
             findTheRuns(hearts , heartCount);
         if (diamondCount >= 3)
@@ -181,7 +181,7 @@ class Hand
 
     private void findTheOfAkinds(Card[] cards , int count)
     {
-        Card[] store = new Card[Player.getRound()];
+        Card[] store = new Card[LousReady.getRound()];
         Card target;
         Card match;
         int tally = 0;
@@ -376,7 +376,7 @@ class HandTest
 
         System.out.println("Array Length: " + test.hand.deadwood.cards.length);
         System.out.println("card at index 0: " + test.hand.deadwood.cards[0]);
-        System.out.println("card at index " + Player.getRound() + ": " + test.hand.deadwood.cards[Player.getRound()]);
+        System.out.println("card at index " + LousReady.getRound() + ": " + test.hand.deadwood.cards[LousReady.getRound()]);
         System.out.println("The number or cards left in the deck is: " + deck.cards.size());
         System.out.println("The number or cards in the discardPile is: " + AssDriver.discardPile.size());
 

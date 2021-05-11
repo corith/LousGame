@@ -64,9 +64,9 @@ public class DeckOfCards extends Card {
             user.hand.deadwood.cards[i] = this.cards.pop();
             user.hand.deadwood.setCount(user.hand.deadwood.getCount() + 1);
         }
-        playerOne.hand.deadwood.cards[Player.getRound()] = new Card();
-        playerTwo.hand.deadwood.cards[Player.getRound()] = new Card();
-        user.hand.deadwood.cards[Player.getRound()] = new Card();
+        playerOne.hand.deadwood.cards[LousReady.getRound()] = new Card();
+        playerTwo.hand.deadwood.cards[LousReady.getRound()] = new Card();
+        user.hand.deadwood.cards[LousReady.getRound()] = new Card();
 
     }
 

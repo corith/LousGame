@@ -8,7 +8,7 @@ class HandNode
     private HandNode next;          // make public ?
     private HandNode prev;          // make public ?
 
-    public Card[] cards;            // = new Card[Player.getRound + 1];
+    public Card[] cards;            // = new Card[LousReady.getRound + 1];
 
     //getters
     public int getCount() { return count; }
@@ -41,7 +41,7 @@ class HandNode
     public HandNode()
     {
         prev = null;
-        cards = new Card[Player.getRound() + 1];
+        cards = new Card[LousReady.getRound() + 1];
         next = null;
     }
 } // end class HandNode

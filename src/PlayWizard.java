@@ -1,5 +1,12 @@
 import java.util.Scanner;
 
+/**
+ * This class is a utility class. When making it
+ * I viewed it as almost a referee / game host /
+ * game manager type of "being". A place for methods
+ * that could probably be located somewhere else,
+ * but that I didn't want cluttering up other files.
+ */
 class PlayWizard extends AssDriver
 {
     // calculate all the players total score
@@ -12,10 +19,9 @@ class PlayWizard extends AssDriver
 
     public static Card getDiscardCard()
     {
-        Scanner lou = new Scanner(System.in);
+        Scanner lou;
         int discardNumber = -1;
-        String discardSuit = null;
-        Card discardCard = new Card(discardSuit , discardNumber);
+        Card discardCard = new Card();
 
         while (discardNumber < 1 || discardNumber > 13)
         {
@@ -36,17 +42,18 @@ class PlayWizard extends AssDriver
         System.out.print(Ansi.CYAN + "| 8 = <3 | 6 = <* | 4 = # | 2 = ^ |" + Ansi.RESET + "\n");
         System.out.print("Enter number for suit: ");
 
-        int theSuitput = 5;
-        while (theSuitput % 2 != 0)
+        // provides suit validation
+        int discardSuit = 5;
+        while (discardSuit % 2 != 0)
         {
             lou = new Scanner(System.in);
             if (lou.hasNextInt()) {
-                theSuitput = lou.nextInt();
+                discardSuit = lou.nextInt();
             }
-            boolean aSuitNumber =  theSuitput == 2 || theSuitput == 4 || theSuitput == 6 || theSuitput == 8;
+            boolean aSuitNumber =  discardSuit == 2 || discardSuit == 4 || discardSuit == 6 || discardSuit == 8;
             if (!aSuitNumber)
             {
-                theSuitput = 5;
+                discardSuit = 5;
                 System.out.print("\n***Please enter a number representing a suit***\n");
                 System.out.print(Ansi.RED + "| 8 = <3 | 6 = <* | 4 = # | 2 = ^ |" + Ansi.RESET + "\n");
                 System.out.print("Please enter one of the suit numbers: ");
@@ -54,8 +61,7 @@ class PlayWizard extends AssDriver
             }
         }
 //        System.out.println(Ansi.ANSI_CLS);
-        // this switch statement provides suit validation
-        switch (theSuitput) {
+        switch (discardSuit) {
             case 8:
                 discardCard.setSuit("<3");
                 break;
@@ -69,33 +75,42 @@ class PlayWizard extends AssDriver
                 discardCard.setSuit("#");
                 break;
             default:
-//                System.out.print("Please enter one of the suits: ");
                 break;
         }
 
         return discardCard;
     }
 
-    public static int checkForWinner(Player user , Player p1, Player p2) {
+    public static boolean checkForWinner(Player user , Player p1, Player p2) {
         if(user.isAWinner())
         {
             System.out.println(Ansi.BACKGROUND_MAGENTA + Ansi.CYAN + "YOU HAVE WON" + Ansi.RESET);
             user.getHand();
-            return 1;
+            return true;
         }
         else if(p1.isAWinner())
         {
             System.out.println(Ansi.BACKGROUND_MAGENTA + Ansi.CYAN + "Computer One has WON yalll ...... amazing" + Ansi.RESET);
             p1.getHand();
-            return 1;
+            return true;
         }
         else if(p2.isAWinner())
         {
             System.out.println(Ansi.BACKGROUND_MAGENTA + Ansi.CYAN + "Computer Two has WON yalll ...... amazing" + Ansi.RESET);
             p2.getHand();
-            return 1;
+            return true;
         }
-        return 0;
+        return false;
     }
 
+    public static void endGame() {
+        Player theWinner = playerOne.getScore() < playerTwo.getScore() ? playerOne : playerTwo;
+        theWinner = theWinner.getScore() < user.getScore() ? theWinner : user;
+        System.out.println("GAME OVER");
+        System.out.print("The winner of the game is: ");
+        System.out.println("Player " + (  ((ComputerPlayer)theWinner).playerNumber == 3  ? "user" :  ((ComputerPlayer)theWinner).playerNumber ) );
+        System.out.println("Player one point total: " + playerOne.getScore());
+        System.out.println("Player two point total: " + playerTwo.getScore());
+        System.out.println("Player user point total: " + user.getScore());
+    }
 } // end PlayWizard

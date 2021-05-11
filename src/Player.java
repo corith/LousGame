@@ -6,7 +6,6 @@ import java.util.Stack;
   ***********************************/
 public class Player
 {
-    private static int round = 13;
     private int score;
     private boolean dealer;
     private boolean turn;
@@ -15,13 +14,12 @@ public class Player
     public Hand hand;  // we want this.hand.cards to be main point of dealing
 
     // getters
-    public static int getRound() { return round; }
     public int getScore() { return score; }
     public boolean isDealer() { return dealer; }
     public boolean isTurn() { return turn; }
+    public String getPlayerName() { return  playerName; }
 
     //setters
-    public static void setRound(int round) { Player.round = round; }
     public void setScore(int score) { this.score = score; }
     public void setDealer(boolean dealer) { this.dealer = dealer; }
     public void setTurn(boolean turn) { this.turn = turn; }
@@ -174,9 +172,9 @@ class PlayerTest
     Player one = new Player();
     Player two = new Player();
     ComputerPlayer three = new ComputerPlayer(3);
-    int round = LousReady.round;
+    int round = LousReady.getRound();
 
-    System.out.println(LousReady.round);
+    System.out.println(LousReady.getRound());
     DeckOfCards deck = new DeckOfCards();
     deck.getDeck();
     deck.shuffleDeck();

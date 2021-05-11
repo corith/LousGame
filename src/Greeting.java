@@ -25,4 +25,17 @@ public class Greeting {
     }
     return false;
   } // end user userGreeting
+
+  public static boolean handleRealUser() {
+      if (!Greeting.userGreeting())
+      {
+          System.out.println("Okay.....goodbye.");
+          return false;
+      }
+      else
+      {
+          System.out.println("Okay sweet! Let's begin! Here is your hand!");
+          return true;
+      }
+  }
 }
