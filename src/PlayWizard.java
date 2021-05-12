@@ -9,7 +9,9 @@ import java.util.Scanner;
  */
 class PlayWizard extends AssDriver
 {
-    // calculate all the players total score
+    /**
+     * Calculates and updates the player's score
+     */
     public static void grossScore()
     {
         playerOne.setScore(playerOne.getScore() + playerOne.tallyScore());
@@ -17,6 +19,13 @@ class PlayWizard extends AssDriver
         user.setScore(user.getScore() + user.tallyScore());
     }
 
+    /**
+     * Handles getting the card a user wishes to discard.
+     * The return value is used to compare to the cards
+     * in the users hand at game time, and that card is
+     * discarded in playLoop() of AssDriver.
+     * @return Card the user wishes to discard
+     */
     public static Card getDiscardCard()
     {
         Scanner lou;
@@ -57,7 +66,6 @@ class PlayWizard extends AssDriver
                 System.out.print("\n***Please enter a number representing a suit***\n");
                 System.out.print(Ansi.RED + "| 8 = <3 | 6 = <* | 4 = # | 2 = ^ |" + Ansi.RESET + "\n");
                 System.out.print("Please enter one of the suit numbers: ");
-//                System.out.print("Enter number for suit: ");
             }
         }
 //        System.out.println(Ansi.ANSI_CLS);
@@ -81,6 +89,14 @@ class PlayWizard extends AssDriver
         return discardCard;
     }
 
+    /**
+     * Checks each players hand to see if one
+     * of them is a winner.
+     * @param user Player
+     * @param p1 Player
+     * @param p2 Player
+     * @return true if there is a winner and false if not
+     */
     public static boolean checkForWinner(Player user , Player p1, Player p2) {
         if(user.isAWinner())
         {
@@ -103,6 +119,11 @@ class PlayWizard extends AssDriver
         return false;
     }
 
+    /**
+     * Prints the winner of the whole game
+     * in addition to printing each player's
+     * score.
+     */
     public static void endGame() {
         Player theWinner = playerOne.getScore() < playerTwo.getScore() ? playerOne : playerTwo;
         theWinner = theWinner.getScore() < user.getScore() ? theWinner : user;
@@ -113,4 +134,4 @@ class PlayWizard extends AssDriver
         System.out.println("Player two point total: " + playerTwo.getScore());
         System.out.println("Player user point total: " + user.getScore());
     }
-} // end PlayWizard
+}

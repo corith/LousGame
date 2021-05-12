@@ -1,9 +1,9 @@
 import java.util.Stack;
 
-/***********************************
-  **          Cory Sebastian       **
-  **           Player Class        **
-  ***********************************/
+/**
+ * This class represents a real human Player
+ * and is extended by ComputerPlayer.
+ */
 public class Player
 {
     private int score;
@@ -11,7 +11,7 @@ public class Player
     private boolean turn;
     private String playerName;
 
-    public Hand hand;  // we want this.hand.cards to be main point of dealing
+    public Hand hand;
 
     // getters
     public int getScore() { return score; }
@@ -42,12 +42,22 @@ public class Player
         this.playerName = name;
     }
 
+    /**
+     * Checks the player's hand to see if it is a winner.
+     * The expected behavior is if the player's hand score
+     * equals 0 then all the cards belong to a set.
+     * (total score is < 0)
+     * @return true if the hand is a winner.
+     */
     public boolean isAWinner() {
         this.hand.findRunsAndMelds(false);
         return this.tallyScore() == 0;
     }
 
-    // sorts the players hand and adds up the points
+    /**
+     * Sorts the players hand. Adds up the points.
+     * And prints the hand.
+     */
     public void getHand()
     {
         System.out.println(Ansi.BACKGROUND_GREEN + Ansi.CYAN + this.playerName + "'s Hand" + Ansi.RESET);
@@ -62,7 +72,13 @@ public class Player
         }
     }
 
-    public void getHand(int one)
+    /**
+     * Same as getHand() but overloaded to allow
+     * for different behavior inside findRunsAndMelds.
+     * Only used for experimenting and debugging.
+     * @param on - used only to overload getHand()
+     */
+    public void getHand(int on)
     {
         System.out.println(Ansi.BACKGROUND_GREEN + Ansi.CYAN + this.playerName + "'s Hand (After turn)" + Ansi.RESET);
         Hand.sortHand(this.hand.deadwood.cards , this.hand.deadwood.getCount());
@@ -74,6 +90,11 @@ public class Player
                 System.out.println(this.hand.deadwood.cards[i]);
     }
 
+    /**
+     * This method is responsible for picking up a
+     * card from the top of the Deck.
+     * @param sDeck the current deck for the round
+     */
     public void pickUpCard(DeckOfCards sDeck) // from top of deck (option 0)
     {
         System.out.println("Top card was: " + sDeck.cards.peek());
@@ -99,6 +120,11 @@ public class Player
         }
     }
 
+    /**
+     * This method is responsible for picking up a
+     * card from the top of the discardPile
+     * @param playPlate the current discardPile for the round
+     */
     public void pickUpCard(Stack<Card> playPlate)      // from discard pile (option 1)
     {
         // swaps the empty spot in players hands
@@ -115,6 +141,13 @@ public class Player
         }
     }
 
+    /**
+     * This method is responsible for discarding
+     * the unwanted card to the top of the discard
+     * pile.
+     * @param discardCard the card the user wishes to discard.
+     *                    should be passed by PlayWizard.getDiscardCard().
+     */
     public void putDownDiscard(Card discardCard)
     {
         for (int z = 0; z < this.hand.deadwood.cards.length; z++) {
@@ -126,8 +159,15 @@ public class Player
         }
     }
 
-    // takes a turn - picking up a card from one of two piles
-    // putting down a discard
+    /**
+     * This method puts several other methods together
+     * inorder for a real human user to take a turn.
+     * @param theOption int either 1 or 0 depending on if the user
+     *                  wants to draw from Deck or discardPile.
+     *                  This variable comes from AssDriver.gameOptions().
+     * @param sDeck The Deck for the current round
+     * @param playPlate the discardPile declared in  AssDriver.
+     */
     public void userTakeTurn(int theOption, DeckOfCards sDeck, Stack<Card> playPlate)
     {
         Card discardCard;
@@ -150,6 +190,12 @@ public class Player
         this.putDownDiscard(discardCard);
     }
 
+    /**
+     * This method provides the logic for counting
+     * points in a Player's hand. It takes into account
+     * runs (666..) and melds (678...).
+     * @return the score as an integer
+     */
     public int tallyScore()
     {
         int scoreSum = 0;
@@ -161,7 +207,7 @@ public class Player
             }
         return scoreSum;
     }
-} // end class player
+}
 
 
 class PlayerTest
