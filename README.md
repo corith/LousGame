@@ -42,12 +42,9 @@ Here is a good source for getting up to speed with the game
 - implement wild cards (LG-100)
     - incorporate them into the computer decision making system
 
-- fix duplicate card bug
-    - pretty sure it is a result of the reshuffle adding duplicate cards
-
 - improve "decision" system of the computer player (LG-101)
-    - for the real decision system thouhg it currently it prioritizes ofAKinds over runs
-        - it also does not consider the value of cards in a pair - will drop a card in a pair sometimes instead of a single unused card
+    - it currently it prioritizes ofAKinds over runs
+        - add the ability for computer to prioritize specifc runs over ofAKinds and vice versa 
 
 - fine tune the "discard" and "pick-up" interface for the player (LG-102)
     - possibly a "vim like" interface for the four suits
@@ -63,4 +60,4 @@ Here is a good source for getting up to speed with the game
 
 #### Far out
     - try to implement an SSH multiplayer version
-    - turn it into a gui game with something like swing
+    - turn it into a gui game with something like swing or an iOS app...
