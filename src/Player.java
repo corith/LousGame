@@ -212,7 +212,6 @@ public class Player
 
 class PlayerTest
 {
-/**************** BEIGN MAIN METHOD FOR TESTS ***********/
   public static void main(String[] args)
   {
     Player one = new Player();
