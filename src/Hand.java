@@ -1,3 +1,14 @@
+/**
+ * This class represents a Player's Hand.
+ * A Hand consists of a doubly linked list of HandNodes with the head node being the "main card area".
+ * Deadwood is the players hand - anything left in here at the end of a round
+ * goes against the player (player.score = player score + deadwood total).
+ * Deadwood.next points to another HandNode which points to one more hand node.
+ * The goal of this is to be able to use these other nodes as "staging areas"
+ * for cards that fit into either a run or an "of a kind" and could make it easier
+ * to print/display the hand to a player as well as for ComputerPlayers to make more
+ * advanced decision
+ */
 class Hand
 {
     private Card[] hearts            = new Card[LousReady.getRound() + 1];
@@ -16,19 +27,20 @@ class Hand
 
     public HandNode deadwood;
 
-    /*
-     a hand consists of a doubly linked list of HandNodes with the head node being the "main area"
-     deadwood is the players hand - anything left in here at the end of a round
-     goes against the player (player.score = player.score + deadwood.total)
-     deadwood.next points to another HandNode which points to one more hand node.
-     the goal of that is to be able to use these other nodes as a "staging area" for cards that fit into either a run or an "of a kind"
+    /**
+     *
     */
     public Hand()
     {
         deadwood = new HandNode(null , new Card[LousReady.getRound() + 1] , null);
         deadwood.setNext(new HandNode(deadwood , new Card[LousReady.getRound()] , new HandNode(deadwood.getNext() , new Card[LousReady.getRound()] , null)));
     }
-    
+
+    /**
+     * This method is used by Player to validate user input.
+     * @param card The card the user inputted
+     * @return true if the card is in the player's hand and false if not
+     */
     public boolean cardIsInHand(Card card)
     {
         for (int i = 0; i < this.deadwood.cards.length; i++)
@@ -37,6 +49,21 @@ class Hand
         return false;
     }
 
+    /**
+     * This method contains the logic for finding the runs (678...)
+     * and melds (888...). It first checks for melds (ofAKinds) and
+     * then splits all the cards into arrays based on suits and looks
+     * for runs. Currently, if a meld is found first but also fits into
+     * a run, then the card will become part of the run. This is currently
+     * sort of broken as depending on the situation it may end up breaking
+     * a run but not scoring it as such. For example: a hand containing a
+     * run of 1234<*5 and a meld of {4<* 4<3 4#} may result in the scoring
+     * being 0 points in the hand but this is because the run is counted as
+     * 1235 and the meld is counted as 444. This is not correct and will be fixed
+     * soon. Also soon this method will add functionality for including wild cards
+     * in the finding of runs and melds.
+     * @param on a param used for debug/test purposes - won't be here in production
+     */
     public void findRunsAndMelds(boolean on)
     {
         clearCardStatus(deadwood.cards);
@@ -69,9 +96,18 @@ class Hand
         }
     }
 
+    /**
+     * TODO
+     * This method is called after the cards have been added either
+     * to a run or a meld. Its intended behavior is to add "worth"
+     * to cards as to be used improve ComputerPlayer decisions by
+     * maximizing their hand. For example: if you have a run of 1234
+     * and a meld of 333, how should the shared 3 be used to maximize
+     * the most point reduction.
+     * @param cards the players hand once it has "foundTheRunsAndMelds"
+     */
     public void calculateWorth(Card[] cards)
     {
-//        hand.findRunsAndMelds();
         for (int i = 0; i < cards.length; i++) {
 
             if (cards[i].isOfAKind()) {
@@ -85,17 +121,23 @@ class Hand
         }
     }
 
+    /**
+     * Helper method for refreshing the cards status once a new card has been added
+     * @param hand the players hand
+     */
     private void clearCardStatus(Card[] hand)
     {
-        for (int i = 0; i < hand.length; i++) {
-            Card card = hand[i];
+        for (Card card : hand) {
             card.clearStatus();
             card.release();
         }
     }
 
 
-    // puts the players hand into suit arrays for sorting
+    /**
+     * This method is responsible for putting a Player's Hand into
+     * arrays organized by suit.
+     */
     private void distributeHand()
     {
         // resets the suit arrays to avoid duplicate entries
@@ -132,7 +174,7 @@ class Hand
                 clubs[clubCount] = this.deadwood.cards[i];
                 clubCount += 1;
             }
-        } // end for loop for sorting hand into arrays of suit and wilds
+        }
         sortHand(hearts , heartCount);
         sortHand(diamonds , diamondCount);
         sortHand(spades , spadeCount);
@@ -142,15 +184,23 @@ class Hand
     // suitArray is one of the four suits, sorted by distributeHand()
     // count = # of cards with that suit - not sure the algorithm
     // is 100% fool proof but works decently well
+
+    /**
+     * This method provides logic for finding the runs within a Player's Hand.
+     * It finds the runs and marks each card in the run as "being used" and part
+     * of a "run".
+     * @param suitArray one of for suit arrays sorted by distributeHand()
+     * @param count the number of cards with that suit -- needed because we use
+     *              primitive arrays of same length so may contain empty space. Will always be >= 3.
+     */
     private void findTheRuns(Card[] suitArray , int count)
     {
         int i = 0;
-        boolean isOccupied = true;
+        boolean isOccupied;
 
-        while (i < count - 1 && i != count - 2)     // count wil be >= 3
+        while (i < count - 1 && i != count - 2)
         {
-            // test to see if the number 2 cards ahead is sequential
-            // works because the cards are sorted
+            // test to see if the number 2 cards ahead is sequential - works because the cards are sorted
             if (suitArray[i] != null) {
                 isOccupied = suitArray[i].isBeingUsed() || suitArray[i+1].isBeingUsed() || suitArray[i + 2].isBeingUsed();
 
@@ -179,14 +229,22 @@ class Hand
         }
     }
 
+    /**
+     * This method provides the logic for finding melds (ofAKinds) in a Player's Hand.
+     * Works similarly to findTheRuns(). It checks for 3 of the same number in a row and
+     * if it finds that it keeps checking until the number changes. It turns all the cards
+     * found in an iteration to "ofAKind" and "in use". Also adds them to a "same number array"
+     * similar to the suits array, although this isn't used greatly right now it is designed
+     * for enhanced ComputerPlayer decision making.
+     * @param cards sorted Player Hand
+     * @param count number of cards in the Hand. Same as cards.length - used only for consistency
+     */
     private void findTheOfAkinds(Card[] cards , int count)
     {
-        Card[] store = new Card[LousReady.getRound()];
         Card target;
-        Card match;
-        int tally = 0;
+
         sortHand(cards,count);
-        
+
         for (int i = 0; i < cards.length; i++)
         {
             target = cards[i];
@@ -235,21 +293,10 @@ class Hand
     }
 
     // Todo
-    //  helper function for maximizing the points in a players hand (use this card in a run or an ofAkind)
+    //  helper function for maximizing the points in a players hand (should this card be used in a run or an ofAkind)
     private void maximizePoints()
     {
 
-    }
-
-
-    // Todo: figure out if this belongs here or in Player.java or if needed in both then change a name
-    private static int tallyScore(Card[] hand , int count)
-    {
-        int scoreSum = 0;
-        for (int i = 0; i < count; i += 1)
-        if (hand[i].getCardNumber() > 0 && !hand[i].isOfAKind() && !hand[i].isARun())
-        scoreSum = scoreSum + hand[i].getCardNumber();
-        return scoreSum;
     }
 
     //****************************begin quicksort**************************************
@@ -347,7 +394,6 @@ class Hand
 
 
 
-/**************** BEIGN MAIN METHOD FOR TESTS ***********/
 
 class HandTest
 {

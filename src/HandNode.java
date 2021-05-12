@@ -1,12 +1,21 @@
 // this class should most likely be encapsulated
 // inside Hand.java....maybe
 
+/**
+ * This class is intended to represent different
+ * "staging" areas of a players hand. For example,
+ * one HandNode would hold the players runs, another
+ * would hold the players melds (ofAKinds) and another
+ * would hold the players dead would. This design has not
+ * been fully implemented though and so only one node is
+ * used inside Hand.
+ */
 class HandNode
 {
     private int count;
     private int powerRank;          // might be used for "ranking" a collection of cards by points it counts against the player
-    private HandNode next;          // make public ?
-    private HandNode prev;          // make public ?
+    private HandNode next;
+    private HandNode prev;
 
     public Card[] cards;            // = new Card[LousReady.getRound + 1];
 
