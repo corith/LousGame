@@ -11,9 +11,14 @@ Here is a good source for getting up to speed with the game
 
 ## How to run
 
+- You must have python installed to run the python scripts...
+- If you run ./run.py OR java LousReady currently there is a chance that it does not find a winner in which case you will want to terminate it quickly because it will freeze the terminal.
+- If you run it with ./cpuVcpu.py it has a 10 attempt time out which after the program automatically terminates
+- This is not a bug persay, it is a result of a not so msmart computer player. I am working to improve the computer skill!
+
 1. git clone https://github.com/corith/LousG-fr-2.0.git
 2. cd into LousG-fr-2.0/src
-3. ./run.py
+3. ./run.py OR ./cpuVcpu.py
 4. OR run `javac LousReady.java && java LousReady`
 
 
