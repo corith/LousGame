@@ -5,6 +5,8 @@
 	Adapted from:
 	https://gist.github.com/dainkaplan/4651352
 
+	Updated by Cory Sebastian for card game May 12th 2021.
+
 	This file does not require any modification by the students.
 
 	...
@@ -83,4 +85,11 @@ public class Ansi
 	// define your own strings and/or styles below
 	public static final String YES = Ansi.HIGH_INTENSITY + Ansi.BACKGROUND_GREEN + Ansi.WHITE + "YES!" + Ansi.RESET;
 	public static final String NO = Ansi.HIGH_INTENSITY + Ansi.BACKGROUND_RED + Ansi.WHITE + "NO!" + Ansi.RESET;
+
+	// Suits for 3-13 card game.
+	public static final String DIAMOND = Ansi.RED + Ansi.HIGH_INTENSITY + "<*" + Ansi.RESET;
+	public static final String HEART   = Ansi.RED + Ansi.HIGH_INTENSITY + "<3" + Ansi.RESET;
+	public static final String CLUB    =  Ansi.BACKGROUND_WHITE + Ansi.BLACK + Ansi.HIGH_INTENSITY + "#" + Ansi.RESET;
+	public static final String SPADE   =  Ansi.BACKGROUND_WHITE + Ansi.BLACK + Ansi.HIGH_INTENSITY + "^" + Ansi.RESET;
+	public static final String BLANK_CARD = Ansi.HIGH_INTENSITY + Ansi.MAGENTA + "|_|" + Ansi.RESET;
 }
