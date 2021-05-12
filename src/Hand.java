@@ -27,9 +27,6 @@ class Hand
 
     public HandNode deadwood;
 
-    /**
-     *
-    */
     public Hand()
     {
         deadwood = new HandNode(null , new Card[LousReady.getRound() + 1] , null);
