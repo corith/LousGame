@@ -102,6 +102,7 @@ class Hand
             System.out.println(Ansi.BACKGROUND_RED + Ansi.YELLOW + "***Your OfAKinds***" + Ansi.RESET);
             printKinds(sameNumCount , sameNumber);
         }
+        organizeHand();
     }
 
     /**
@@ -299,6 +300,27 @@ class Hand
     {
 
     }
+
+    private void organizeHand() {
+        int i = 0;
+        int index = 0;
+        for (Card card : deadwood.cards) {
+            if (card.isBeingUsed()) {
+                deadwood.getNext().cards[index] = card;
+                System.out.println("Removing " + deadwood.cards[i] + " from deadwood");
+                deadwood.cards[i] = new Card();
+                deadwood.setCount(deadwood.getCount() - 1);
+                index++;
+            }
+            i++;
+        }
+
+        for (Card card : deadwood.getNext().cards) {
+            System.out.println("Card in deadwood.next: " + card);
+        }
+    }
+
+
 
     // Todo
     //  helper function for maximizing the points in a players hand (should this card be used in a run or an ofAkind)

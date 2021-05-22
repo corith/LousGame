@@ -65,11 +65,32 @@ public class Player
         this.hand.findRunsAndMelds(true);
         System.out.println("points in hand: " + this.tallyScore() + "\n");
 
-        for (int i = 0; i < this.hand.deadwood.cards.length; i++) {
-            if (this.hand.deadwood.cards[i] != null) {
-                System.out.println(this.hand.deadwood.cards[i]);
+//        for (int i = 0; i < this.hand.deadwood.cards.length; i++) {
+//            if (this.hand.deadwood.cards[i] != null) {
+//                System.out.println(this.hand.deadwood.cards[i]);
+//            }
+//        }
+
+        System.out.println(this.hand.deadwood.cards[0]);
+        for (Card card : this.hand.deadwood.cards) {
+            if (card.getSuit() != null) {
+                System.out.println(card);
             }
         }
+//        System.out.println("Done printing deadwood");
+        for (Card card : this.hand.deadwood.getNext().cards) {
+            if (card != null) {
+                System.out.println(card);
+            }
+        }
+//        System.out.println("Done printing deadwood.next");
+        for (Card card : this.hand.deadwood.getNext().getNext().cards) {
+            if (card != null) {
+                System.out.println(card);
+            }
+        }
+//        System.out.println("Done printing deadwood.next.next");
+
     }
 
     /**
@@ -85,9 +106,28 @@ public class Player
         this.hand.findRunsAndMelds(false);
         System.out.println("points in hand: " + this.tallyScore() + "\n");
 
-        for (int i = 0; i < this.hand.deadwood.cards.length; i++)
-            if (this.hand.deadwood.cards[i] != null)
-                System.out.println(this.hand.deadwood.cards[i]);
+//        for (int i = 0; i < this.hand.deadwood.cards.length; i++)
+//            if (this.hand.deadwood.cards[i] != null)
+//                System.out.println(this.hand.deadwood.cards[i]);
+        System.out.println(this.hand.deadwood.cards[0]);
+        for (Card card : this.hand.deadwood.cards) {
+            if (card.getSuit() != null) {
+                System.out.println(card);
+            }
+        }
+//        System.out.println("Done printing deadwood");
+        for (Card card : this.hand.deadwood.getNext().cards) {
+            if (card != null) {
+                System.out.println(card);
+            }
+        }
+//        System.out.println("Done printing deadwood.next");
+        for (Card card : this.hand.deadwood.getNext().getNext().cards) {
+            if (card != null) {
+                System.out.println(card);
+            }
+        }
+//        System.out.println("Done printing deadwood.next.next");
     }
 
     /**
@@ -199,12 +239,13 @@ public class Player
     public int tallyScore()
     {
         int scoreSum = 0;
-        for (int i = 0; i <= this.hand.deadwood.getCount(); i += 1)
+        for (int i = 0; i <= this.hand.deadwood.getCount(); i += 1) {
             if (this.hand.deadwood.cards[i].getCardNumber() > 0
                     && !this.hand.deadwood.cards[i].isOfAKind()
                     && !this.hand.deadwood.cards[i].isARun()) {
                 scoreSum = scoreSum + this.hand.deadwood.cards[i].getCardNumber();
             }
+        }
         return scoreSum;
     }
 }
