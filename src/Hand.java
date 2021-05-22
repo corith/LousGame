@@ -7,7 +7,7 @@
  * The goal of this is to be able to use these other nodes as "staging areas"
  * for cards that fit into either a run or an "of a kind" and could make it easier
  * to print/display the hand to a player as well as for ComputerPlayers to make more
- * advanced decision
+ * advanced decisions.
  */
 class Hand
 {
@@ -27,6 +27,17 @@ class Hand
 
     public HandNode deadwood;
 
+    /**
+     * Creates a Hand object. This is a doubly linked list.
+     * The first node, called deadwood, it's prev points to null and
+     * next points to another HandNode that is used to store cards
+     * that fit into a 3+ set (333/4567 etc). That node's prev points
+     * back to deadwood, and it's next points to another HandNode that
+     * contains any remaining cards that fit into a "pair" (3,4/5,5).
+     * This node's next points to null. The remaining cards that do not
+     * have a set or a pair reside in deadwood and so do wild cards until
+     * used either with a set or to complete a pair.
+     */
     public Hand()
     {
         deadwood = new HandNode(null , new Card[LousReady.getRound() + 1] , null);
