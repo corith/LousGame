@@ -27,6 +27,10 @@ class Hand
 
     public HandNode deadwood;
 
+    public Card[] getCards() {
+        return this.deadwood.cards;
+    }
+
     /**
      * Creates a Hand object. This is a doubly linked list.
      * The first node, called deadwood, it's prev points to null and
@@ -75,6 +79,7 @@ class Hand
     public void findRunsAndMelds(boolean on)
     {
         clearCardStatus(deadwood.cards);
+        this.putCardsBackInDeadWood();
         this.distributeHand();
 
         findTheOfAkinds(deadwood.cards , LousReady.getRound());
@@ -102,7 +107,34 @@ class Hand
             System.out.println(Ansi.BACKGROUND_RED + Ansi.YELLOW + "***Your OfAKinds***" + Ansi.RESET);
             printKinds(sameNumCount , sameNumber);
         }
-        organizeHand();
+        if (on) {
+            organizeHand();
+        }
+    }
+
+    public void putCardsBackInDeadWood() {
+        int dnIndex = 0;
+        for (int i = 1; i < this.deadwood.cards.length; i++) {
+            if (this.deadwood.cards[i] == null) {
+                if (this.deadwood.getNext().cards[dnIndex] != null) {
+                    this.deadwood.cards[i] = this.deadwood.getNext().cards[dnIndex];
+                    dnIndex++;
+                }
+            }
+        }
+
+        int dnnIndex = 0;
+        for (int i = 0; i < this.deadwood.cards.length; i++) {
+            if (this.deadwood.cards[i] == null) {
+                if (this.deadwood.getNext().cards[dnIndex] != null) {
+                    this.deadwood.cards[i] = this.deadwood.getNext().getNext().cards[dnnIndex];
+                    dnnIndex++;
+                }
+            }
+        }
+
+//        this.deadwood.setCount(this.deadwood.cards.length);
+
     }
 
     /**
@@ -318,6 +350,10 @@ class Hand
         for (Card card : deadwood.getNext().cards) {
             System.out.println("Card in deadwood.next: " + card);
         }
+
+//        for (Card card : deadwood.cards) {
+//            System.out.println(card);
+//        }
     }
 
 
@@ -449,6 +485,9 @@ class HandTest
 //        test.hand.deadwood.cards[2] = new Card("^" , 10);
 //        test.hand.deadwood.cards[3] = new Card("#" , 10);
         test.getHand();
+//        for (Card card : test.hand.getCards()) {
+//            System.out.println(card);
+//        }
 
         System.out.println("Array Length: " + test.hand.deadwood.cards.length);
         System.out.println("card at index 0: " + test.hand.deadwood.cards[0]);

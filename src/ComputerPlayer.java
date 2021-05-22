@@ -96,8 +96,8 @@ class ComputerPlayer extends Player {
 
         // if all cards are being used or it tried to discard playPlate then the discardCard suit will be null
         if (discardCard.getSuit() == null) {
-            discardCard = this.hand.deadwood.cards[this.hand.deadwood.getCount()];
-            System.out.println("Discarded the hihgest card in my hand-[");
+            discardCard = this.hand.deadwood.cards[LousReady.getRound()];
+            System.out.println("Discarded the highest card in my hand-[");
         }
 
         this.putDownDiscard(discardCard);

@@ -7,6 +7,7 @@ import java.util.Stack;
 public class Player
 {
     private int score;
+
     private boolean dealer;
     private boolean turn;
     private String playerName;
@@ -239,6 +240,7 @@ public class Player
     public int tallyScore()
     {
         int scoreSum = 0;
+        this.hand.putCardsBackInDeadWood();
         for (int i = 0; i <= this.hand.deadwood.getCount(); i += 1) {
             if (this.hand.deadwood.cards[i].getCardNumber() > 0
                     && !this.hand.deadwood.cards[i].isOfAKind()
