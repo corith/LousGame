@@ -1,7 +1,6 @@
 # LousG-fr-2.0
 Round two of Lous Stupid Game - AKA "Chicken" - The Command Line implementation :)
 
-
 This game is known as Diablo, 3-13, Chicken, Lous Stupid Game, etc...
 
 Here is a good source for getting up to speed with the game
@@ -11,9 +10,14 @@ Here is a good source for getting up to speed with the game
 
 ## How to run
 
+- You must have python installed to run the python scripts...
+- If you run ./run.py OR java LousReady currently there is a chance that it does not find a winner in which case you will want to terminate it quickly because it will freeze the terminal.
+- If you run it with ./cpuVcpu.py it has a 10 attempt time out which after the program automatically terminates
+- This is not a bug persay, it is a result of a not so msmart computer player. I am working to improve the computer skill!
+
 1. git clone https://github.com/corith/LousG-fr-2.0.git
 2. cd into LousG-fr-2.0/src
-3. ./run.py
+3. ./run.py OR ./cpuVcpu.py
 4. OR run `javac LousReady.java && java LousReady`
 
 
@@ -26,6 +30,8 @@ Here is a good source for getting up to speed with the game
 
 - These are all python scripts and for now are simply contained within the src directory
     - these will probably be moved to their own directory as more are created
+    - run.py will run the program and remove .class files after it terminates
+    - cpuVcpu.py will run a simulation until a succesful game is played and remove .class files after terminating (will time out after 10 attempts)
 
 ## Contributing
 
@@ -33,15 +39,16 @@ Here is a good source for getting up to speed with the game
 
 - If you wish to contribute please just make a descriptive branch and then make your PR! :)
 
-### Potential Todos!
+- LousReady.java is main driver for the program.
+
+### Todos!
 
 - implement wild cards (LG-100)
     - incorporate them into the computer decision making system
 
 - improve "decision" system of the computer player (LG-101)
-    - currently hard coded decisions for development purposes (that whole function will be removed soon)
-    - for the real decision system thouhg it currently it prioritizes ofAKinds over runs
-        - it also does not consider the value of cards in a pair - will drop a card in a pair sometimes instead of a single unused card
+    - it currently it prioritizes ofAKinds over runs
+        - add the ability for computer to prioritize specifc runs over ofAKinds and vice versa 
 
 - fine tune the "discard" and "pick-up" interface for the player (LG-102)
     - possibly a "vim like" interface for the four suits
@@ -51,13 +58,10 @@ Here is a good source for getting up to speed with the game
 
 - create an interface that allows for selection of "user play" or simulation "mode" at game start (LG-104)
 
-- fix any crashes that occur sporadically
-    - ex: there is an EmptyStackException that causes problems as a result of an empty playPlate.
-
 - looking to refactor the players hand so that instead of playerOne.hand.deadwood.cards[i] it will be playerOne.hand.cards[i]
 
 - add the ability for a player to insert their name at start of game
 
 #### Far out
     - try to implement an SSH multiplayer version
-    - turn it into a gui game with something like swing
+    - turn it into a gui game with something like swing or an iOS app...

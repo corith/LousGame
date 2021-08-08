@@ -1,8 +1,6 @@
-/****************************************************
- **             Cory Sebastian                     **
- **               Card class                       **
- ****************************************************/
-
+/**
+ * This class models a single individual Card.
+ */
 public class Card
 {
     private int number;
@@ -58,38 +56,47 @@ public class Card
     }
 
     /**
-        prints face cards and aces else prints the default card suit and number
-     **/
+     * prints face cards and aces with letters (A,K,Q,J) else
+     * prints the default card suit and number.
+     * @return String - the suit.
+     */
     @Override
     public String toString()
     {
         if (this.getSuit() == null)
-            return Ansi.HIGH_INTENSITY + Ansi.MAGENTA + "|_|" + Ansi.RESET;
+            return Ansi.BLANK_CARD;
         else if (this.getSuit().equals("<3"))
         {
             if (this.getCardNumber() >= 11 || this.getCardNumber() == 1)
-                return faceCard(this) + " " + Ansi.RED + Ansi.HIGH_INTENSITY + this.getSuit() + Ansi.RESET;
+                return faceCard(this) + " " + Ansi.HEART;
+            return this.getCardNumber() + " " + Ansi.HEART;
 
-            return this.getCardNumber() + " " + Ansi.RED + Ansi.HIGH_INTENSITY + "<3" + Ansi.RESET + "";
         } else if (this.getSuit().equals("<*")) {
             if (this.getCardNumber() >= 11 || this.getCardNumber() == 1)
-                return faceCard(this) + " " + Ansi.RED + Ansi.HIGH_INTENSITY + this.getSuit() + Ansi.RESET;
+                return faceCard(this) + " " + Ansi.DIAMOND;
+            return this.getCardNumber() + " " + Ansi.DIAMOND + "";
 
-            return this.getCardNumber() + " " + Ansi.RED + Ansi.HIGH_INTENSITY + "<*" + Ansi.RESET + "";
         } else if (this.getSuit().equals("^")) {
             if (this.getCardNumber() >= 11 || this.getCardNumber() == 1)
-                return faceCard(this) + " " + Ansi.BACKGROUND_WHITE + Ansi.BLACK + Ansi.HIGH_INTENSITY + this.getSuit() + Ansi.RESET;
+                return faceCard(this) + " " + Ansi.SPADE;
+            return this.getCardNumber() + " " + Ansi.SPADE;
 
-            return this.getCardNumber() + " " + Ansi.BACKGROUND_WHITE + Ansi.BLACK + Ansi.HIGH_INTENSITY + "^" + Ansi.RESET + "";
         } else if (this.getSuit().equals("#")) {
             if (this.getCardNumber() >= 11 || this.getCardNumber() == 1)
-                return faceCard(this) + " " + Ansi.BACKGROUND_WHITE + Ansi.BLACK + Ansi.HIGH_INTENSITY + this.getSuit() + Ansi.RESET;
+                return faceCard(this) + " " + Ansi.CLUB;
+            return this.getCardNumber() + " " + Ansi.CLUB;
 
-            return this.getCardNumber() + " " + Ansi.BACKGROUND_WHITE + Ansi.BLACK + Ansi.HIGH_INTENSITY + "#" + Ansi.RESET + "";
         } else
             return this.getCardNumber() + " " + this.getSuit() + "";
     }
 
+    /**
+     * toString helper function for returning a face card or ace.
+     * It is guaranteed by toString that this card will be
+     * a face card.
+     * @param card The card to be "turned to a face card"
+     * @return String A | K | Q | J
+     */
     public String faceCard(Card card)
     {
         switch (card.getCardNumber()) {
@@ -110,23 +117,22 @@ public class Card
         }
     }
 
-    // Todo: check exampleTwo's class so the editor shuts up
     @Override
     public boolean equals(Object exampleTwo)
     {
+        if (!(exampleTwo instanceof Card)) {
+            return false;
+        }
         if (this == exampleTwo)
             return true;
-        if (exampleTwo == null)
-            return false;
         Card exampleDeux = (Card)exampleTwo;
         return getSuit().equals(exampleDeux.getSuit()) && getCardNumber() == exampleDeux.getCardNumber();
     }
-} // end class Card
+}
 
 
 
 
-/************** BEGIN MAIN METHOD FOR TESTING PURPOSES ******************/
 
 class CardTest
 {
@@ -162,16 +168,16 @@ class CardTest
 
 
     if (c1.equals(c2)) {
-      System.out.println("EQUAL BITCH");
+      System.out.println("EQUAL");
     }
     if (c1.equals(test)) {
       System.out.println("the object is equal");
     }
     if (!c1.equals(c3)) {
-      System.out.println("they aint equal hehe");
+      System.out.println("they ain't equal hehe");
     }
     else {
-      System.out.println("STUPID BITCH");
+      System.out.println("STUPID IDIOT");
     }
 
     //System.out.println(c3.isWild);
