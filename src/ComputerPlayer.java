@@ -1,4 +1,5 @@
 import java.util.Stack;
+import java.util.logging.Logger;
 
 /**
  * This class extends Player and is intended to model a computer player.
@@ -6,6 +7,7 @@ import java.util.Stack;
  * take turn but instead has it's own method called "computerTakeTurn".
  */
 class ComputerPlayer extends Player {
+    private static Logger logger  = Logger.getLogger("Computer Player");
 
     public int playerNumber;
 
@@ -43,7 +45,7 @@ class ComputerPlayer extends Player {
         scoreAfterPickUp = this.tallyScore();
 
         removeHypotheticalPlayPlateCard(playPlate);
-        if (scoreAfterPickUp < scoreBefore) {
+        if (scoreAfterPickUp < scoreBefore || playPlate.getCardNumber() == LousReady.getRound()) {
             System.out.println("Picking up from playPlate");
             return 1;
         } else {
@@ -88,21 +90,42 @@ class ComputerPlayer extends Player {
             this.pickUpCard(playPlate);
         }
 
+
+        int highestCardIndex = -1;
+
         for (int i = 0; i < this.hand.deadwood.getCount(); i++) {
-            if (!this.hand.deadwood.cards[i].isBeingUsed() && !this.hand.deadwood.cards[i].equals(pp)) {
-                discardCard = this.hand.deadwood.cards[i];
+            boolean isEligableForDiscard = (!this.hand.deadwood.cards[i].isBeingUsed() && !this.hand.deadwood.cards[i].equals(pp)  && this.hand.deadwood.cards[i].getCardNumber() != LousReady.getRound()  );
+            if ( isEligableForDiscard ) {
+
+                if ( highestCardIndex == -1   ) {
+                    // discard card = first that is eligible
+                    discardCard = this.hand.deadwood.cards[i];
+                    highestCardIndex = i;
+                } else {
+                    // test if the next candidate is higher than the current highest card.
+                    if (this.hand.deadwood.cards[i].getCardNumber() > this.hand.deadwood.cards[highestCardIndex].getCardNumber()) {
+                        highestCardIndex = i;
+                        discardCard = this.hand.deadwood.cards[i];
+                    }
+                }
+//                highestCard = Math.max(discardCard.getCardNumber(), highestCard);
+//                discardCard = this.hand.deadwood.cards[this.hand.deadwood.getCount()];
             }
+
         }
 
         // if all cards are being used or it tried to discard playPlate then the discardCard suit will be null
         if (discardCard.getSuit() == null) {
             discardCard = this.hand.deadwood.cards[this.hand.deadwood.getCount()];
             System.out.println("Discarded the hihgest card in my hand-[");
+            LousReady.logger.info("Discareded Highest Card in Hand....");
         }
+
 
         this.putDownDiscard(discardCard);
         System.out.println("Discarded " + discardCard);
         this.getHand(1);
+        this.hand.findRunsAndMelds(false);
     }
 
 }

@@ -1,3 +1,6 @@
+import java.util.Arrays;
+import java.util.EmptyStackException;
+import java.util.NoSuchElementException;
 import java.util.Stack;
 
 /**
@@ -104,13 +107,15 @@ public class Player
             if (this.hand.deadwood.cards[index].getSuit() == null) {
                 try {
                     this.hand.deadwood.cards[index] = sDeck.cards.pop();
-                } catch (Exception NoSuchElementException) {
+                } catch (NoSuchElementException e) {
+                    LousReady.logger.info(e.toString());
                     if (sDeck.cards.size() == 0) {
+                        LousReady.logger.info("deck has ran out of cards....");
                         System.out.println("******************************OUT OF CARDS ALERT***********************");
                         System.out.println("Reloading deck deque with "+AssDriver.discardPile.size()+" cards");
                         while(!AssDriver.discardPile.empty()) {
                             sDeck.cards.push(AssDriver.discardPile.pop());
-                        }
+                        };
                         System.out.println("The new top card was: " + sDeck.cards.peek());
                         this.hand.deadwood.cards[index] = sDeck.cards.pop();
                     }
@@ -133,8 +138,10 @@ public class Player
             {
                 try {
                     this.hand.deadwood.cards[index] = playPlate.pop();
-                } catch (Exception EmptyStackException) {
-                    System.out.println("Caught that thang");
+                } catch (EmptyStackException e) {
+                    System.out.println("playPlate is empty");
+                    LousReady.logger.info("Caught EmptyStackException trying to pop from discardPile");
+                    LousReady.logger.info(e.getMessage());
                 }
 
             }
@@ -198,13 +205,21 @@ public class Player
      */
     public int tallyScore()
     {
+        int wildCount;
         int scoreSum = 0;
-        for (int i = 0; i <= this.hand.deadwood.getCount(); i += 1)
-            if (this.hand.deadwood.cards[i].getCardNumber() > 0
-                    && !this.hand.deadwood.cards[i].isOfAKind()
-                    && !this.hand.deadwood.cards[i].isARun()) {
+        wildCount = (int) Arrays.stream(this.hand.deadwood.cards).filter(e -> e.getCardNumber() == LousReady.getRound()).count();
+        for (int i = 0; i <= this.hand.deadwood.getCount(); i += 1) {
+
+            boolean shouldCount = this.hand.deadwood.cards[i].getCardNumber() > 0 && !this.hand.deadwood.cards[i].isOfAKind() && !this.hand.deadwood.cards[i].isARun();
+//            shouldCount = shouldCount ||
+            if (shouldCount) {
                 scoreSum = scoreSum + this.hand.deadwood.cards[i].getCardNumber();
             }
+
+            if (wildCount > 2) {
+                scoreSum = 0;
+            }
+        }
         return scoreSum;
     }
 }

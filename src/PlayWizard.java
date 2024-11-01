@@ -101,18 +101,21 @@ class PlayWizard extends AssDriver
         if(user.isAWinner())
         {
             System.out.println(Ansi.BACKGROUND_MAGENTA + Ansi.CYAN + "YOU HAVE WON" + Ansi.RESET);
+            LousReady.logger.info("user has won");
             user.getHand();
             return true;
         }
         else if(p1.isAWinner())
         {
             System.out.println(Ansi.BACKGROUND_MAGENTA + Ansi.CYAN + "Computer One has WON yalll ...... amazing" + Ansi.RESET);
+            LousReady.logger.info("player one has won");
             p1.getHand();
             return true;
         }
         else if(p2.isAWinner())
         {
             System.out.println(Ansi.BACKGROUND_MAGENTA + Ansi.CYAN + "Computer Two has WON yalll ...... amazing" + Ansi.RESET);
+            LousReady.logger.info("player two has won");
             p2.getHand();
             return true;
         }

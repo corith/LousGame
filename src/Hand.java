@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * This class represents a Player's Hand.
  * A Hand consists of a doubly linked list of HandNodes with the head node being the "main card area".
@@ -11,12 +13,12 @@
  */
 class Hand
 {
-    private Card[] hearts            = new Card[LousReady.getRound() + 1];
-    private Card[] diamonds          = new Card[LousReady.getRound() + 1];
-    private Card[] spades            = new Card[LousReady.getRound() + 1];
-    private Card[] clubs             = new Card[LousReady.getRound() + 1];
-    private Card[] wildCards         = new Card[LousReady.getRound() + 1];
-    private Card[] sameNumber        = new Card[LousReady.getRound() + 1];
+    private final Card[] hearts            = new Card[LousReady.getRound() + 1];
+    private final Card[] diamonds          = new Card[LousReady.getRound() + 1];
+    private final Card[] spades            = new Card[LousReady.getRound() + 1];
+    private final Card[] clubs             = new Card[LousReady.getRound() + 1];
+    private final Card[] wildCards         = new Card[LousReady.getRound() + 1];
+    private final Card[] sameNumber        = new Card[LousReady.getRound() + 1];
     private int heartCount           = 0;
     private int diamondCount         = 0;
     private int spadeCount           = 0;
@@ -89,7 +91,7 @@ class Hand
 
         this.calculateWorth(deadwood.cards);
         //maximizePoints(deadwood.cards);
-        //useWilds();
+        useWilds();
 
         // loops for testing finding the runs.
         if (on) {
@@ -98,6 +100,7 @@ class Hand
             printRuns(diamondCount , diamonds);
             printRuns(spadeCount , spades);
             printRuns(clubCount , clubs);
+            printWilds();
             System.out.println();
             System.out.println(Ansi.BACKGROUND_RED + Ansi.YELLOW + "***Your OfAKinds***" + Ansi.RESET);
             printKinds(sameNumCount , sameNumber);
@@ -295,10 +298,80 @@ class Hand
 
     // Todo
     //  distribute the wild cards so that they negate the most points possible
-    private void useWilds()
-    {
+    private void useWilds() {
+        loadWilds(heartCount, hearts);
+        loadWilds(diamondCount, diamonds);
+        loadWilds(spadeCount, spades);
+        loadWilds(clubCount, clubs);
 
     }
+
+    private void decreaseCardCount(String suit) {
+        switch (suit) {
+            case "<*":
+                diamondCount--;
+            case "<3":
+                heartCount--;
+            case "#":
+                clubCount--;
+            case "^":
+                spadeCount--;
+            default:
+                LousReady.logger.info("suit doesn't match. Couldn't decrease count.");
+        }
+    }
+
+    private void loadWilds(int suitCount, Card[] cards) {
+
+        if (suitCount > 3) {
+            if (cards[0].getCardNumber() == LousReady.getRound()) {
+                wildCards[wildCount] = cards[0];
+                cards[0] = cards[suitCount-1];
+                decreaseCardCount(cards[0].getSuit());
+                cards[suitCount-1] = new Card();
+                wildCount++;
+            } else if (cards[suitCount - 1].getCardNumber() == LousReady.getRound() ) {
+                wildCards[wildCount] = cards[suitCount-1];
+                decreaseCardCount(cards[suitCount-1].getSuit());
+                cards[suitCount-1] = new Card();
+                wildCount++;
+            }
+        }
+
+//
+//        if (heartCount > 3) {
+//            if (hearts[0].getCardNumber() == LousReady.getRound()) {
+//                wildCards[wildCount] = hearts[0];
+//            } else if (hearts[heartCount].getCardNumber() == LousReady.getRound() ) {
+//                wildCards[wildCount] = hearts[heartCount];
+//            }
+//        }
+//
+//        if (spadeCount > 3) {
+//            if (spades[0].getCardNumber() == LousReady.getRound()) {
+//                wildCards[wildCount] = spades[0];
+//            } else if (spades[spadeCount].getCardNumber() == LousReady.getRound() ) {
+//                wildCards[wildCount] = spades[spadeCount];
+//            }
+//        }
+//
+//        if (diamondCount > 3) {
+//            if (diamonds[0].getCardNumber() == LousReady.getRound()) {
+//                wildCards[wildCount] = diamonds[0];
+//            } else if (diamonds[diamondCount].getCardNumber() == LousReady.getRound() ) {
+//                wildCards[wildCount] = diamonds[diamondCount];
+//            }
+//        }
+//
+//        if (clubCount > 3) {
+//            if (clubs[0].getCardNumber() == LousReady.getRound()) {
+//                wildCards[wildCount] = clubs[0];
+//            } else if (clubs[clubCount].getCardNumber() == LousReady.getRound() ) {
+//                wildCards[wildCount] = clubs[clubCount];
+//            }
+//        }
+    }
+
 
     // Todo
     //  helper function for maximizing the points in a players hand (should this card be used in a run or an ofAkind)
@@ -396,6 +469,11 @@ class Hand
             if (suit[index].isOfAKind() && sameNumCount >= 3)
                 System.out.println("yes");
         }
+    }
+
+    private void printWilds() {
+        System.out.println("Wilds");
+        Arrays.stream(wildCards).forEach( wld -> { if (wld != null) {System.out.println(wld);  }  }  );
     }
 //******************************** end testing methods *******************************************************
 }

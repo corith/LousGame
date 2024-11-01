@@ -20,6 +20,7 @@ public class DeckOfCards extends Card {
      * shuffled. After calling this method you should have a deck
      * that is equivalent to opening a new deck from a store.
      */
+    @Deprecated
     public void getDeck()
     {
         this.initializeDeck();
@@ -68,7 +69,7 @@ public class DeckOfCards extends Card {
     /**
      * This method is responsible for dealing a deck presumably shuffled,
      * out to all the Players. After dealing the right amount of cards it
-     * sets an empty card for space to pick up cards.
+     * sets an empty card in each player's hand for space to pick up cards.
      * @param playerOne Player one
      * @param playerTwo Player two
      * @param user Player three (if real user then it's the user)
@@ -98,7 +99,7 @@ public class DeckOfCards extends Card {
      * look the same as a new deck just opened from the store. Currently does not
      * load jokers, but it will eventually.
      */
-     private void initializeDeck()
+     public void initializeDeck()
      {
          String[] suits = {"<3", "<*" , "^" , "#"};
          int num = 1;

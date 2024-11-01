@@ -18,7 +18,7 @@ count = 0
 while output.find("GAME OVER") == -1:
     count+=1
     try:
-        result = subprocess.run(['java', 'LousReady'] , stdout=subprocess.PIPE, timeout=3)
+        result = subprocess.run(['java', 'LousReady'] , stdout=subprocess.PIPE, timeout=5)
         output = result.stdout.decode('utf-8')
     except:
         result = 1

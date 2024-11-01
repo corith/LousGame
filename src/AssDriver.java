@@ -29,13 +29,19 @@ public class AssDriver extends LousReady {
 
         while (true) {
 
+//            try {
+//                Thread.sleep(3000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
             if (discardPile.isEmpty()) {
+                LousReady.logger.info("discard pile was empty");
                 discardPile.push(sDeck.cards.pop());
+                LousReady.logger.info("loaded discardPile from sDeck.cards");
             }
 
             System.out.println("The number of cards left in the deck is: " + sDeck.cards.size());
             System.out.println("The number of cards in the discardPile is: " + discardPile.size());
-
 //          user.getHand();
             System.out.println("The " + Ansi.CYAN + "discard " + Ansi.RESET + "pile contains: " + discardPile.peek());
 
