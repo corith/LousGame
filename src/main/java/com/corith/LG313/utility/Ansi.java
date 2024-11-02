@@ -1,3 +1,5 @@
+package com.corith.LG313.utility;
+
 /*
 	Provided code by Dan Shervheim
 	UMN 1103 TA Fall 2018

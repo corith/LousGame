@@ -1,0 +1,52 @@
+package com.corith.LG313.models.player;
+
+import com.corith.LG313.interfaces.Playable;
+import com.corith.LG313.models.Card;
+import com.corith.LG313.models.Hand;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.*;
+
+@Getter
+@Setter
+public abstract class Player implements Playable {
+
+    UUID playerId;
+    String name;
+    boolean isDealer;
+    boolean isTurn = false;
+    int score;
+    int riskScore = 3;
+
+    Hand hand;
+
+    public Player() {
+        this.playerId = UUID.randomUUID();
+        this.name = "";
+        this.isDealer = false;
+        this.score = 0;
+        this.hand = new Hand();
+    }
+
+    public void shuffleCards(Deque<Card> cards) {
+        List<Card> shuffler = new ArrayList<>(cards);
+        Collections.shuffle(shuffler);
+        cards.clear();
+        cards.addAll(shuffler);
+    }
+
+    public void deal(Deque<Card> cards, List<Player> players, int limit) {
+        for (int i=0; i<limit; i++) {
+            for (Player p : players) {
+                try {
+                    Card card = cards.pop();
+                    card.setWild(card.getCardRank().getRank()==limit);
+                    p.getHand().getDeadwood().add(card);
+                } catch (NoSuchElementException e) {
+                    throw new NoSuchElementException("Ran out of cards while dealing");
+                }
+            }
+        }
+    }
+}
