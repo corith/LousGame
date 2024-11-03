@@ -31,19 +31,28 @@ public class Hand {
     List<Card> clubs = new ArrayList<>();
     List<Card> spades = new ArrayList<>();
 
+    /**
+     * Goal: to minimize the amount of points in deadwood.
+     * <p>
+     * This method creates the best possible hand out of the cards in deadwood.
+     * It will  attempt to find all the runs, melds, and to distribute wild cards. Marking
+     * cards as "being used" when organizing them.
+     */
     public void createBestHand() {
         organize();
-
         runs = findRuns(hearts);
         runs.addAll(findRuns(spades));
         runs.addAll(findRuns(diamonds));
         runs.addAll(findRuns(clubs));
-
         melds.addAll(findMelds(deadwood));
-
         disperseWilds();
     }
 
+    /**
+     * Organizes deadwood by suit. Populates wilds list. Sorts by CardRank.
+     * <p>
+     * Sets all cards isBeingUsed to FALSE.
+     */
     public void organize() {
         hearts = getAllMatchingSuits(Suit.HEARTS);
         hearts.sort(Comparator.comparing(Card::getCardRank));
@@ -55,6 +64,9 @@ public class Hand {
         spades.sort(Comparator.comparing(Card::getCardRank));
         System.out.println("Hearts: " + hearts.size() + " diamonds: " + diamonds.size() + " clubs: " + clubs.size() + " spades: " + spades.size() + " wilds: " + wilds.size());
         deadwood.sort(Comparator.comparing(Card::getCardRank));
+        for (Card card : deadwood) {
+            card.setBeingUsed(false);
+        }
     }
 
     public List<CardGroup> findRuns(List<Card> cards) {
@@ -235,6 +247,14 @@ public class Hand {
         }
     }
 
+    /**
+     * Finds all the cards from deadwood that have matching Suit & returns them in a List.
+     * Any wilds that it finds are added the wilds list instead.
+     * <p>
+     * Does not remove any cards from deadwood.
+     * @param suit suit to match
+     * @return List with matching suit cards.
+     */
     private List<Card> getAllMatchingSuits(Suit suit) {
         List<Card> returnList = new ArrayList<>();
         for (Card card : deadwood) {

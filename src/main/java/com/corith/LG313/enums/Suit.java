@@ -9,6 +9,10 @@ public enum Suit {
     CLUBS(Ansi.BLACK+Ansi.BACKGROUND_WHITE+"#"+Ansi.RESET), SPADES(Ansi.BACKGROUND_WHITE+Ansi.BLACK+"<"+Ansi.RESET),
     JOKER(Ansi.BACKGROUND_MAGENTA+ "JKR"+Ansi.RESET);
 
+//    HEARTS(Ansi.RED+"❤️"+Ansi.RESET), DIAMONDS(Ansi.RED+"💎"+Ansi.RESET),
+//    CLUBS(Ansi.BLACK+Ansi.BACKGROUND_WHITE+"♣️"+Ansi.RESET), SPADES(Ansi.BACKGROUND_WHITE+Ansi.BLACK+"♠️"+Ansi.RESET),
+//    JOKER(Ansi.BACKGROUND_MAGENTA+ "JKR"+Ansi.RESET);
+
     private final String style;
 
     Suit(String style) {
