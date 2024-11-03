@@ -1,6 +1,5 @@
 package com.corith.LG313.utility;
 
-import com.corith.LG313.enums.CardRank;
 import com.corith.LG313.models.CardDeck;
 import com.corith.LG313.models.player.ComputerPlayer;
 import com.corith.LG313.models.player.Player;
@@ -8,7 +7,6 @@ import com.corith.LG313.models.player.UserPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class PlayWizard {
     static int cardLimit = 13;
@@ -33,23 +31,15 @@ public class PlayWizard {
         player.shuffleCards(gameDeck.cards);
         player.deal(gameDeck.cards, players, cardLimit);
 
-//        while(cardLimit < 14) {
-//            cardLimit++;
-//        }
-
         for (Player p : players) {
             System.out.println(p.getName());
-            p.getHand().organize();
             p.getHand().createBestHand();
-            System.out.println("Points in hand: " + p.getHand().getDeadWoodValue());
-            System.out.println(p.getHand().getDeadwood().stream()
-                    .map(card -> card.prettyPrint(true))
-                    .collect(Collectors.joining(", ", "🖐️", "")));
+            RenderEngine.renderHand(p.getHand());
         }
 
-        System.out.println("\n\nFirst Card in discard pile: " + gameDeck.cards.pop().prettyPrint(true));
+        System.out.println("\n\nDiscard pile: " + gameDeck.cards.pop().prettyPrint(true));
         if (gameDeck.cards.peek() != null) {
-            System.out.println("Sneak peak at draw card: " + gameDeck.cards.peek().prettyPrint(true));
+            System.out.println("Peek Draw card: " + gameDeck.cards.peek().prettyPrint(true));
         }
 
         return "Game Over.";
