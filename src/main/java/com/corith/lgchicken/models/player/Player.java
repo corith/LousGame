@@ -1,8 +1,8 @@
-package com.corith.LG313.models.player;
+package com.corith.lgchicken.models.player;
 
-import com.corith.LG313.interfaces.Playable;
-import com.corith.LG313.models.Card;
-import com.corith.LG313.models.Hand;
+import com.corith.lgchicken.interfaces.Playable;
+import com.corith.lgchicken.models.Card;
+import com.corith.lgchicken.models.Hand;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,4 +1,4 @@
-package com.corith.LG313;
+package com.corith.lgchicken;
 
 import org.junit.Assert;
 import org.junit.Test;

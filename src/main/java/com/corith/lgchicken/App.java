@@ -1,6 +1,6 @@
-package com.corith.LG313;
-import com.corith.LG313.utility.Ansi;
-import com.corith.LG313.utility.PlayWizard;
+package com.corith.lgchicken;
+import com.corith.lgchicken.utility.Ansi;
+import com.corith.lgchicken.utility.PlayWizard;
 
 public class App {
     public static void main( String[] args ) {

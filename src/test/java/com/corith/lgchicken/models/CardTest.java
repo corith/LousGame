@@ -1,7 +1,7 @@
-package com.corith.LG313.models;
+package com.corith.lgchicken.models;
 
-import com.corith.LG313.enums.CardRank;
-import com.corith.LG313.enums.Suit;
+import com.corith.lgchicken.enums.CardRank;
+import com.corith.lgchicken.enums.Suit;
 import org.junit.Assert;
 import org.junit.Test;
 

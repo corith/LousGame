@@ -39,7 +39,7 @@
             <configuration>
               <archive>
                 <manifest>
-                  <mainClass>com.corith.LG313.App</mainClass>
+                  <mainClass>com.corith.lgchicken.App</mainClass>
                 </manifest>
               </archive>
             </configuration>
@@ -90,6 +90,11 @@
                   <target>8</target>
               </configuration>
           </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <version>3.0.0</version>
+        </plugin>
       </plugins>
   </build>
 </project>

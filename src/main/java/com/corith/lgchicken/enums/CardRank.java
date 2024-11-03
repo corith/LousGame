@@ -1,4 +1,4 @@
-package com.corith.LG313.enums;
+package com.corith.lgchicken.enums;
 
 import lombok.Getter;
 

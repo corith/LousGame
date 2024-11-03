@@ -1,6 +1,6 @@
-package com.corith.LG313.enums;
+package com.corith.lgchicken.enums;
 
-import com.corith.LG313.utility.Ansi;
+import com.corith.lgchicken.utility.Ansi;
 import lombok.Getter;
 
 @Getter

@@ -1,6 +1,6 @@
-package com.corith.LG313.models;
+package com.corith.lgchicken.models;
 
-import com.corith.LG313.enums.GroupType;
+import com.corith.lgchicken.enums.GroupType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

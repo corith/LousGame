@@ -1,7 +1,7 @@
-package com.corith.LG313.interfaces;
+package com.corith.lgchicken.interfaces;
 
-import com.corith.LG313.models.Card;
-import com.corith.LG313.models.player.Player;
+import com.corith.lgchicken.models.Card;
+import com.corith.lgchicken.models.player.Player;
 
 import java.util.Deque;
 import java.util.List;

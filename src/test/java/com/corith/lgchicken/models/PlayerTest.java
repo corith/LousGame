@@ -1,8 +1,8 @@
-package com.corith.LG313.models;
+package com.corith.lgchicken.models;
 
-import com.corith.LG313.models.player.ComputerPlayer;
-import com.corith.LG313.models.player.Player;
-import com.corith.LG313.models.player.UserPlayer;
+import com.corith.lgchicken.models.player.ComputerPlayer;
+import com.corith.lgchicken.models.player.Player;
+import com.corith.lgchicken.models.player.UserPlayer;
 import org.junit.Assert;
 import org.junit.Test;
 

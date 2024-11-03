@@ -1,8 +1,8 @@
-package com.corith.LG313.utility;
+package com.corith.lgchicken.utility;
 
-import com.corith.LG313.models.Card;
-import com.corith.LG313.models.CardGroup;
-import com.corith.LG313.models.Hand;
+import com.corith.lgchicken.models.Card;
+import com.corith.lgchicken.models.CardGroup;
+import com.corith.lgchicken.models.Hand;
 
 import java.util.stream.Collectors;
 

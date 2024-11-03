@@ -1,4 +1,4 @@
-package com.corith.LG313.utility;
+package com.corith.lgchicken.utility;
 
 /*
 	Provided code by Dan Shervheim

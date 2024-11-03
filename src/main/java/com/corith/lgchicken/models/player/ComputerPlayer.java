@@ -1,4 +1,4 @@
-package com.corith.LG313.models.player;
+package com.corith.lgchicken.models.player;
 
 public class ComputerPlayer extends Player {
     @Override

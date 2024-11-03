@@ -1,9 +1,9 @@
-package com.corith.LG313.utility;
+package com.corith.lgchicken.utility;
 
-import com.corith.LG313.models.CardDeck;
-import com.corith.LG313.models.player.ComputerPlayer;
-import com.corith.LG313.models.player.Player;
-import com.corith.LG313.models.player.UserPlayer;
+import com.corith.lgchicken.models.CardDeck;
+import com.corith.lgchicken.models.player.ComputerPlayer;
+import com.corith.lgchicken.models.player.Player;
+import com.corith.lgchicken.models.player.UserPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
