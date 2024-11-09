@@ -3,33 +3,31 @@ package com.corith.lgchicken.models;
 import com.corith.lgchicken.enums.CardRank;
 import com.corith.lgchicken.enums.GroupType;
 import com.corith.lgchicken.enums.Suit;
+import com.corith.lgchicken.utility.Ansi;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.*;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Getter
 @Setter
 @AllArgsConstructor
 public class Hand {
-    Logger logger = Logger.getLogger("Hand");
 
     public Hand() {
        deadwood = new ArrayList<>();
     }
 
     List<Card> deadwood;
-    List<CardGroup> runs = new ArrayList<>();
-    List<CardGroup> melds = new ArrayList<>();
-    List<Card> wilds = new ArrayList<>();
+    List<CardGroup> cardGroups = new ArrayList<>();
 
     List<Card> hearts = new ArrayList<>();
     List<Card> diamonds = new ArrayList<>();
     List<Card> clubs = new ArrayList<>();
     List<Card> spades = new ArrayList<>();
+    List<Card> wilds = new ArrayList<>();
 
     /**
      * Goal: to minimize the amount of points in deadwood.
@@ -40,33 +38,12 @@ public class Hand {
      */
     public void createBestHand() {
         organize();
-        runs = findRuns(hearts);
-        runs.addAll(findRuns(spades));
-        runs.addAll(findRuns(diamonds));
-        runs.addAll(findRuns(clubs));
-        melds.addAll(findMelds(deadwood));
+        cardGroups = findRuns(hearts);
+        cardGroups.addAll(findRuns(spades));
+        cardGroups.addAll(findRuns(diamonds));
+        cardGroups.addAll(findRuns(clubs));
+        cardGroups.addAll(findMelds(deadwood));
         disperseWilds();
-    }
-
-    /**
-     * Organizes deadwood by suit. Populates wilds list. Sorts by CardRank.
-     * <p>
-     * Sets all cards isBeingUsed to FALSE.
-     */
-    public void organize() {
-        hearts = getAllMatchingSuits(Suit.HEARTS);
-        hearts.sort(Comparator.comparing(Card::getCardRank));
-        diamonds = getAllMatchingSuits(Suit.DIAMONDS);
-        diamonds.sort(Comparator.comparing(Card::getCardRank));
-        clubs = getAllMatchingSuits(Suit.CLUBS);
-        clubs.sort(Comparator.comparing(Card::getCardRank));
-        spades = getAllMatchingSuits(Suit.SPADES);
-        spades.sort(Comparator.comparing(Card::getCardRank));
-        System.out.println("Hearts: " + hearts.size() + " diamonds: " + diamonds.size() + " clubs: " + clubs.size() + " spades: " + spades.size() + " wilds: " + wilds.size());
-        deadwood.sort(Comparator.comparing(Card::getCardRank));
-        for (Card card : deadwood) {
-            card.setBeingUsed(false);
-        }
     }
 
     public List<CardGroup> findRuns(List<Card> cards) {
@@ -200,12 +177,7 @@ public class Hand {
                 for (Card card : group.cards) {
                     card.setBeingUsed(true);
                 }
-                // Add the group to runs or melds list
-                if (group.getGroupType() == GroupType.RUN) {
-                    runs.add(group);
-                } else if (group.getGroupType() == GroupType.MELD) {
-                    melds.add(group);
-                }
+                cardGroups.add(group);
                 // Remove the group from candidateGroups
                 groupIterator.remove();
 
@@ -216,14 +188,11 @@ public class Hand {
         // Takes care of unused wilds if any still remain.
         for (Card card : wilds) {
             if (!card.isBeingUsed()) {
-                List<CardGroup> combined = new ArrayList<>();
-                combined.addAll(melds);
-                combined.addAll(runs);
 
                 long unusedWilds = wilds.stream().filter(card1 -> !card1.isBeingUsed()).count();
-                if (!combined.isEmpty() && unusedWilds < 2) {
+                if (!cardGroups.isEmpty() && unusedWilds < 2) {
                     card.setBeingUsed(true);
-                    combined.get(0).cards.add(card);
+                    cardGroups.get(0).cards.add(card);
                 } else {
                     if (unusedWilds >= 2) {
                         List<Card> l = deadwood.stream().filter(card1 -> !card1.isBeingUsed()).sorted(Comparator.comparing(Card::getCardRank)).collect(Collectors.toList());
@@ -236,7 +205,7 @@ public class Hand {
                                 wildCard.setBeingUsed(true);
                             }
                         }
-                        melds.add(group);
+                        cardGroups.add(group);
                         break;
                     }
 
@@ -248,25 +217,10 @@ public class Hand {
     }
 
     /**
-     * Finds all the cards from deadwood that have matching Suit & returns them in a List.
-     * Any wilds that it finds are added the wilds list instead.
-     * <p>
-     * Does not remove any cards from deadwood.
-     * @param suit suit to match
-     * @return List with matching suit cards.
+     * Sorts deadwood by ascending card rank.
      */
-    private List<Card> getAllMatchingSuits(Suit suit) {
-        List<Card> returnList = new ArrayList<>();
-        for (Card card : deadwood) {
-            if (card.isWild()) {
-                if (!wilds.contains(card)) {
-                    wilds.add(card);
-                }
-            } else if (card.getSuit().equals(suit)) {
-                returnList.add(card);
-            }
-        }
-        return returnList;
+    public void sortDeadwood() {
+        deadwood.sort(Comparator.comparing(Card::getCardRank));
     }
 
     public int getDeadWoodValue() {
@@ -277,6 +231,55 @@ public class Hand {
             }
         }
         return deadwoodValue;
+    }
+
+    /**
+     * <p>
+     *     Goes through deadwood and copies the cards into "category" lists.
+     *     <br><br>
+     *     Categories: Wild, Hearts, Diamonds, Spades, & Clubs.
+     *     <br><br>
+     *     Sets all cards isBeingUsed to FALSE.
+     * <p>
+     */
+    private void organize() {
+        wilds    = extractWildCards();
+        hearts   = extractAllCardsWithSuit(Suit.HEARTS);
+        diamonds = extractAllCardsWithSuit(Suit.DIAMONDS);
+        clubs    = extractAllCardsWithSuit(Suit.CLUBS);
+        spades   = extractAllCardsWithSuit(Suit.SPADES);
+
+        hearts.sort(Comparator.comparing(Card::getCardRank));
+        clubs.sort(Comparator.comparing(Card::getCardRank));
+        diamonds.sort(Comparator.comparing(Card::getCardRank));
+        spades.sort(Comparator.comparing(Card::getCardRank));
+        sortDeadwood();
+        System.out.println(Ansi.RED+"Hearts: " + hearts.size() + " diamonds: " + diamonds.size() + " clubs: " + clubs.size() + " spades: " + spades.size() + " wilds: " + wilds.size()+Ansi.RESET);
+        for (Card card : deadwood) {
+            card.setBeingUsed(false);
+        }
+    }
+
+    /**
+     * Finds all the cards from deadwood that have matching Suit & returns them in a List.
+     * Any wilds that it finds are added the wilds list instead.
+     * <p>
+     * Does not remove any cards from deadwood.
+     * @param suit suit to match
+     * @return List with matching suit cards.
+     */
+    private List<Card> extractAllCardsWithSuit(Suit suit) {
+        List<Card> returnList = new ArrayList<>();
+        for (Card card : deadwood) {
+          if (card.getSuit().equals(suit) && !card.isWild()) {
+                returnList.add(card);
+            }
+        }
+        return returnList;
+    }
+
+    private List<Card> extractWildCards() {
+        return deadwood.stream().filter(Card::isWild).collect(Collectors.toList());
     }
 
 }

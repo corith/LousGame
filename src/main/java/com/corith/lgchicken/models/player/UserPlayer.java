@@ -1,7 +1,9 @@
 package com.corith.lgchicken.models.player;
 
+import com.corith.lgchicken.interfaces.Playable;
 import com.corith.lgchicken.models.Card;
 import com.corith.lgchicken.models.CardDeck;
+import com.corith.lgchicken.models.PlayPlate;
 import com.corith.lgchicken.utility.RenderEngine;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +20,7 @@ public class UserPlayer extends Player {
 
 
     @Override
-    public void takeTurn() {
+    public void takeTurn(PlayPlate playPlate) {
         System.out.println("User Player taking turn.");
         // Show User their hand
         // Ask user to if they want to draw or take from discard
@@ -35,8 +37,8 @@ public class UserPlayer extends Player {
     }
 
     @Override
-    public void discard() {
-
+    public Card discard() {
+        return null;
     }
 
     public List<String> getUserInput(String prompt) {

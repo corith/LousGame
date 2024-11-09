@@ -3,6 +3,7 @@ package com.corith.lgchicken.models;
 import com.corith.lgchicken.models.player.ComputerPlayer;
 import com.corith.lgchicken.models.player.Player;
 import com.corith.lgchicken.models.player.UserPlayer;
+import com.corith.lgchicken.utility.RenderEngine;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -21,9 +22,30 @@ public class PlayerTest {
         List<Player> players = new ArrayList<>();
         players.add(userPlayer);
         players.add(computerPlayer);
-        for (Player player : players) {
-            player.takeTurn();
-        }
+
+    }
+
+    @Test
+    public void testWillCardBeUsed() {
+        Player userPlayer = new UserPlayer();
+        Player userPlayer1 = new UserPlayer();
+        ComputerPlayer computer = new ComputerPlayer();
+        CardDeck standardDeck = new CardDeck();
+        userPlayer.shuffleCards(standardDeck.cards);
+
+        List<Player> players = new ArrayList<>();
+        players.add(userPlayer);
+        players.add(userPlayer1);
+        players.add(computer);
+        userPlayer.deal(standardDeck.cards, players, 13);
+
+        PlayPlate playPlate = new PlayPlate(standardDeck);
+        playPlate.discardCards.add(standardDeck.cards.pop());
+
+        RenderEngine.renderHand(computer.getHand());
+
+        System.out.println("Will card be used? " + computer.willCardBeUsed(playPlate.discardCards.peek()));
+        System.out.println(playPlate.discardCards.peek().prettyPrint(true));
     }
 
 

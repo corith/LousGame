@@ -1,19 +1,21 @@
 package com.corith.lgchicken.utility;
 
 import com.corith.lgchicken.models.CardDeck;
+import com.corith.lgchicken.models.PlayPlate;
 import com.corith.lgchicken.models.player.ComputerPlayer;
 import com.corith.lgchicken.models.player.Player;
 import com.corith.lgchicken.models.player.UserPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class PlayWizard {
-    static int cardLimit = 13;
+    static int cardLimit = 5;
 
     public static String playLoop() {
         System.out.println(Ansi.CYAN+"Lous Game!"+Ansi.RESET );
-        Player player = new UserPlayer();
+        Player player = new ComputerPlayer();
         player.setDealer(true);
         player.setName("Cory Sebastian");
         Player cpuPlayer0 = new ComputerPlayer();
@@ -28,20 +30,55 @@ public class PlayWizard {
 
         CardDeck gameDeck = new CardDeck();
 
-        player.shuffleCards(gameDeck.cards);
-        player.deal(gameDeck.cards, players, cardLimit);
+        cpuPlayer1.shuffleCards(gameDeck.cards);
+        cpuPlayer1.deal(gameDeck.cards, players, cardLimit);
 
-        for (Player p : players) {
-            System.out.println(p.getName());
-            p.getHand().createBestHand();
-            RenderEngine.renderHand(p.getHand());
+        PlayPlate playPlate = new PlayPlate(gameDeck);
+        playPlate.getDiscardCards().add(gameDeck.cards.pop());
+
+        while(cardLimit < 14) {
+            try {
+                for (Player p : players) {
+                    if (playPlate.getDeck().cards.isEmpty()) {
+                        LousLogger.printYellow(Ansi.BLINK+"Deck is out of cards"+Ansi.RESET);
+                        playPlate.redistributeDiscards();
+                    }
+                    System.out.println("\n\n\n\n");
+                    System.out.println(p.getName() + "'s turn!");
+                    RenderEngine.renderPlayPlate(playPlate);
+                    p.getHand().createBestHand();
+                    RenderEngine.renderHand(p.getHand());
+
+                    p.takeTurn(playPlate);
+                    p.getHand().createBestHand();
+                    RenderEngine.renderHand(p.getHand());
+                    RenderEngine.renderPlayPlate(playPlate);
+                }
+            } catch (NoSuchElementException e) {
+                if (playPlate.getDeck().cards.isEmpty()) {
+                    LousLogger.printRed(Ansi.BLINK+"Deck is out of cards"+Ansi.RESET);
+                    playPlate.redistributeDiscards();
+                }
+            }
+
+            // check if we should go on to next iteration or b
+            for (Player p : players) {
+                if (p.getHand().getDeadWoodValue() == 0) {
+                    System.out.println("\n\n\n");
+                    LousLogger.printGreen(Ansi.BLINK+"------------------- Winner -------------------"+Ansi.RESET);
+                    LousLogger.printGreen(Ansi.BLINK+p.getName()+ " has gone out."+Ansi.RESET);
+                    LousLogger.printGreen(Ansi.BLINK+"----------------------------------------------"+Ansi.RESET);
+                    RenderEngine.renderHand(p.getHand());
+                    cardLimit = 14;
+                    break;
+                }
+            }
+            System.out.println("Play plate: " + playPlate.getDeck().cards.size());
+            if (playPlate.getShuffleCount() > 9)
+                break;
         }
 
-        System.out.println("\n\nDiscard pile: " + gameDeck.cards.pop().prettyPrint(true));
-        if (gameDeck.cards.peek() != null) {
-            System.out.println("Peek Draw card: " + gameDeck.cards.peek().prettyPrint(true));
-        }
-
+        System.out.println("Cycled playplate: "+ playPlate.getShuffleCount());
         return "Game Over.";
     }
 }

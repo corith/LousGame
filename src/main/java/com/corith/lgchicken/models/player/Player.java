@@ -49,4 +49,8 @@ public abstract class Player implements Playable {
             }
         }
     }
+
+    public int deadwoodTotal() {
+        return getHand().getDeadWoodValue();
+    }
 }
