@@ -52,4 +52,13 @@ public abstract class Player implements Playable {
     public int deadwoodScore() {
         return getHand().getDeadWoodValue();
     }
+
+    public void clearHand() {
+        getHand().setHearts(new ArrayList<>());
+        getHand().setDiamonds(new ArrayList<>());
+        getHand().setSpades(new ArrayList<>());
+        getHand().setClubs(new ArrayList<>());
+        getHand().setDeadwood(new ArrayList<>());
+        getHand().setWilds(new ArrayList<>());
+    }
 }

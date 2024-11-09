@@ -18,10 +18,10 @@ import java.util.stream.Collectors;
 public class Hand {
 
     public Hand() {
-       deadwood = new ArrayList<>();
+       
     }
 
-    List<Card> deadwood;
+    List<Card> deadwood = new ArrayList<>();
     List<CardGroup> cardGroups = new ArrayList<>();
 
     List<Card> hearts = new ArrayList<>();

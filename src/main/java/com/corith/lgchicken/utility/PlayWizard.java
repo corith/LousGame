@@ -7,11 +7,14 @@ import com.corith.lgchicken.models.player.Player;
 import com.corith.lgchicken.models.player.UserPlayer;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 public class PlayWizard {
-    public static int cardLimit = 5;
+    public static int cardLimit = 3;
+    public static int roundLimit = 14;
 
     public static String playLoop() {
         if (RenderEngine.shouldRender()) {
@@ -38,7 +41,22 @@ public class PlayWizard {
         PlayPlate playPlate = new PlayPlate(gameDeck);
         playPlate.initializeDiscardPile();
 
-        while(cardLimit < 14) {
+        while(cardLimit < roundLimit) {
+            if (hasWinner(players)) {
+                // redeal the cards
+                for (Player p: players) {
+                    p.setScore(p.getScore() + p.deadwoodScore());
+                }
+                cpuPlayer1.clearHand();
+                cpuPlayer0.clearHand();
+                player.clearHand();
+                gameDeck = new CardDeck(cardLimit);
+                cpuPlayer1.shuffleCards(gameDeck.cards);
+                cpuPlayer1.deal(gameDeck.cards, players, cardLimit);
+                playPlate = new PlayPlate(gameDeck);
+                playPlate.initializeDiscardPile();
+
+            }
             try {
                 for (Player p : players) {
                     if (playPlate.getDeck().cards.isEmpty()) {
@@ -75,7 +93,8 @@ public class PlayWizard {
                     LousLogger.printGreen(Ansi.BLINK+p.getName()+ " has gone out."+Ansi.RESET);
                     LousLogger.printGreen(Ansi.BLINK+"----------------------------------------------"+Ansi.RESET);
                     RenderEngine.renderHand(p.getHand());
-                    cardLimit = 14;
+                    cardLimit+=1;
+//                    cardLimit = 14;
                     break;
                 }
             }
@@ -87,8 +106,22 @@ public class PlayWizard {
             }
         }
         if (RenderEngine.shouldRender()) {
+            System.out.println("Scores");
+            List<Player> sortedPlayers = players.stream().sorted(Comparator.comparing(Player::getScore)).collect(Collectors.toList());
+            for (Player p : sortedPlayers) {
+                System.out.println(p.getName() + "'s score: " + p.getScore());
+            }
             System.out.println("Cycled playplate: "+ playPlate.getShuffleCount());
         }
         return "Game Over.";
+    }
+
+    public static boolean hasWinner(List<Player> players) {
+        for (Player p : players) {
+            if (p.deadwoodScore() == 0) {
+                return true;
+            }
+        }
+        return false;
     }
 }

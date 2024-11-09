@@ -58,6 +58,7 @@ public class ComputerPlayer extends Player {
         for (Card c : cardsToDiscard) {
             if (!c.isBeingUsed()) {
                 discardCard = c;
+                break;
             }
         }
         if (discardCard == null) {

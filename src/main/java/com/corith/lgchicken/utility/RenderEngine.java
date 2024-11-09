@@ -9,18 +9,18 @@ import com.corith.lgchicken.models.PlayPlate;
 import java.util.stream.Collectors;
 
 public class RenderEngine {
-    private static boolean renderOff = false;
+    private static boolean render = true;
 
     public static void disable() {
-        renderOff = true;
+        render = false;
     }
 
     public static void enable() {
-        renderOff = false;
+        render = true;
     }
 
     public static boolean shouldRender() {
-        return !renderOff;
+        return render;
     }
 
 
@@ -30,7 +30,7 @@ public class RenderEngine {
 
 
     public static void renderHand(Hand hand) {
-        if (renderOff) {
+        if (!render) {
             return;
         }
         for (CardGroup cardGroup : hand.getCardGroups()) {
@@ -50,7 +50,7 @@ public class RenderEngine {
     }
 
     public static void renderPlayPlate(PlayPlate playPlate) {
-        if (renderOff) {
+        if (!render) {
             return;
         }
         System.out.println();
