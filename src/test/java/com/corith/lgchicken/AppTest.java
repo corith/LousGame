@@ -10,9 +10,4 @@ public class AppTest {
         Assert.assertTrue(true);
     }
 
-    @Test
-    public void mainLogicTest() {
-
-    }
-
 }

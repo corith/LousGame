@@ -11,10 +11,12 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 public class PlayWizard {
-    static int cardLimit = 5;
+    public static int cardLimit = 5;
 
     public static String playLoop() {
-        System.out.println(Ansi.CYAN+"Lous Game!"+Ansi.RESET );
+        if (RenderEngine.shouldRender()) {
+            System.out.println(Ansi.CYAN+"Lous Game!"+Ansi.RESET );
+        }
         Player player = new ComputerPlayer();
         player.setDealer(true);
         player.setName("Cory Sebastian");
@@ -28,13 +30,13 @@ public class PlayWizard {
         players.add(cpuPlayer0);
         players.add(cpuPlayer1);
 
-        CardDeck gameDeck = new CardDeck();
+        CardDeck gameDeck = new CardDeck(cardLimit);
 
         cpuPlayer1.shuffleCards(gameDeck.cards);
         cpuPlayer1.deal(gameDeck.cards, players, cardLimit);
 
         PlayPlate playPlate = new PlayPlate(gameDeck);
-        playPlate.getDiscardCards().add(gameDeck.cards.pop());
+        playPlate.initializeDiscardPile();
 
         while(cardLimit < 14) {
             try {
@@ -43,8 +45,10 @@ public class PlayWizard {
                         LousLogger.printYellow(Ansi.BLINK+"Deck is out of cards"+Ansi.RESET);
                         playPlate.redistributeDiscards();
                     }
-                    System.out.println("\n\n\n\n");
-                    System.out.println(p.getName() + "'s turn!");
+                    if (RenderEngine.shouldRender()) {
+                        System.out.println("\n\n\n\n");
+                        System.out.println(p.getName() + "'s turn!");
+                    }
                     RenderEngine.renderPlayPlate(playPlate);
                     p.getHand().createBestHand();
                     RenderEngine.renderHand(p.getHand());
@@ -59,12 +63,14 @@ public class PlayWizard {
                     LousLogger.printRed(Ansi.BLINK+"Deck is out of cards"+Ansi.RESET);
                     playPlate.redistributeDiscards();
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
             // check if we should go on to next iteration or b
             for (Player p : players) {
                 if (p.getHand().getDeadWoodValue() == 0) {
-                    System.out.println("\n\n\n");
+                    LousLogger.printGreen("\n\n\n");
                     LousLogger.printGreen(Ansi.BLINK+"------------------- Winner -------------------"+Ansi.RESET);
                     LousLogger.printGreen(Ansi.BLINK+p.getName()+ " has gone out."+Ansi.RESET);
                     LousLogger.printGreen(Ansi.BLINK+"----------------------------------------------"+Ansi.RESET);
@@ -73,12 +79,16 @@ public class PlayWizard {
                     break;
                 }
             }
-            System.out.println("Play plate: " + playPlate.getDeck().cards.size());
-            if (playPlate.getShuffleCount() > 9)
-                break;
+            if (RenderEngine.shouldRender()) {
+                System.out.println("Play plate: " + playPlate.getDeck().cards.size());
+            }
+            if (playPlate.getShuffleCount() > 10) {
+                return "shuffle count > 10";
+            }
         }
-
-        System.out.println("Cycled playplate: "+ playPlate.getShuffleCount());
+        if (RenderEngine.shouldRender()) {
+            System.out.println("Cycled playplate: "+ playPlate.getShuffleCount());
+        }
         return "Game Over.";
     }
 }

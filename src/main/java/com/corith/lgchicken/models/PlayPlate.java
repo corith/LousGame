@@ -5,9 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.Iterator;
+import java.util.*;
 
 
 @Getter
@@ -22,6 +20,7 @@ public class PlayPlate {
 
     public PlayPlate(CardDeck deck) {
         this.deck = deck;
+        shuffleCount = 0;
     }
 
     public Card drawFromDeck() {
@@ -33,6 +32,10 @@ public class PlayPlate {
         discardCards = new ArrayDeque<>();
         discardCards.add(deck.cards.pop());
         shuffleCount+=1;
+    }
+
+    public void initializeDiscardPile() {
+        discardCards.add(deck.cards.pop());
     }
 
     public int getShuffleCount() {

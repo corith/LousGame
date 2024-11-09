@@ -4,6 +4,7 @@ import com.corith.lgchicken.enums.CardRank;
 import com.corith.lgchicken.enums.GroupType;
 import com.corith.lgchicken.enums.Suit;
 import com.corith.lgchicken.utility.Ansi;
+import com.corith.lgchicken.utility.RenderEngine;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -254,7 +255,9 @@ public class Hand {
         diamonds.sort(Comparator.comparing(Card::getCardRank));
         spades.sort(Comparator.comparing(Card::getCardRank));
         sortDeadwood();
-        System.out.println(Ansi.RED+"Hearts: " + hearts.size() + " diamonds: " + diamonds.size() + " clubs: " + clubs.size() + " spades: " + spades.size() + " wilds: " + wilds.size()+Ansi.RESET);
+        if (RenderEngine.shouldRender()) {
+            System.out.println(Ansi.RED+"Hearts: " + hearts.size() + " diamonds: " + diamonds.size() + " clubs: " + clubs.size() + " spades: " + spades.size() + " wilds: " + wilds.size()+Ansi.RESET);
+        }
         for (Card card : deadwood) {
             card.setBeingUsed(false);
         }

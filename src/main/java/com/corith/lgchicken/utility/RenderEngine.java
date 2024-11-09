@@ -9,6 +9,19 @@ import com.corith.lgchicken.models.PlayPlate;
 import java.util.stream.Collectors;
 
 public class RenderEngine {
+    private static boolean renderOff = false;
+
+    public static void disable() {
+        renderOff = true;
+    }
+
+    public static void enable() {
+        renderOff = false;
+    }
+
+    public static boolean shouldRender() {
+        return !renderOff;
+    }
 
 
     public void renderCard(Card card) {
@@ -17,6 +30,9 @@ public class RenderEngine {
 
 
     public static void renderHand(Hand hand) {
+        if (renderOff) {
+            return;
+        }
         for (CardGroup cardGroup : hand.getCardGroups()) {
             System.out.println((cardGroup.getGroupType().equals(GroupType.RUN) ? "r" : "m")+cardGroup.getCards().stream()
                     .map(card -> card.prettyPrint(true))
@@ -30,10 +46,13 @@ public class RenderEngine {
         System.out.println("Deadwood value: " + hand.getDeadWoodValue());
         System.out.println(hand.getDeadwood().stream()
                 .map(card -> card.prettyPrint(true))
-                .collect(Collectors.joining(", ", "🖐️", "")));
+                .collect(Collectors.joining(", ", "🖐️ ", "")));
     }
 
     public static void renderPlayPlate(PlayPlate playPlate) {
+        if (renderOff) {
+            return;
+        }
         System.out.println();
         System.out.println(Ansi.HIGH_INTENSITY+Ansi.MAGENTA+"|_|    " + playPlate.getDiscardCards().peek().prettyPrint(true));
         System.out.println();

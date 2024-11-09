@@ -41,7 +41,6 @@ public abstract class Player implements Playable {
             for (Player p : players) {
                 try {
                     Card card = cards.pop();
-                    card.setWild(card.getCardRank().getRank()==limit);
                     p.getHand().getDeadwood().add(card);
                 } catch (NoSuchElementException e) {
                     throw new NoSuchElementException("Ran out of cards while dealing");
@@ -50,7 +49,7 @@ public abstract class Player implements Playable {
         }
     }
 
-    public int deadwoodTotal() {
+    public int deadwoodScore() {
         return getHand().getDeadWoodValue();
     }
 }

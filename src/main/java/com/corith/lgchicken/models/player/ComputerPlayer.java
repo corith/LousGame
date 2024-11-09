@@ -3,6 +3,7 @@ package com.corith.lgchicken.models.player;
 import com.corith.lgchicken.models.Card;
 import com.corith.lgchicken.models.PlayPlate;
 import com.corith.lgchicken.utility.Ansi;
+import com.corith.lgchicken.utility.LousLogger;
 import com.corith.lgchicken.utility.RenderEngine;
 
 import java.util.Comparator;
@@ -13,33 +14,31 @@ public class ComputerPlayer extends Player {
 
     @Override
     public void takeTurn(PlayPlate playPlate) {
-        log("Take computer turn");
-
 
         boolean chooseFromDiscard = willCardBeUsed(playPlate.getDiscardCards().peek());
         Card discardedCard = null;
         if (chooseFromDiscard) {
-            log("Choosing discard card " + playPlate.getDiscardCards().peek().prettyPrint(true));
+            LousLogger.printRed("Choosing discard card " + playPlate.getDiscardCards().peek().prettyPrint(true));
             Card discardCard = playPlate.getDiscardCards().pop();
             discardCard.setBeingUsed(true);
             getHand().getDeadwood().add(discardCard);
             discardedCard = discard();
             playPlate.getDiscardCards().push(discardedCard);
-            log("Discarded card " + discardedCard.prettyPrint(true));
+            LousLogger.printRed("Discarded card " + discardedCard.prettyPrint(true));
         } else {
             Card drawCard = playPlate.drawFromDeck();
-            log("Drawing from deck " + drawCard.prettyPrint(true));
+            LousLogger.printRed("Drawing from deck " + drawCard.prettyPrint(true) + (drawCard.isWild() ? "wild": ""));
             boolean willBeUsed = willCardBeUsed(drawCard);
             if (willBeUsed) {
-                log("Will use " + drawCard.prettyPrint(true));
+                LousLogger.printRed("Will use " + drawCard.prettyPrint(true));
                 drawCard.setBeingUsed(true);
                 getHand().getDeadwood().add(drawCard);
                 discardedCard = discard();
 
                 playPlate.getDiscardCards().push(discardedCard);
-                log("Discarded card " + discardedCard.prettyPrint(true));
+                LousLogger.printRed("Discarded card " + discardedCard.prettyPrint(true));
             } else {
-                log("Will not use draw card. Putting it in discard pile.");
+                LousLogger.printRed(Ansi.HIGH_INTENSITY+"Will not use draw card. Putting it in discard pile."+Ansi.RESET);
                 getHand().getDeadwood().removeIf(e -> e.prettyPrint(true).equals(drawCard.prettyPrint(true)));
                 playPlate.getDiscardCards().push(drawCard);
             }
@@ -75,7 +74,8 @@ public class ComputerPlayer extends Player {
         getHand().getDeadwood().add(card);
         getHand().createBestHand();
         if (card.isBeingUsed()) {
-            System.out.println("Hand with card used:");
+            if (RenderEngine.shouldRender())
+                System.out.println("Hand with card used:");
             RenderEngine.renderHand(getHand());
             getHand().getDeadwood().remove(card);
             card.setBeingUsed(false);
@@ -85,11 +85,5 @@ public class ComputerPlayer extends Player {
         return false;
     }
 
-    /**
-     * sout with red text.
-     * @param msg the string to print to console.
-     */
-    private void log(String msg) {
-        System.out.println(Ansi.RED+Ansi.HIGH_INTENSITY+msg+Ansi.RESET);
-    }
+
 }
