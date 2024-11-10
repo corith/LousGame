@@ -1,5 +1,6 @@
 package com.corith.lgchicken.utility;
 
+import com.corith.lgchicken.models.Card;
 import com.corith.lgchicken.models.CardDeck;
 import com.corith.lgchicken.models.PlayPlate;
 import com.corith.lgchicken.models.player.ComputerPlayer;
@@ -43,6 +44,9 @@ public class PlayWizard {
                 getDealer(players).deal(gameDeck.cards, players, cardLimit);
                 playPlate = new PlayPlate(gameDeck);
                 playPlate.initializeDiscardPile();
+                if (cardLimit==14) {
+                    break;
+                }
 //                System.out.println("New Dealer = " + getDealer(players).getName());
             }
             // take turns
@@ -119,6 +123,11 @@ public class PlayWizard {
     private static boolean hasWinner(List<Player> players) {
         for (Player p : players) {
             if (p.deadwoodScore() == 0) {
+                for (Card c : p.getHand().getDeadwood()) {
+                    if (!c.isBeingUsed()) {
+                        return false;
+                    }
+                }
                 return true;
             }
         }

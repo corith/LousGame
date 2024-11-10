@@ -35,10 +35,10 @@ public class Card {
 
     public String prettyPrint(boolean showNumber) {
         if (this.getCardRank().getRank() > 10 || this.getCardRank().getRank() == 1) {
-            return Ansi.BACKGROUND_BLACK+Ansi.GREEN + this.cardRank + " " + this.getSuit().getStyle();
+            return Ansi.HIGH_INTENSITY+Ansi.BACKGROUND_BLACK+Ansi.GREEN + this.cardRank + " " + this.getSuit().getStyle();
         }
         String rank = showNumber ? String.valueOf(this.getCardRank().getRank()) : this.getCardRank().toString();
-        return Ansi.BACKGROUND_BLACK+Ansi.GREEN + rank + " " + this.getSuit().getStyle();
+        return Ansi.HIGH_INTENSITY+Ansi.BACKGROUND_BLACK+Ansi.GREEN + rank + " " + this.getSuit().getStyle();
 
     }
 
