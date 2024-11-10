@@ -1,10 +1,8 @@
 package com.corith.lgchicken.models.player;
 
-import com.corith.lgchicken.interfaces.Playable;
 import com.corith.lgchicken.models.Card;
-import com.corith.lgchicken.models.CardDeck;
 import com.corith.lgchicken.models.PlayPlate;
-import com.corith.lgchicken.utility.RenderEngine;
+import com.corith.lgchicken.utility.Ansi;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,18 +15,34 @@ import java.util.regex.Pattern;
 @Getter
 @Setter
 public class UserPlayer extends Player {
-
+    private static Scanner scanner = new Scanner(System.in);
+    private static final String drawChar = "d";
+    private static final String discardChar = "p";
 
     @Override
     public void takeTurn(PlayPlate playPlate) {
-        System.out.println("User Player taking turn.");
         // Show User their hand
         // Ask user to if they want to draw or take from discard
-        // take the card they choose
-        // ask them to discard a card from their hand (or the one they drew)
-        // discard the card
-        // createBestHand()
-        // end turn.
+        System.out.println(Ansi.HIGH_INTENSITY+Ansi.MAGENTA+"Draw card ("+drawChar+") or pick ("+discardChar+") up from discard pile?"+Ansi.RESET);
+        String choice;
+        do {
+            choice = scanner.nextLine();
+        } while (!choice.trim().equalsIgnoreCase(drawChar) && !choice.trim().equalsIgnoreCase(discardChar));
+
+        if (choice.equalsIgnoreCase(drawChar)) {
+            // draw card from deck.
+            Card drawCard = playPlate.drawFromDeck();
+            System.out.println("Draw Card: " + drawCard.prettyPrint(true));
+            getHand().getDeadwood().add(drawCard);
+        } else if (choice.equalsIgnoreCase(discardChar)) {
+            // take from discard pile.
+            getHand().getDeadwood().add(playPlate.getDiscardCards().pop());
+        }
+
+        // discard
+        Card discardedCard = discard();
+        playPlate.getDiscardCards().push(discardedCard);
+        System.out.println(discardedCard.prettyPrint(true));
     }
 
     @Override
@@ -38,12 +52,17 @@ public class UserPlayer extends Player {
 
     @Override
     public Card discard() {
-        return null;
+        Card discardCard;
+        do {
+            List<String> userInput = getUserInput("Which card do you want to discard?");
+            discardCard = getDiscardCardFromUserInput(userInput);
+        } while(discardCard == null);
+        getHand().getDeadwood().remove(discardCard);
+        return discardCard;
     }
 
     public List<String> getUserInput(String prompt) {
-        List<String> out = getCardInput();
-        return out;
+        return getCardInput();
     }
 
     /**
@@ -56,7 +75,7 @@ public class UserPlayer extends Player {
         Scanner scanner = new Scanner(System.in);
         List<String> result = new ArrayList<>();
 
-        System.out.println("Enter a card value in the format 'number (1-13) followed by a single character (h, d, s, or c)':");
+        System.out.println(Ansi.HIGH_INTENSITY+Ansi.MAGENTA+"Choose Discard."+Ansi.CYAN+"\nFormat:"+Ansi.RESET+" number (1-13) followed by a suit char (h, d, s, or c).\n"+Ansi.CYAN+"Ex: 7h, 12d, 1c, 3s"+Ansi.RESET);
 
         // Define the regex pattern to match the input format
         Pattern pattern = Pattern.compile("^(1[0-3]|[1-9])([hdsc])$");
@@ -75,25 +94,13 @@ public class UserPlayer extends Player {
                 System.out.println("Invalid input format. Please enter a number (1-13) followed by a single character (h, d, s, or c).");
             }
         }
-
-        scanner.close();
         return result;
     }
 
-    public static void main(String[] args) {
-        // userTakeTurn prototype
-        UserPlayer userPlayer = new UserPlayer();
-        CardDeck deck = new CardDeck();
-        userPlayer.shuffleCards(deck.cards);
-        List<Player> players = new ArrayList<>();
-        players.add(userPlayer);
-        userPlayer.deal(deck.cards, players, 3);
-        userPlayer.getHand().createBestHand();
-        RenderEngine.renderHand(userPlayer.getHand());
-        List<String> userChoice = userPlayer.getUserInput("");
+    private Card getDiscardCardFromUserInput(List<String> input) {
         String theChoice = "";
 
-        switch (userChoice.get(1)) {
+        switch (input.get(1)) {
             case "h":
                 theChoice = "HEARTS";
                 break;
@@ -109,18 +116,14 @@ public class UserPlayer extends Player {
 
         }
         Card cardToRemove = null;
-        for (Card card : userPlayer.getHand().getDeadwood()) {
+        for (Card card : getHand().getDeadwood()) {
             if (card.getSuit().name().equals(theChoice)) {
-                if (card.getCardRank().getRank() == Integer.parseInt(userChoice.get(0))) {
+                if (card.getCardRank().getRank() == Integer.parseInt(input.get(0))) {
                     System.out.println("Found chosen card");
                     cardToRemove = card;
                 }
             }
         }
-        if (cardToRemove != null) {
-            userPlayer.getHand().getDeadwood().remove(cardToRemove);
-            System.out.println("Removed card " + cardToRemove.prettyPrint(true));
-        }
-        RenderEngine.renderHand(userPlayer.getHand());
+        return cardToRemove;
     }
 }

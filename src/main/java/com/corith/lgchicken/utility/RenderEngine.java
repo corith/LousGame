@@ -27,10 +27,17 @@ public class RenderEngine {
     }
 
 
-    public void renderCard(Card card) {
-        System.out.println(card);
+    public static void renderCard(Card card) {
+        System.out.println(card.prettyPrint(true));
     }
 
+    public static void renderEmptyBlock(int size) {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < size; i++) {
+            builder.append("\n");
+        }
+        System.out.println(builder);
+    }
 
     public static void renderHand(Hand hand) {
         if (!render) {

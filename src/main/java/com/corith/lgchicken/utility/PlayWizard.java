@@ -5,12 +5,18 @@ import com.corith.lgchicken.models.CardDeck;
 import com.corith.lgchicken.models.PlayPlate;
 import com.corith.lgchicken.models.player.ComputerPlayer;
 import com.corith.lgchicken.models.player.Player;
+import com.corith.lgchicken.models.player.UserPlayer;
 
 import java.util.*;
 
 public class PlayWizard {
     public static int cardLimit = 3;
     public static int roundLimit = 14;
+    public static Player player;
+
+    static {
+        player = System.getenv("human") == null ? new ComputerPlayer() : new UserPlayer();
+    }
 
     public static String playLoop() {
         if (RenderEngine.shouldRender()) {
@@ -30,7 +36,7 @@ public class PlayWizard {
                 for (Player p: players) {
                     p.setScore(p.getScore() + p.deadwoodScore());
                     if (p.getHand().getDeadWoodValue() == 0) {
-                        LousLogger.printGreen("\n\n\n");
+                        RenderEngine.renderEmptyBlock(2);
                         LousLogger.printGreen(Ansi.BLINK+"------------------- 0 D-wood -------------------"+Ansi.RESET);
                         LousLogger.printGreen(Ansi.BLINK+p.getName()+ " has zero wood..."+Ansi.RESET);
                         LousLogger.printGreen(Ansi.BLINK+"------------------------------------------------"+Ansi.RESET);
@@ -38,6 +44,7 @@ public class PlayWizard {
                     }
                     p.clearHand();
                 }
+                RenderEngine.renderEmptyBlock(4);
                 switchDealer(players);
                 gameDeck = new CardDeck(cardLimit);
                 getDealer(players).shuffleCards(gameDeck.cards);
@@ -103,7 +110,6 @@ public class PlayWizard {
     }
 
     private static List<Player> setUpPlayers(String name) {
-        Player player = new ComputerPlayer();
         player.setDealer(true);
         player.setName(name);
 

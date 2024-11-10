@@ -36,6 +36,19 @@ public class HandTest {
     }
 
     @Test
+    public void testWildRunBasic() {
+        Player computer = new ComputerPlayer();
+        Card wild = new Card(Suit.CLUBS, CardRank.FOUR);
+        wild.setWild(true);
+        computer.getHand().deadwood.add(new Card(Suit.SPADES, CardRank.FIVE));
+        computer.getHand().deadwood.add(wild);
+        computer.getHand().deadwood.add(new Card(Suit.SPADES, CardRank.SEVEN));
+        computer.getHand().deadwood.add(new Card(Suit.SPADES, CardRank.EIGHT));
+        computer.getHand().createBestHand();
+        Assert.assertEquals(0, computer.getHand().getDeadWoodValue());
+    }
+
+    @Test
     public void handSmokeTest() {
         Player userPlayer = new UserPlayer();
         CardDeck standardDeck = new CardDeck();
@@ -133,4 +146,5 @@ public class HandTest {
         RenderEngine.renderHand(userPlayer.getHand());
         Assert.assertEquals(0, userPlayer.getHand().getDeadWoodValue());
     }
+
 }
