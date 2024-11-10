@@ -5,7 +5,10 @@ import com.corith.lgchicken.models.Card;
 import com.corith.lgchicken.models.CardGroup;
 import com.corith.lgchicken.models.Hand;
 import com.corith.lgchicken.models.PlayPlate;
+import com.corith.lgchicken.models.player.Player;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class RenderEngine {
@@ -56,5 +59,23 @@ public class RenderEngine {
         System.out.println();
         System.out.println(Ansi.HIGH_INTENSITY+Ansi.MAGENTA+"|_|    " + playPlate.getDiscardCards().peek().prettyPrint(true));
         System.out.println();
+    }
+
+    public static void renderFinalScores(List<Player> players) {
+        if (render) {
+            System.out.println("Scores");
+            List<Player> sortedPlayers = players.stream().sorted(Comparator.comparing(Player::getScore)).collect(Collectors.toList());
+            for (Player p : sortedPlayers) {
+                System.out.println(p.getName() + "'s score: " + p.getScore());
+            }
+            System.out.println("Cycled playplate: "+ new PlayPlate().getShuffleCount());
+        }
+    }
+
+    public static void renderTurnTitle(String name) {
+        if (render) {
+            System.out.println("************************************");
+            System.out.println(name + "'s turn!");
+        }
     }
 }

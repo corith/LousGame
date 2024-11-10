@@ -1,5 +1,8 @@
 package com.corith.lgchicken.utility;
 
+/**
+ * Simple wrapper for System.out.println that respects RenderEngine's shouldRender() method.
+ */
 public class LousLogger {
 
     private LousLogger() {
