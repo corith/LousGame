@@ -32,11 +32,13 @@ public class RenderEngine {
     }
 
     public static void renderEmptyBlock(int size) {
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < size; i++) {
-            builder.append("\n");
+        if (render) {
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < size; i++) {
+                builder.append("\n");
+            }
+            System.out.println(builder);
         }
-        System.out.println(builder);
     }
 
     public static void renderHand(Hand hand) {
@@ -49,7 +51,7 @@ public class RenderEngine {
                     .collect(Collectors.joining(", ", "[", "]")));
         }
 
-        System.out.println("⚰️"+ hand.getDeadwood().stream().filter(e->!e.isBeingUsed())
+        System.out.println("⚰️ "+ hand.getDeadwood().stream().filter(e->!e.isBeingUsed())
                 .map(card -> card.prettyPrint(true))
                 .collect(Collectors.joining(", ", "[", "]")));
 
