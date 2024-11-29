@@ -1,67 +1,51 @@
-# LousG-fr-2.0
-Round two of Lous Stupid Game - AKA "Chicken" - The Command Line implementation :)
+# Lous Game
 
-This game is known as Diablo, 3-13, Chicken, Lous Stupid Game, etc...
+This is Lous Game. 
 
-Here is a good source for getting up to speed with the game
-    - https://www.pagat.com/rummy/3-13.html
+Or "3-13", "diablo", "Chicken". 
 
-##### THIS GAME DOES NOT FOLLOW THE SOURCE(s) EXACTLY
+This is basically an implementation of *Gin Rummy*. 
 
-## How to run
+Start with 3 cards, go up to 13. Jokers are wild. And whatever number corresponds to the number of cards total in your hand is wild. (first round 3s are wild).
+Each player takes a turn drawing and discarding cards attempting to make runs and melds. First person to have 0 points in their hand "goes out". 
 
-- You must have python installed to run the python scripts...
-- If you run ./run.py OR java LousReady currently there is a chance that it does not find a winner in which case you will want to terminate it quickly because it will freeze the terminal.
-- If you run it with ./cpuVcpu.py it has a 10 attempt time out which after the program automatically terminates
-- This is not a bug persay, it is a result of a not so msmart computer player. I am working to improve the computer skill!
+Whatever is in your hand at the end of the round that doesn't fit into a run or a meld counts against you.
 
-1. git clone https://github.com/corith/LousG-fr-2.0.git
-2. cd into LousG-fr-2.0/src
-3. ./run.py OR ./cpuVcpu.py
-4. OR run `javac LousReady.java && java LousReady`
+The player with the fewest amount of points at the end of the final round wins.
 
+### About the software
+This was the first ever computer program that I developed on my own when I started learning how to code. 
+I learned a lot but never really finished it. Was a giant pile of spaghetti and I finally decided to finish it.
 
-## Testing scripts
+Originally I wanted to use the most basic code possible and really did everything from scratch. I learned a lot 
+but ended up making things way more complicated than needed. 
 
-- There are several testing scripts that can be used to run and remove .class files as well as test the Hand.java class functionality.
+With this final implementation I tried to keep it as simple as possible while not doing everything from scratch just because.
 
-- The scripts should "just work" on \*nix systems
-    - If they do not though, try making an 'out' directory in the root of the repo
+This is the final version.
 
-- These are all python scripts and for now are simply contained within the src directory
-    - these will probably be moved to their own directory as more are created
-    - run.py will run the program and remove .class files after it terminates
-    - cpuVcpu.py will run a simulation until a succesful game is played and remove .class files after terminating (will time out after 10 attempts)
+#### What it can do
+- 3 player computer simulation of Gin Rummy style game
 
-## Contributing
+#### What's coming?
+- Support for ```UserPlayer```
+- Optimized hand creation algorithm
+- Polished UI/UX
+- Enhanced "statistic"
+- Enhanced simulations
+- Difficulty levels
 
-- If you would like to contribute or fork feel free :) There are some potential things to implement below, feel free to add additional implementation ideas as well!
+#### Issues
+- The computer's decision-making needs optimizing
+- Humans can't participate
+- 🐛
 
-- If you wish to contribute please just make a descriptive branch and then make your PR! :)
+### Build & Run
 
-- LousReady.java is main driver for the program.
+- *git clone* ```git@github.com:corith/LousGame.git```
+- ```cd``` *LousGame*
+- *mvn clean package* ```-DskipTests```
+- *java -jar* target/LousGame-3.0.<u>jar</u>
 
-### Todos!
-
-- implement wild cards (LG-100)
-    - incorporate them into the computer decision making system
-
-- improve "decision" system of the computer player (LG-101)
-    - it currently it prioritizes ofAKinds over runs
-        - add the ability for computer to prioritize specifc runs over ofAKinds and vice versa 
-
-- fine tune the "discard" and "pick-up" interface for the player (LG-102)
-    - possibly a "vim like" interface for the four suits
-    - allow player to type letter instead of number for face cards and Ace (1,11,12,13)
-
-- fine tune the way cards are displayed as well as how runs and melds are displayed (LG-103)
-
-- create an interface that allows for selection of "user play" or simulation "mode" at game start (LG-104)
-
-- looking to refactor the players hand so that instead of playerOne.hand.deadwood.cards[i] it will be playerOne.hand.cards[i]
-
-- add the ability for a player to insert their name at start of game
-
-#### Far out
-    - try to implement an SSH multiplayer version
-    - turn it into a gui game with something like swing or an iOS app...
+#### Developed by
+Cory Sebastian
